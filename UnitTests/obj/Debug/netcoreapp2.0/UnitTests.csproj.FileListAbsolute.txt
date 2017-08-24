@@ -1,0 +1,14 @@
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\bin\Debug\netcoreapp2.0\UnitTests.deps.json
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\bin\Debug\netcoreapp2.0\UnitTests.runtimeconfig.json
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\bin\Debug\netcoreapp2.0\UnitTests.runtimeconfig.dev.json
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\bin\Debug\netcoreapp2.0\UnitTests.dll
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\bin\Debug\netcoreapp2.0\UnitTests.pdb
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\obj\Debug\netcoreapp2.0\UnitTests.csprojResolveAssemblyReference.cache
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\obj\Debug\netcoreapp2.0\UnitTests.csproj.CoreCompileInputs.cache
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\obj\Debug\netcoreapp2.0\UnitTests.AssemblyInfoInputs.cache
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\obj\Debug\netcoreapp2.0\UnitTests.AssemblyInfo.cs
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\obj\Debug\netcoreapp2.0\UnitTests.dll
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\UnitTests\obj\Debug\netcoreapp2.0\UnitTests.pdb

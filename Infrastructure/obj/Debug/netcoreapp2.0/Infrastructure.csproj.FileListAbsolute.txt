@@ -1,0 +1,11 @@
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\bin\Debug\netcoreapp2.0\Infrastructure.deps.json
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\bin\Debug\netcoreapp2.0\Infrastructure.dll
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\obj\Debug\netcoreapp2.0\Infrastructure.csprojResolveAssemblyReference.cache
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\obj\Debug\netcoreapp2.0\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\obj\Debug\netcoreapp2.0\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\obj\Debug\netcoreapp2.0\Infrastructure.AssemblyInfo.cs
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\bin\Debug\netcoreapp2.0\Infrastructure.pdb
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\bin\Debug\netcoreapp2.0\ApplicationCore.dll
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\bin\Debug\netcoreapp2.0\ApplicationCore.pdb
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\obj\Debug\netcoreapp2.0\Infrastructure.dll
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\Infrastructure\obj\Debug\netcoreapp2.0\Infrastructure.pdb
