@@ -16,7 +16,7 @@ namespace UnitTests
             IAdvertisementService service = new AdvertisementService(new AdvertisementRepositoryMock());
 
             // Act
-            var advertisement = service.GetById(-1);
+            var advertisement = service.GetById(-1); 
 
             // Assert
             Assert.AreEqual(advertisement.Id, -1);
