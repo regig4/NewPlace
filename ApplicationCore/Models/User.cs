@@ -18,7 +18,10 @@ namespace ApplicationCore.Models
         public string PasswordHash { get; set; }
 
         [Required]
-        [DisplayName("E-mail")]                     // TODO: Change to strongly typed string from resources
+        [DisplayName("E-mail")]
         public string Email { get; set; }
+
+        [DisplayName("Agencja")]
+        public virtual Agency Agency { get; set; }
     }
 }

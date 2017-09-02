@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationCore.Models;
+using ApplicationCore.Services;
+using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,18 +14,18 @@ namespace NewPlace.Controllers
     [Route("api/[controller]")]
     public class AdvertisementController : Controller
     {
-        // GET: api/Advertisement
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IAdvertisementService _service;
+
+        public AdvertisementController(IAdvertisementService service)
         {
-            return new string[] { "value1", "value2" };
+            _service = service;
         }
 
-        // GET api/Advertisement/5
+        // GET: api/Advertisement/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Advertisement Get(int id)
         {
-            return "value";
+            return _service.GetById(id);
         }
 
         // POST api/Advertisement

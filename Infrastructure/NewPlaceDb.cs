@@ -5,8 +5,21 @@ namespace Infrastructure
 {
     public class NewPlaceDb : DbContext
     {
-        DbSet<Advertisement> Advertisements { get; set; }
-        DbSet<Apartment> Apartments { get; set; }
-        DbSet<User> Users { get; set; }
+        public NewPlaceDb(DbContextOptions options) : base(options)
+        {
+        }
+
+        public DbSet<Advertisement> Advertisements { get; set; }
+        public DbSet<Apartment> Apartments { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Advertisement>();
+            modelBuilder.Entity<Apartment>();
+            modelBuilder.Entity<User>();
+        }
     }
 }
