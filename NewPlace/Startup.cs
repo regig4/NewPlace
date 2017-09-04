@@ -1,4 +1,5 @@
 using Infrastructure;
+using Infrastructure.Data;
 using Infrastructure.Factories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +33,7 @@ namespace NewPlace
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<NewPlaceDb>();
-                context.Database.EnsureCreated();
+                NewPlaceDbInitializer.Initialize(context);
             }
 
             if (env.IsDevelopment())
