@@ -21,8 +21,37 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\advertisements\Advertisement.ts" />
+    <None Remove="ClientApp\app\components\advertisements\advertisements.component.ts" />
+    <None Remove="ClientApp\app\components\advertisements\advertisements.service.ts" />
+    <None Remove="ClientApp\app\components\details\details.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\advertisements\advertisement.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\advertisements\advertisements.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\advertisements\advertisements.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\details\details.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ResourceRepresentations\LinkDescriptions.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LinkDescriptions.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="ResourceRepresentations\LinkDescriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LinkDescriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

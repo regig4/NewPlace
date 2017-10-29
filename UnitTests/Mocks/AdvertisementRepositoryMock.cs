@@ -8,7 +8,12 @@ namespace UnitTests.Mocks
 {
     class AdvertisementRepositoryMock : IAdvertisementRepository
     {
-        public IEnumerable<Advertisement> GetByCondition(Func<Advertisement, bool> condition, int quantity = int.MaxValue)
+        public Advertisement Find(Func<Advertisement, bool> condition)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Advertisement> FindAll(Func<Advertisement, bool> condition, int quantity = int.MaxValue)
         {
             throw new NotImplementedException();
         }
@@ -20,7 +25,6 @@ namespace UnitTests.Mocks
                 Apartment = new Apartment()
                 {
                     Area = 56,
-                    Category = new Category() { Id = -1, Name = "TestCategory" },
                     Id = -1,
                     Utilities = new List<Utility>() { new Utility() { Id = -1, Name = "TestUtility", Cost = 200 } }
                 },
@@ -31,7 +35,8 @@ namespace UnitTests.Mocks
                 {
                     Id = -1,
                     Agency = new Agency() { Id = -1, Name = "TestAgency", Address = "TestAddress", Information = "TestInformation" }
-                }
+                },
+                Category = new Category() { Id = -1, ApartmentType = ApartmentType.Flat }
             };
         }
     }

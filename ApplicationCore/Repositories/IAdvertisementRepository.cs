@@ -8,6 +8,7 @@ namespace Infrastructure.Repositories
     public interface IAdvertisementRepository
     {
         Advertisement GetById(int id);
-        IEnumerable<Advertisement> GetByCondition(Func<Advertisement, bool> condition, int quantity = int.MaxValue);
+        Advertisement Find(Func<Advertisement, bool> condition);
+        IEnumerable<Advertisement> FindAll(Func<Advertisement, bool> condition, int quantity = int.MaxValue);
     }
 }

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using ApplicationCore.Models;
+using ApplicationCore.DTOs;
 
 namespace ApplicationCore.Services
 {
     public interface IAdvertisementService
     {
-        Advertisement GetById(int id);
+        AdvertisementDetailsDto GetById(int id);
+        IEnumerable<AdvertisementDto> GetAll();
+        IEnumerable<Advertisement> GetByCityAndEstateType(string city, string estateType);
+        string GetThumbnailBase64(int id);
     }
 }

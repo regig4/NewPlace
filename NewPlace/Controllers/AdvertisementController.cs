@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ApplicationCore.DTOs;
 using ApplicationCore.Models;
 using ApplicationCore.Services;
-using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using NewPlace.ResourceRepresentations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Mime;
+using System.Net.Http;
+using System.IO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,11 +24,69 @@ namespace NewPlace.Controllers
             _service = service;
         }
 
-        // GET: api/Advertisement/5
-        [HttpGet("{id}")]
-        public Advertisement Get(int id)
+        // GET: api/Advertisement
+        [HttpGet]
+        public IEnumerable<AdvertisementRepresentation> Get()
         {
-            return _service.GetById(id);
+            return _service.GetAll().Select(advertisement =>
+                new AdvertisementRepresentation()
+                {
+                    Resource = advertisement,
+                    Thumbnail = new ImageRepresentation()
+                    {
+                        Resource = _service.GetThumbnailBase64(advertisement.Id.Value),
+                        MediaType = MediaTypeNames.Image.Jpeg,
+                    },
+                    Links = new List<Link>
+                    {
+                        new Link()
+                        {
+                            Rel = "self",
+                            Href = Path.Combine("/", HttpContext.Request.Path, advertisement.Id.ToString()),
+                            Method = HttpMethod.Get.ToString(),
+                            Title = "Reprezentacja zasobu"
+                        }
+                    }
+                });
+        }
+
+ 
+        [Route("search")]
+        public IEnumerable<Representation<Advertisement>> Search(string city, string estateType, double radius)
+        {
+            return _service.GetByCityAndEstateType(city, estateType).Select(advertisement =>
+                new Representation<Advertisement>()
+                {
+                    Resource = advertisement,
+                    Links = new List<Link>
+                    {
+                        new Link()
+                        {
+                            Rel = "self",
+                            Href = String.Join("/", HttpContext.Request.Path, advertisement.Id),
+                            Method = HttpMethod.Get.ToString(),
+                            Title = "Reprezentacja zasobu"
+                        }
+                    }
+                });
+        }
+
+        [HttpGet("{id}")]
+        public AdvertisementDetailsRepresentation Get(int id)
+        {
+            return new AdvertisementDetailsRepresentation()
+            {
+                Resource = _service.GetById(id),
+                Links = new List<Link>
+                {
+                    new Link()
+                    {
+                        Rel = "self",
+                        Href = HttpContext.Request.Path,
+                        Method = HttpMethod.Get.ToString()
+                    }
+                }
+            };
         }
 
         // POST api/Advertisement

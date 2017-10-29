@@ -28,7 +28,7 @@ namespace Infrastructure.Factories
 
         public IAdvertisementService Create()
         {
-            return new AdvertisementService(new AdvertisementRepository());
+            return new AdvertisementService(new AdvertisementRepository(), new ImageService());
         }
     }
 }

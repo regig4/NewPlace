@@ -5,3 +5,7 @@
 <p>Current count: <strong>{{ currentCount }}</strong></p>
 
 <button (click)="incrementCounter()">Increment</button>
+
+<ul>
+    <li *ngFor="let apartment of Apartments">{{ apartment }}</li>
+</ul>

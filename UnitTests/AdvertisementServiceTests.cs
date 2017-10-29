@@ -13,17 +13,14 @@ namespace UnitTests
         public void GetByIdTest()
         {
             // Arrange
-            IAdvertisementService service = new AdvertisementService(new AdvertisementRepositoryMock());
+            IAdvertisementService service = new AdvertisementService(new AdvertisementRepositoryMock(), new ImageService());
 
             // Act
             var advertisement = service.GetById(-1); 
 
             // Assert
             Assert.AreEqual(advertisement.Id, -1);
-            Assert.AreEqual(advertisement.Apartment.Utilities.First().Cost, 200);
-            Assert.AreEqual(advertisement.Apartment.Id, -1);
-            Assert.AreEqual(advertisement.Apartment.Category.Id, -1);
-
+            Assert.AreEqual(advertisement.Utilities.First().cost, 200);
         }
     }
 }

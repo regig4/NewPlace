@@ -7,6 +7,11 @@ namespace ApplicationCore.Models
     public class Advertisement
     {
         public int? Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public Category Category { get; set; }
+        public DateTime CreateDate { get; set; }
+        public TimeSpan ValidityTime { get; set; }
         public User User { get; set; }
         public Apartment Apartment { get; set; }
         public decimal Price { get; set; }
@@ -27,6 +32,8 @@ namespace ApplicationCore.Models
             {
                 decimal utilitiesCost = 0;
                 string additionaly = String.Empty;
+                if (Apartment?.Utilities == null)
+                    return (utilitiesCost, additionaly);
                 foreach (var utility in Apartment.Utilities)
                     if (utility.Cost == null)
                         additionaly += " + " + utility.Name;

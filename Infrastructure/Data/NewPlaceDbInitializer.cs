@@ -22,7 +22,6 @@ namespace Infrastructure.Data
                     Apartment = new Apartment()
                     {
                         Area = 200,
-                        Category = new Category() { Name = "House for sale" },
                         Utilities = new List<Utility>() { new Utility() { Name = "Electricity", Cost = 300 } }
                     },
                     Price = 20000000,
@@ -33,7 +32,8 @@ namespace Infrastructure.Data
                         Email = "aaa@b4b.com",
                         PasswordHash = "!@#4d3g3",
                         Agency = new Agency() { Name = "NewPlaceAgency", Address = null, Information = "New Place Agency" }
-                    }
+                    },
+                    Category = new Category() { ApartmentType = ApartmentType.House, PricingType = PricingType.Sale }
                 },
 
                 new Advertisement()
@@ -41,7 +41,6 @@ namespace Infrastructure.Data
                     Apartment = new Apartment()
                     {
                         Area = 56,
-                        Category = new Category() { Name = "Apartment for rent" },
                         Utilities = new List<Utility>() { new Utility() { Name = "Internet", Cost = 100 } }
                     },
                     Price = 2000,
@@ -51,7 +50,8 @@ namespace Infrastructure.Data
                         Login = "Matt",
                         PasswordHash = "!@t$d3g3",
                         Email = "matt@damon.com"
-                    }
+                    },
+                    Category = new Category() { ApartmentType = ApartmentType.Room, PricingType = PricingType.Rent }
                 },
 
                 new Advertisement()
@@ -59,7 +59,6 @@ namespace Infrastructure.Data
                     Apartment = new Apartment()
                     {
                         Area = 40,
-                        Category = new Category() { Name = "Apartment for sale" },
                         Utilities = new List<Utility>() { new Utility() { Name = "Water", Cost = 203} }
                     },
                     Price = 20000,
@@ -70,7 +69,8 @@ namespace Infrastructure.Data
                         PasswordHash = "!@#$d3g3",
                         Agency = new Agency() { Name = "AgencyAgency" },
                         Email = "aaa@bbb.com"
-                    }
+                    },
+                    Category = new Category() { ApartmentType = ApartmentType.Flat, PricingType = PricingType.Exchange }
                 }
             });
 

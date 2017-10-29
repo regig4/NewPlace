@@ -7,7 +7,7 @@ namespace ApplicationCore.Services
 {
     interface IGeolocationService
     {
-        Position GetCurrentPosition();
-        double GetDistanceToPosition(Position destination);
+        Location GetCurrentPosition();
+        double GetDistanceToPosition(Location destination);
     }
 }

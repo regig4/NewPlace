@@ -5,6 +5,7 @@ using ApplicationCore.Models;
 using Infrastructure.Factories;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using ApplicationCore.Specifications;
 
 namespace Infrastructure.Repositories
 {
@@ -15,18 +16,55 @@ namespace Infrastructure.Repositories
             using (var context = ContextFactory.Instance.Create())
             {
                 return context.Advertisements.AsNoTracking().Where(a => a.Id.Value == id)
-                    .Include(a => a.Apartment).ThenInclude(apartment => apartment.Category)
+                    .Include(a => a.Category)
                     .Include(a => a.Apartment).ThenInclude(apartment => apartment.Utilities)
                     .Include(a => a.User).ThenInclude(user => user.Agency)
-                    .AsEnumerable().FirstOrDefault();
+                    .AsEnumerable().SingleOrDefault();
             }
         }
 
-        public IEnumerable<Advertisement> GetByCondition(Func<Advertisement, bool> condition, int quantity = int.MaxValue)
+        public Advertisement Find(Func<Advertisement, bool> condition)
         {
             using (var context = ContextFactory.Instance.Create())
             {
-                return context.Advertisements.AsNoTracking().Where(condition).AsEnumerable();
+                return context.Advertisements.AsNoTracking().Where(condition).FirstOrDefault();
+            }
+        }
+
+        public IEnumerable<Advertisement> FindAll(Func<Advertisement, bool> condition, int quantity = int.MaxValue)
+        {
+            using (var context = ContextFactory.Instance.Create())
+            {
+                return context.Advertisements.AsNoTracking()
+                    .Include(a => a.Category)
+                    .Include(a => a.Apartment).ThenInclude(apartment => apartment.Utilities)
+                    .Include(a => a.User)
+                    .Where(condition).Take(quantity)
+                    //.Select(new Advertisement()
+                    //{
+                    //      TODO: get only these columns from db which are important to us
+                    //})
+                    .ToList();
+            }
+        }
+
+        public Advertisement Find(Specification<Apartment> specification)
+        {
+            using (var context = ContextFactory.Instance.Create())
+            {
+                return context.Advertisements.AsNoTracking().Where(a => specification.IsSatisfiedBy(a.Apartment)).FirstOrDefault();
+            }
+        }
+
+        public IEnumerable<Advertisement> FindAll(Specification<Apartment> specification, int quantity = int.MaxValue)
+        {
+            using (var context = ContextFactory.Instance.Create())
+            {
+                return context.Advertisements.AsNoTracking()
+                    .Include(a => a.Category)
+                    .Include(a => a.Apartment).ThenInclude(apartment => apartment.Utilities)
+                    .Include(a => a.User).ThenInclude(user => user.Agency)
+                    .Where(a => specification.IsSatisfiedBy(a.Apartment)).Take(quantity).ToList();
             }
         }
     }
