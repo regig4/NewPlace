@@ -1,29 +1,11 @@
-<div id="searchArea">
-    <form (ngSubmit)="search()">
-        <fieldset>
-            <legend>Search your place:</legend>
-            Locality: <input type="text" />
-            Type of estate:
-            <select name="estateType">
-                <option value="room">Room</option>
-                <option value="flat">Flat</option>
-                <option value="house">House</option>
-            </select>
-            Type of payment:
-            <select name="paymentType">
-                <option value="rent">Rent</option>
-                <option value="forSale">For Sale</option>
-                <option value="exchange">Exchange</option>
-            </select> <br /><br />
-            <button type="submit">Search</button>
-        </fieldset>
-    </form>
-</div>
+<mySearch (notify)="onSearchResults($event)"></mySearch>
 
 <div id="searchResults" [hidden]="!searched">
-    <div *ngFor="let result of searchResults" [routerLink]="['/details', result.id]" class="jumbotron advertisementListItem">
-        <div class="media">
-            <img src="data:{{result.thumbnail.mediaType}};base64,{{result.thumbnail.resource}}" /><div class="media-body">nr. {{result.id}}</div>
+    <div *ngFor="let result of searchResults" [routerLink]="['/details', result.id]" class="jumbotron row advertisementListItem">
+        <div class="col" style ="display: inline; padding: 2em">
+            <img src="data:{{result.thumbnail.mediaType}};base64,{{result.thumbnail.resource}}" />
         </div>
+        <div class="col" style="display: inline; padding: 2em"><strong>{{result.title}}</strong></div>
     </div>
 </div>
+

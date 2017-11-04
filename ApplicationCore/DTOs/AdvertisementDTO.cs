@@ -13,13 +13,13 @@ namespace ApplicationCore.DTOs
         {
             Id = advertisement.Id;
             Title = advertisement.Title;
-            ApartmentType = advertisement.Category.ApartmentType.ToFriendlyString();
+            EstateType = advertisement.Category.ApartmentType.ToFriendlyString();
             PricingType = advertisement.Category.PricingType.ToFriendlyString();
             UserName = advertisement.User.Login;
-            ApartmentAddress = advertisement.Apartment.Location?.Address;
-            ApartmentArea = advertisement.Apartment.Area;
-            ApartmentCity = advertisement.Apartment.Location?.City;
-            Utilities = advertisement.Apartment.Utilities.Select(u => u.Name).ToList();
+            EstateAddress = advertisement.Estate.Location?.Address;
+            EstateArea = advertisement.Estate.Area;
+            EstateCity = advertisement.Estate.Location?.City;
+            Utilities = advertisement.Estate.Utilities.Select(u => u.Name).ToList();
             Price = advertisement.Price;
             Provision = advertisement.Provision;
             TotalCost = advertisement.TotalCost;
@@ -27,12 +27,12 @@ namespace ApplicationCore.DTOs
 
         public int? Id { get; }
         public string Title { get; }
-        public string ApartmentType { get; }
+        public string EstateType { get; }
         public string PricingType { get; }
         public string UserName { get; }
-        public double ApartmentArea { get; }
-        public string ApartmentAddress { get; }
-        public string ApartmentCity { get; }
+        public double EstateArea { get; }
+        public string EstateAddress { get; }
+        public string EstateCity { get; }
         public List<string> Utilities { get; }
         public decimal Price { get; }
         public decimal? Provision { get; }

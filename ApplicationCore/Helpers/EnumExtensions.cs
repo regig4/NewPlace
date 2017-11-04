@@ -7,15 +7,15 @@ namespace ApplicationCore.Helpers
 {
     public static class EnumExtensions
     {
-        public static string ToFriendlyString(this ApartmentType apartmentType)
+        public static string ToFriendlyString(this EstateType apartmentType)
         {
             switch(apartmentType)
             {
-                case ApartmentType.Flat:
+                case EstateType.Flat:
                     return "Flat";
-                case ApartmentType.Room:
+                case EstateType.Room:
                     return "Room";
-                case ApartmentType.House:
+                case EstateType.House:
                     return "House";
                 default:
                     throw new ArgumentException("Invalid apartmentType");
@@ -39,18 +39,18 @@ namespace ApplicationCore.Helpers
             }
         }
 
-        public static ApartmentType ToApartmentType(this string estateType)
+        public static EstateType ToApartmentType(this string estateType)
         {
             switch (estateType)
             {
                 case "flat":
-                    return ApartmentType.Flat;
+                    return EstateType.Flat;
                 case "room":
-                    return ApartmentType.Room;
+                    return EstateType.Room;
                 case "house":
-                    return ApartmentType.House;
+                    return EstateType.House;
                 default:
-                    return default(ApartmentType);
+                    return default(EstateType);
             }
         }
     }

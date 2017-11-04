@@ -1,5 +1,7 @@
-﻿
-<h2 *ngIf="!Advertisements">Wait a minute.......</h2>
+﻿<mySearch (notify)="onSearchResults($event)"></mySearch>
+
+
+<h2 *ngIf="!Advertisements">This is where <em>all</em> ads will be (promoted first)...</h2>
 <div *ngIf="Advertisements">
     <ol>
         <li *ngFor="let advertisement of Advertisements">

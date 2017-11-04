@@ -13,7 +13,7 @@ namespace ApplicationCore.Models
         public DateTime CreateDate { get; set; }
         public TimeSpan ValidityTime { get; set; }
         public User User { get; set; }
-        public Apartment Apartment { get; set; }
+        public Estate Estate { get; set; }
         public decimal Price { get; set; }
         public decimal? Provision { get; set; }
 
@@ -32,9 +32,9 @@ namespace ApplicationCore.Models
             {
                 decimal utilitiesCost = 0;
                 string additionaly = String.Empty;
-                if (Apartment?.Utilities == null)
+                if (Estate?.Utilities == null)
                     return (utilitiesCost, additionaly);
-                foreach (var utility in Apartment.Utilities)
+                foreach (var utility in Estate.Utilities)
                     if (utility.Cost == null)
                         additionaly += " + " + utility.Name;
                     else

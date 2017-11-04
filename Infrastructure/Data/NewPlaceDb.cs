@@ -10,7 +10,7 @@ namespace Infrastructure
         }
 
         public DbSet<Advertisement> Advertisements { get; set; }
-        public DbSet<Apartment> Apartments { get; set; }
+        public DbSet<Estate> Apartments { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace Infrastructure
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Advertisement>();
-            modelBuilder.Entity<Apartment>();
+            modelBuilder.Entity<Estate>();
             modelBuilder.Entity<User>();
         }
     }

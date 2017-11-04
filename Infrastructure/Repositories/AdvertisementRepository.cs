@@ -17,7 +17,7 @@ namespace Infrastructure.Repositories
             {
                 return context.Advertisements.AsNoTracking().Where(a => a.Id.Value == id)
                     .Include(a => a.Category)
-                    .Include(a => a.Apartment).ThenInclude(apartment => apartment.Utilities)
+                    .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
                     .Include(a => a.User).ThenInclude(user => user.Agency)
                     .AsEnumerable().SingleOrDefault();
             }
@@ -37,7 +37,7 @@ namespace Infrastructure.Repositories
             {
                 return context.Advertisements.AsNoTracking()
                     .Include(a => a.Category)
-                    .Include(a => a.Apartment).ThenInclude(apartment => apartment.Utilities)
+                    .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
                     .Include(a => a.User)
                     .Where(condition).Take(quantity)
                     //.Select(new Advertisement()
@@ -48,23 +48,23 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public Advertisement Find(Specification<Apartment> specification)
+        public Advertisement Find(Specification<Estate> specification)
         {
             using (var context = ContextFactory.Instance.Create())
             {
-                return context.Advertisements.AsNoTracking().Where(a => specification.IsSatisfiedBy(a.Apartment)).FirstOrDefault();
+                return context.Advertisements.AsNoTracking().Where(a => specification.IsSatisfiedBy(a.Estate)).FirstOrDefault();
             }
         }
 
-        public IEnumerable<Advertisement> FindAll(Specification<Apartment> specification, int quantity = int.MaxValue)
+        public IEnumerable<Advertisement> FindAll(Specification<Estate> specification, int quantity = int.MaxValue)
         {
             using (var context = ContextFactory.Instance.Create())
             {
                 return context.Advertisements.AsNoTracking()
                     .Include(a => a.Category)
-                    .Include(a => a.Apartment).ThenInclude(apartment => apartment.Utilities)
+                    .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
                     .Include(a => a.User).ThenInclude(user => user.Agency)
-                    .Where(a => specification.IsSatisfiedBy(a.Apartment)).Take(quantity).ToList();
+                    .Where(a => specification.IsSatisfiedBy(a.Estate)).Take(quantity).ToList();
             }
         }
     }

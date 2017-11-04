@@ -18,9 +18,9 @@ namespace ApplicationCore.DTOs
             CreateDate = advertisement.CreateDate;
             ValidityTime = advertisement.ValidityTime;
             UserName = advertisement.User.Login;
-            ApartmentAddress = advertisement.Apartment.Location?.Address;
-            ApartmentArea = advertisement.Apartment.Area;
-            ApartmentCity = advertisement.Apartment.Location?.City;
+            EstateAddress = advertisement.Estate.Location?.Address;
+            EstateArea = advertisement.Estate.Area;
+            EstateCity = advertisement.Estate.Location?.City;
             // TODO: rewrite rest
         }
 
@@ -32,9 +32,9 @@ namespace ApplicationCore.DTOs
         public DateTime CreateDate { get; }
         public TimeSpan ValidityTime { get; }
         public string UserName { get; }
-        public double ApartmentArea { get; }
-        public string ApartmentAddress { get; }
-        public string ApartmentCity { get; }
+        public double EstateArea { get; }
+        public string EstateAddress { get; }
+        public string EstateCity { get; }
         public List<(string utility, decimal cost)> Utilities { get; } 
         public decimal Price { get; }
         public decimal? Provision { get; }

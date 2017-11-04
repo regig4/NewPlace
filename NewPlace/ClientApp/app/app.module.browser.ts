@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppModuleShared } from './app.module.shared';
 import { AppComponent } from './components/app/app.component';
-import { AdvertisementsService } from './components/advertisements/advertisements.service';
+import { AdvertisementsService } from './shared/services/advertisements.service';
 
 @NgModule({
     bootstrap: [ AppComponent ],

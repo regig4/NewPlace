@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ApplicationCore.Models
 {
-    public class Apartment
+    public class Estate
     {
         public int Id { get; set; }
 

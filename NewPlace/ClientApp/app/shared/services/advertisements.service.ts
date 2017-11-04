@@ -1,5 +1,7 @@
 ﻿import { Injectable, Inject } from '@angular/core';
-import { Advertisement, Representation, AdvertisementRepresentation } from './advertisement';
+import { Advertisement } from '../../shared/models/advertisement';
+import { Representation } from '../../shared/models/representations/representation';
+import { AdvertisementRepresentation } from '../../shared/models/representations/advertisementRepresentation';
 import { Http } from "@angular/http";
 import "rxjs/add/operator/toPromise";
 

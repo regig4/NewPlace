@@ -22,7 +22,7 @@ namespace UnitTests.Mocks
         {
             return new Advertisement()
             {
-                Apartment = new Apartment()
+                Estate = new Estate()
                 {
                     Area = 56,
                     Id = -1,
@@ -36,7 +36,7 @@ namespace UnitTests.Mocks
                     Id = -1,
                     Agency = new Agency() { Id = -1, Name = "TestAgency", Address = "TestAddress", Information = "TestInformation" }
                 },
-                Category = new Category() { Id = -1, ApartmentType = ApartmentType.Flat }
+                Category = new Category() { Id = -1, ApartmentType = EstateType.Flat }
             };
         }
     }

@@ -34,7 +34,7 @@ namespace Infrastructure.Services
 
         public IEnumerable<Advertisement> GetByCityAndEstateType(string city, string estateType)
         {
-            return _repository.FindAll(a => a.Apartment.Location.City == city && a.Category.ApartmentType == estateType.ToApartmentType());
+            return _repository.FindAll(a => a.Estate.Location.City == city && a.Category.ApartmentType == estateType.ToApartmentType());
         }
 
         public string GetThumbnailBase64(int id)

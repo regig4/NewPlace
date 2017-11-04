@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
-import { AdvertisementsService } from "../advertisements/advertisements.service";
-import { Advertisement } from "../advertisements/advertisement";
+import { AdvertisementsService } from "../../shared/services/advertisements.service";
+import { Advertisement } from "../../shared/models/advertisement";
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 

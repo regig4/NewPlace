@@ -19,7 +19,8 @@ namespace Infrastructure.Data
             {
                 new Advertisement()
                 {
-                    Apartment = new Apartment()
+                    Title = "House for sale - only 20000000$",
+                    Estate = new Estate()
                     {
                         Area = 200,
                         Utilities = new List<Utility>() { new Utility() { Name = "Electricity", Cost = 300 } }
@@ -33,12 +34,13 @@ namespace Infrastructure.Data
                         PasswordHash = "!@#4d3g3",
                         Agency = new Agency() { Name = "NewPlaceAgency", Address = null, Information = "New Place Agency" }
                     },
-                    Category = new Category() { ApartmentType = ApartmentType.House, PricingType = PricingType.Sale }
+                    Category = new Category() { ApartmentType = EstateType.House, PricingType = PricingType.Sale }
                 },
 
                 new Advertisement()
                 {
-                    Apartment = new Apartment()
+                    Title = "Cheap room for rent",
+                    Estate = new Estate()
                     {
                         Area = 56,
                         Utilities = new List<Utility>() { new Utility() { Name = "Internet", Cost = 100 } }
@@ -51,12 +53,13 @@ namespace Infrastructure.Data
                         PasswordHash = "!@t$d3g3",
                         Email = "matt@damon.com"
                     },
-                    Category = new Category() { ApartmentType = ApartmentType.Room, PricingType = PricingType.Rent }
+                    Category = new Category() { ApartmentType = EstateType.Room, PricingType = PricingType.Rent }
                 },
 
                 new Advertisement()
                 {
-                    Apartment = new Apartment()
+                    Title = "Flat for exchange - urgent!",
+                    Estate = new Estate()
                     {
                         Area = 40,
                         Utilities = new List<Utility>() { new Utility() { Name = "Water", Cost = 203} }
@@ -70,7 +73,7 @@ namespace Infrastructure.Data
                         Agency = new Agency() { Name = "AgencyAgency" },
                         Email = "aaa@bbb.com"
                     },
-                    Category = new Category() { ApartmentType = ApartmentType.Flat, PricingType = PricingType.Exchange }
+                    Category = new Category() { ApartmentType = EstateType.Flat, PricingType = PricingType.Exchange }
                 }
             });
 

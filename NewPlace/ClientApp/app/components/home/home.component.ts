@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { AdvertisementsService } from '../../components/advertisements/advertisements.service'
-import { Advertisement } from '../advertisements/advertisement';
+import { AdvertisementsService } from '../../shared/services/advertisements.service'
+import { Advertisement } from '../../shared/models/advertisement';
 
 @Component({
     selector: 'home',
@@ -20,5 +20,10 @@ export class HomeComponent {
             this.searchResults = result;
             this.searched = true;
         });
+    }
+
+    public onSearchResults(results: Advertisement[]) {
+        this.searchResults = results;
+        this.searched = true;
     }
 }

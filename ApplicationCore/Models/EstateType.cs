@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ApplicationCore.Models
 {
-    public enum ApartmentType
+    public enum EstateType
     {
         House, 
         Flat,

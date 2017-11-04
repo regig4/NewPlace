@@ -21,9 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\app\components\advertisements\Advertisement.ts" />
-    <None Remove="ClientApp\app\components\advertisements\advertisements.component.ts" />
-    <None Remove="ClientApp\app\components\advertisements\advertisements.service.ts" />
+    <None Remove="ClientApp\app\components\catalog\Advertisement.ts" />
     <None Remove="ClientApp\app\components\details\details.component.ts" />
   </ItemGroup>
 
@@ -33,10 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\components\advertisements\advertisement.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\advertisements\advertisements.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\advertisements\advertisements.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\advertisement.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\catalog\catalog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\services\advertisements.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\details\details.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\representations\advertisementRepresentation.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\representations\representation.ts" />
   </ItemGroup>
 
   <ItemGroup>

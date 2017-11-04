@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace ApplicationCore.Specifications
 {
-    public class LocationInRangeSpecification : Specification<Apartment>
+    public class LocationInRangeSpecification : Specification<Estate>
     {
         private Location _location;
         private double _range;
@@ -17,7 +17,7 @@ namespace ApplicationCore.Specifications
             _location = location;
         }
 
-        public override Expression<Func<Apartment, bool>> ToExpression()
+        public override Expression<Func<Estate, bool>> ToExpression()
         {
             return apartment => Math.Abs(apartment.Location.Longitude - _location.Longitude) < _range
                                 && Math.Abs(apartment.Location.Latitude - _location.Latitude) < _range;
