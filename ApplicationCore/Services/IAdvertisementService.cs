@@ -10,7 +10,7 @@ namespace ApplicationCore.Services
     {
         AdvertisementDetailsDto GetById(int id);
         IEnumerable<AdvertisementDto> GetAll();
-        IEnumerable<Advertisement> GetByCityAndEstateType(string city, string estateType);
+        IEnumerable<AdvertisementDto> GetByCityAndEstateType(string city, string estateType);
         string GetThumbnailBase64(int id);
     }
 }

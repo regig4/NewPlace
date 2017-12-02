@@ -23,7 +23,13 @@ namespace Infrastructure.Data
                     Estate = new Estate()
                     {
                         Area = 200,
-                        Utilities = new List<Utility>() { new Utility() { Name = "Electricity", Cost = 300 } }
+                        Utilities = new List<Utility>() { new Utility() { Name = "Electricity", Cost = 300 } },
+                        Location = new Location()
+                        {
+                            Address = "Wesoła bardzo 24",
+                            City = "Warszawa",
+                            PostalCode = "34-345"
+                        }
                     },
                     Price = 20000000,
                     Provision = 20000,
@@ -43,7 +49,13 @@ namespace Infrastructure.Data
                     Estate = new Estate()
                     {
                         Area = 56,
-                        Utilities = new List<Utility>() { new Utility() { Name = "Internet", Cost = 100 } }
+                        Utilities = new List<Utility>() { new Utility() { Name = "Internet", Cost = 100 } },
+                        Location = new Location()
+                        {
+                            Address = "Amelininymowa 12",
+                            City = "Kraków",
+                            PostalCode = "4335"                            
+                        }
                     },
                     Price = 2000,
                     Provision = 2000,
@@ -62,7 +74,13 @@ namespace Infrastructure.Data
                     Estate = new Estate()
                     {
                         Area = 40,
-                        Utilities = new List<Utility>() { new Utility() { Name = "Water", Cost = 203} }
+                        Utilities = new List<Utility>() { new Utility() { Name = "Water", Cost = 203} },
+                        Location = new Location()
+                        {
+                            Address = "Amelininymowa 13",
+                            City = "Kraków",
+                            PostalCode = "4335"
+                        }
                     },
                     Price = 20000,
                     Provision = 20000,

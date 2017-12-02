@@ -1,4 +1,4 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component, Inject, OnInit } from '@angular/core';
 import { Advertisement } from '../../shared/models/advertisement';
 import { Representation } from '../../shared/models/representations/representation';
 import { AdvertisementsService } from '../../shared/services/advertisements.service';
@@ -7,14 +7,14 @@ import { AdvertisementsService } from '../../shared/services/advertisements.serv
     selector: 'advertisements',
     templateUrl: './catalog.component.html'
 })
-export class AdvertisementsComponent {
-    public Advertisements: Advertisement[];
+export class CatalogComponent {
+    public advertisements: Advertisement[];
 
     constructor(private service: AdvertisementsService) {
     }
 
     public onSearchResults(results: Advertisement[]) {
-        this.Advertisements = results;
+        this.advertisements = results;
     }
 }
 

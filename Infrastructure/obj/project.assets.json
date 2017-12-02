@@ -3353,15 +3353,12 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "c:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "c:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Bartek\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\Infrastructure\\obj\\",
+      "outputPath": "c:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3380,8 +3377,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj": {
-              "projectPath": "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj"
+            "c:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj": {
+              "projectPath": "c:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj"
             }
           }
         }
@@ -3395,15 +3392,15 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": {
-            "target": "Package",
-            "version": "2.0.0"
-          },
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "2.0.0",
+            "version": "2.0",
             "autoReferenced": true
+          },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "2.0.0"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",

@@ -38,6 +38,7 @@ namespace Infrastructure.Repositories
                 return context.Advertisements.AsNoTracking()
                     .Include(a => a.Category)
                     .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
+                    .Include(a => a.Estate).ThenInclude(apartment => apartment.Location)
                     .Include(a => a.User)
                     .Where(condition).Take(quantity)
                     //.Select(new Advertisement()

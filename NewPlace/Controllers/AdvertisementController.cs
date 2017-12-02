@@ -52,12 +52,17 @@ namespace NewPlace.Controllers
 
  
         [Route("search")]
-        public IEnumerable<Representation<Advertisement>> Search(string city, string estateType, double radius)
+        public IEnumerable<AdvertisementRepresentation> Search(string estateType, string city, double radius)
         {
             return _service.GetByCityAndEstateType(city, estateType).Select(advertisement =>
-                new Representation<Advertisement>()
+                new AdvertisementRepresentation()
                 {
                     Resource = advertisement,
+                    Thumbnail = new ImageRepresentation()
+                    {
+                        Resource = _service.GetThumbnailBase64(advertisement.Id.Value),
+                        MediaType = MediaTypeNames.Image.Jpeg,
+                    },
                     Links = new List<Link>
                     {
                         new Link()

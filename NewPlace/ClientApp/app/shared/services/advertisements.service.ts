@@ -19,15 +19,33 @@ export class AdvertisementsService {
     }
 
     getAdvertisements(): Promise<Advertisement[]> {
-        let advertisements: Advertisement[] = [];
+        let advertisements: Advertisement[] = []; 
         this.http.get(this.baseUrl + 'api/Advertisement').subscribe(result => {
             const represtentations = result.json() as AdvertisementRepresentation[];
-            represtentations.forEach(r => {
-                advertisements.push(r.resource);
-                advertisements[advertisements.length - 1].links = r.links;
-                advertisements[advertisements.length - 1].thumbnail = r.thumbnail;
-            });
+            advertisements = this.unpackResponse(represtentations);
         }, error => console.error(error));
         return Promise.resolve(advertisements);
+    }
+
+    getPromoted(count: number): Promise<Advertisement[]> {
+        let promoted: Advertisement[] = [];
+        this.http.get(this.baseUrl + 'api/Promoted/' + count).toPromise().then(
+            result => promoted = this.unpackResponse(result.json() as AdvertisementRepresentation[]));
+        return Promise.resolve(promoted);
+    }
+
+    getByFilter(estateType: string, city: string, radius: number): Promise<Advertisement[]> {
+        return this.http.get(this.baseUrl + "api/advertisement/search?city=" + city + "&estateType=" + estateType + "&radius=" + radius).toPromise().then(result =>
+            this.unpackResponse(result.json() as AdvertisementRepresentation[]));
+    }
+
+    private unpackResponse(response: AdvertisementRepresentation[]): Advertisement[] {
+        let result: Advertisement[] = [];
+        for (let r of response) {
+            result.push(r.resource);
+            result[result.length - 1].links = r.links;
+            result[result.length - 1].thumbnail = r.thumbnail;
+        }
+        return result;
     }
 }

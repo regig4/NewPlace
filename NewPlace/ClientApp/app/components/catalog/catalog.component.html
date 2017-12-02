@@ -1,10 +1,10 @@
 ﻿<mySearch (notify)="onSearchResults($event)"></mySearch>
 
 
-<h2 *ngIf="!Advertisements">This is where <em>all</em> ads will be (promoted first)...</h2>
-<div *ngIf="Advertisements">
+<h2 *ngIf="!advertisements">This is where <em>all</em> ads will be (promoted first)...</h2>
+<div *ngIf="advertisements">
     <ol>
-        <li *ngFor="let advertisement of Advertisements">
+        <li *ngFor="let advertisement of advertisements">
             <ul>
                 <li>{{advertisement.id}}</li>
                 <li>{{advertisement.category.id}}</li>

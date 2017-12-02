@@ -1,5 +1,12 @@
 <mySearch (notify)="onSearchResults($event)"></mySearch>
 
+<div id="promoted" [hidden]="searched">
+    <div *ngFor="let promo of topPromoted" class="col-md-4">
+        <img src="data:{{promo.thumbnail.mediaType}};base64,{{promo.thumbnail.resource}}" />
+        {{promo.title}}
+    </div>
+</div>
+
 <div id="searchResults" [hidden]="!searched">
     <div *ngFor="let result of searchResults" [routerLink]="['/details', result.id]" class="jumbotron row advertisementListItem">
         <div class="col" style ="display: inline; padding: 2em">

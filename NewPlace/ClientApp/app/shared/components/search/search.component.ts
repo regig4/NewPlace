@@ -5,18 +5,20 @@ import { Advertisement } from '../../models/advertisement';
 @Component({
     selector: 'mySearch',
     templateUrl: './search.component.html',
-    styleUrls: ['./search.component.css'],
-    //providers: [AdvertisementsService]                  // TODO: why is it necessary? there is declaration for root module
+    styleUrls: ['./search.component.css']
 })
 export class SearchComponent {
     searched = false;
     @Output() notify: EventEmitter<Advertisement[]> = new EventEmitter<Advertisement[]>();
+    
+    estateType: string;
+    city: string;
+
 
     constructor(private service: AdvertisementsService) { }
 
     public search() {
-        //this.http.get(this.baseUrl + "/search?city=krakow&estateType=flat");
-        this.service.getAdvertisements().then(result => {
+        this.service.getByFilter(this.estateType, this.city, 0).then(result => {
             this.notify.emit(result);
             this.searched = true;
         });

@@ -6,7 +6,6 @@ import { Advertisement } from '../../shared/models/advertisement';
     selector: 'home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
-    //providers: [AdvertisementsService]                  // TODO: why is it necessary? there is declaration for root module
 })
 export class HomeComponent {
     searched = false;
@@ -14,9 +13,8 @@ export class HomeComponent {
 
     constructor(private service: AdvertisementsService) { }
 
-    public search() {
-        //this.http.get(this.baseUrl + "/search?city=krakow&estateType=flat");
-        this.service.getAdvertisements().then(result => {
+    public search(estateType: string, city: string) {
+        this.service.getByFilter(estateType, city, 0).then(result => {
             this.searchResults = result;
             this.searched = true;
         });

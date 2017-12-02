@@ -32,9 +32,11 @@ namespace Infrastructure.Services
             return _repository.FindAll(advertisement => true).Select(a => new AdvertisementDto(a));
         }
 
-        public IEnumerable<Advertisement> GetByCityAndEstateType(string city, string estateType)
+        public IEnumerable<AdvertisementDto> GetByCityAndEstateType(string city, string estateType)
         {
-            return _repository.FindAll(a => a.Estate.Location.City == city && a.Category.ApartmentType == estateType.ToApartmentType());
+            return _repository.FindAll(a => a.Estate.Location.City.ToLower() == city.ToLower() 
+                && a.Category.ApartmentType.ToFriendlyString().ToLower() == estateType.ToApartmentType().ToFriendlyString().ToLower())
+                .Select(a => new AdvertisementDto(a));
         }
 
         public string GetThumbnailBase64(int id)

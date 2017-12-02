@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
-import { AdvertisementsComponent } from './components/catalog/catalog.component';
+import { CatalogComponent } from './components/catalog/catalog.component';
 import { DetailsComponent } from "./components/details/details.component";
 import { AdvertisementsService } from "./shared/services/advertisements.service";
 
@@ -18,7 +18,7 @@ import { SearchComponent } from "./shared/components/search/search.component";
         AppComponent,
         NavMenuComponent,
         HomeComponent,
-        AdvertisementsComponent,
+        CatalogComponent,
         DetailsComponent,
         SearchComponent
     ],
@@ -29,7 +29,7 @@ import { SearchComponent } from "./shared/components/search/search.component";
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'advertisements', component: AdvertisementsComponent },
+            { path: 'advertisements', component: CatalogComponent },
             { path: 'details/:id', component: DetailsComponent },
             { path: '**', redirectTo: 'home' }
         ])
