@@ -669,9 +669,6 @@
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
       "projectUniqueName": "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj",
       "projectName": "ApplicationCore",

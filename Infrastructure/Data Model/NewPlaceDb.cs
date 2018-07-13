@@ -14,6 +14,19 @@ namespace Infrastructure
         public DbSet<Estate> Apartments { get; set; }
         public DbSet<User> Users { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+            #if DEBUG
+                .EnableSensitiveDataLogging()
+//                .UseInMemoryDatabase("NewPlaceDbTest");
+                .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
+            #else
+                .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
+            #endif
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AdvertisementEntityTypeConfiguration());

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Net.Mime;
 using System.Net.Http;
 using System.IO;
+using Infrastructure.Converters;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,54 +28,21 @@ namespace NewPlace.Controllers
 
         // GET: api/Advertisement
         [HttpGet]
-        public IEnumerable<AdvertisementRepresentation> Get()
+        public async Task<IEnumerable<AdvertisementRepresentation>> Get()
         {
-            return _service.GetAll().Select(advertisement =>
-                new AdvertisementRepresentation()
-                {
-                    Resource = advertisement,
-                    Thumbnail = new ImageRepresentation()
-                    {
-                        Resource = _service.GetThumbnailBase64(advertisement.Id.Value),
-                        MediaType = MediaTypeNames.Image.Jpeg,
-                    },
-                    Links = new List<Link>
-                    {
-                        new Link()
-                        {
-                            Rel = "self",
-                            Href = Path.Combine("/", HttpContext.Request.Path, advertisement.Id.ToString()),
-                            Method = HttpMethod.Get.ToString(),
-                            Title = "Reprezentacja zasobu"
-                        }
-                    }
-                });
+            var advertisements = await _service.GetAllAsync();
+            return advertisements.AsParallel().AsOrdered()
+                .Select(async advertisement => await advertisement.ToRepresentation(HttpContext.Request.Path, _service))
+                .AsEnumerable().Select(task => task.Result).ToList();
         }
 
- 
-        [Route("search")]
-        public IEnumerable<AdvertisementRepresentation> Search(string estateType, string city, double radius)
+
+        [HttpGet("search")]
+        public async Task<IEnumerable<AdvertisementRepresentation>> Search(string estateType, string city, double radius)
         {
-            return _service.GetByCityAndEstateType(city, estateType).Select(advertisement =>
-                new AdvertisementRepresentation()
-                {
-                    Resource = advertisement,
-                    Thumbnail = new ImageRepresentation()
-                    {
-                        Resource = _service.GetThumbnailBase64(advertisement.Id.Value),
-                        MediaType = MediaTypeNames.Image.Jpeg,
-                    },
-                    Links = new List<Link>
-                    {
-                        new Link()
-                        {
-                            Rel = "self",
-                            Href = String.Join("/", HttpContext.Request.Path, advertisement.Id),
-                            Method = HttpMethod.Get.ToString(),
-                            Title = "Reprezentacja zasobu"
-                        }
-                    }
-                });
+            var advertisements = await _service.GetByCityAndEstateTypeAsync(city, estateType);
+            return advertisements.Select(async advertisement => await advertisement.ToRepresentation(HttpContext.Request.Path, _service))
+                .Select(task => task.Result);
         }
 
         [HttpGet("{id}")]
@@ -96,7 +65,7 @@ namespace NewPlace.Controllers
 
         // POST api/Advertisement
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post(Advertisement advertisement)
         {
         }
 

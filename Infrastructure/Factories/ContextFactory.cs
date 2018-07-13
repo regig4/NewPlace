@@ -24,8 +24,6 @@ namespace Infrastructure.Factories
         public NewPlaceDb Create()
         {
             var options = new DbContextOptionsBuilder<NewPlaceDb>();
-            options.UseSqlServer(Configuration.Configuration.DefaultConnectionString);
-
             return new NewPlaceDb(options.Options);
         }
     }

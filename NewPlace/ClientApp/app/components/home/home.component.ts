@@ -9,7 +9,7 @@ import { Advertisement } from '../../shared/models/advertisement';
 })
 export class HomeComponent {
     searched = false;
-    searchResults: Advertisement[];
+    searchResults: Advertisement[] | undefined;
 
     constructor(private service: AdvertisementsService) { }
 

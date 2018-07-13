@@ -1,14 +1,14 @@
 ﻿import { Component } from "@angular/core";
-import { RecomendationsService } from "../../services/recomendations.service";
+import { RecomendationService } from "../../services/recomendations.service";
 
 
 @Component({
     selector: 'recommended'
 })
 export class RecommendedComponent {
-    public recomendations: string[];
+    public recomendations: string[] | undefined;
 
-    constructor(private service: RecomendationsService) {
-       
+    constructor(private service: RecomendationService) {
+       service.ConnectionTest(() => console.log("ok"));
     }
 }

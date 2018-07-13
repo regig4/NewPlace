@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { AdvertisementsService } from '../../services/advertisements.service';
 import { Advertisement } from '../../models/advertisement';
+import { RecomendationService } from '../../services/recomendations.service';
 
 @Component({
     selector: 'mySearch',
@@ -11,14 +12,24 @@ export class SearchComponent {
     searched = false;
     @Output() notify: EventEmitter<Advertisement[]> = new EventEmitter<Advertisement[]>();
     
-    estateType: string;
-    city: string;
+    estateTypes = ["room", "flat", "house"];
 
+    estateTypeSelected: string = "";
+    city: string = "";
+    msg:string = "";
 
     constructor(private service: AdvertisementsService) { }
 
     public search() {
-        this.service.getByFilter(this.estateType, this.city, 0).then(result => {
+
+        let tmp = new RecomendationService();
+        
+        tmp.ConnectionTest((message: string) => {
+                this.msg = message;
+            }
+        );
+
+        this.service.getByFilter(this.estateTypeSelected, this.city, 0).then(result => {
             this.notify.emit(result);
             this.searched = true;
         });

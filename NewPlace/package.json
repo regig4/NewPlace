@@ -17,11 +17,12 @@
     "@angular/platform-browser-dynamic": "4.2.5",
     "@angular/platform-server": "4.2.5",
     "@angular/router": "4.2.5",
+    "@aspnet/signalr": "^1.0.0-rc1-update1",
     "@ngtools/webpack": "1.5.0",
     "@types/webpack-env": "1.13.0",
     "angular2-template-loader": "0.6.2",
     "aspnet-prerendering": "^3.0.1",
-    "aspnet-webpack": "^2.0.1",
+    "aspnet-webpack": "^2.0.3",
     "awesome-typescript-loader": "3.2.1",
     "bootstrap": "3.3.7",
     "css": "2.2.1",
@@ -59,5 +60,10 @@
     "karma-cli": "1.0.1",
     "karma-jasmine": "1.1.0",
     "karma-webpack": "2.0.3"
-  }
+  },
+  "main": "webpack.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

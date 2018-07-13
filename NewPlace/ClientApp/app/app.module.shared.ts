@@ -11,6 +11,7 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { DetailsComponent } from "./components/details/details.component";
 import { AdvertisementsService } from "./shared/services/advertisements.service";
 
+import { RecomendationService } from "./shared/services/recomendations.service";
 import { SearchComponent } from "./shared/components/search/search.component";
 
 @NgModule({
@@ -20,7 +21,7 @@ import { SearchComponent } from "./shared/components/search/search.component";
         HomeComponent,
         CatalogComponent,
         DetailsComponent,
-        SearchComponent
+        SearchComponent,
     ],
     imports: [
         CommonModule,
@@ -34,7 +35,7 @@ import { SearchComponent } from "./shared/components/search/search.component";
             { path: '**', redirectTo: 'home' }
         ])
     ],
-    providers: [AdvertisementsService]
+    providers: [AdvertisementsService, RecomendationService]
 })
 export class AppModuleShared {
 }

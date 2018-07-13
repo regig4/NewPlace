@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
 {
     public interface IImageService
     {
-        string GetBase64OfFile(string filePath);
+        Task<string> GetBase64OfFileAsync(string filePath);
     }
 }

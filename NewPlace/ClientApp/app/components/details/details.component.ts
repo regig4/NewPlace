@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
     selector: "advertisement-details"
 })
 export class DetailsComponent implements OnInit {
-    advertisement: Advertisement;
+    advertisement: Advertisement | undefined;
 
     constructor(private route: ActivatedRoute, private service: AdvertisementsService)
     { }

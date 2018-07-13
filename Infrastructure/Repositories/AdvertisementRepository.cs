@@ -6,6 +6,8 @@ using Infrastructure.Factories;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ApplicationCore.Specifications;
+using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories
 {
@@ -15,7 +17,7 @@ namespace Infrastructure.Repositories
         {
             using (var context = ContextFactory.Instance.Create())
             {
-                return context.Advertisements.AsNoTracking().Where(a => a.Id.Value == id)
+                return context.Advertisements.Where(a => a.Id.Value == id)
                     .Include(a => a.Category)
                     .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
                     .Include(a => a.User).ThenInclude(user => user.Agency)
@@ -27,25 +29,29 @@ namespace Infrastructure.Repositories
         {
             using (var context = ContextFactory.Instance.Create())
             {
-                return context.Advertisements.AsNoTracking().Where(condition).FirstOrDefault();
+                return context.Advertisements.Where(condition).FirstOrDefault();
             }
         }
 
-        public IEnumerable<Advertisement> FindAll(Func<Advertisement, bool> condition, int quantity = int.MaxValue)
+        public async Task<IEnumerable<Advertisement>> FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity = int.MaxValue)
         {
             using (var context = ContextFactory.Instance.Create())
             {
-                return context.Advertisements.AsNoTracking()
+                IQueryable<Advertisement> query = context.Advertisements
                     .Include(a => a.Category)
                     .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
                     .Include(a => a.Estate).ThenInclude(apartment => apartment.Location)
                     .Include(a => a.User)
-                    .Where(condition).Take(quantity)
-                    //.Select(new Advertisement()
-                    //{
-                    //      TODO: get only these columns from db which are important to us
-                    //})
-                    .ToList();
+                    .Where(condition)
+                    .Take(quantity);
+
+                return await query.ToListAsync();
+                //.Select(new Advertisement()
+                //{
+                //      TODO: get only these columns from db which are important to us
+                //              Consider is it truly async, we are returning IEnumerable of IQueryable?
+                //})
+                ;
             }
         }
 
@@ -53,7 +59,7 @@ namespace Infrastructure.Repositories
         {
             using (var context = ContextFactory.Instance.Create())
             {
-                return context.Advertisements.AsNoTracking().Where(a => specification.IsSatisfiedBy(a.Estate)).FirstOrDefault();
+                return context.Advertisements.Where(a => specification.IsSatisfiedBy(a.Estate)).FirstOrDefault();
             }
         }
 
@@ -61,7 +67,7 @@ namespace Infrastructure.Repositories
         {
             using (var context = ContextFactory.Instance.Create())
             {
-                return context.Advertisements.AsNoTracking()
+                return context.Advertisements
                     .Include(a => a.Category)
                     .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
                     .Include(a => a.User).ThenInclude(user => user.Agency)

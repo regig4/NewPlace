@@ -1,4 +1,4 @@
-﻿export interface Representation<T> {         // TODO: think, research: is 'export' make sense in this case  
+﻿export interface Representation<T> {
     resource: T;
     links: object[];
 }

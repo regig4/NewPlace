@@ -1,13 +1,12 @@
 <div id="searchArea">
+    <h1>{{msg}}</h1>
     <form (ngSubmit)="search()">
         <fieldset>
             <legend>Search your place:</legend>
-            Locality: <input type="text" />
+            Locality: <input name="city" type="text" />
             Type of estate:
-            <select name="estateType">
-                <option value="room">Room</option>
-                <option value="flat">Flat</option>
-                <option value="house">House</option>
+            <select name="estateType" [(ngModel)]="estateTypeSelected">
+                <option *ngFor="let estateType of estateTypes" [value]="estateType">{{estateType}}</option>
             </select>
             Type of payment:
             <select name="paymentType">
