@@ -25,7 +25,6 @@ namespace Infrastructure.Services
 
         public AdvertisementDetailsDto GetById(int id)
         {
-
             return new AdvertisementDetailsDto(_repository.GetById(id));
         }
 
@@ -35,7 +34,7 @@ namespace Infrastructure.Services
             return allAdvertisements.Select(a => new AdvertisementDto(a));
         }
 
-        public async Task<IEnumerable<AdvertisementDto>> GetAllPagedAsync(int page)
+        public async Task<IEnumerable<AdvertisementDto>> GetAllPagedAsync   (int page)
         {
             // TODO
             throw new NotImplementedException();

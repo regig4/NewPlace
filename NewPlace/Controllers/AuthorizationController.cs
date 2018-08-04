@@ -22,7 +22,7 @@ public class AuthorizationController : Controller
         _configuration = configuration;
     }
 
-    public async Task<IActionResult> Login(UserRepresentation user)
+    public async Task<IActionResult> Login([FromBody] UserRepresentation user)
     {
         var userResult = await _service.AuthorizeAsync(user.Resource, user.Password);
         if (userResult.PasswordHash != null)

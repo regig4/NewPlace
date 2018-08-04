@@ -10,7 +10,7 @@ export class AdvertisementsService {
 
     constructor(private http: Http, @Inject('BASE_URL') private baseUrl: string) { }
 
-    getAdvertisement(id: number): Promise<Advertisement> {
+    getAdvertisement(id: number): Promise<Advertisement | undefined> {
         let r: Advertisement = new Advertisement();
         r.id = 6;
         return this.http.get(this.baseUrl + 'api/Advertisement/' + id).toPromise().then(
@@ -42,9 +42,12 @@ export class AdvertisementsService {
     private unpackResponse(response: AdvertisementRepresentation[]): Advertisement[] {
         let result: Advertisement[] = [];
         for (let r of response) {
+            if(!r.resource)
+                continue;
             result.push(r.resource);
             result[result.length - 1].links = r.links;
-            result[result.length - 1].thumbnail = r.thumbnail;
+
+            result[result.length - 1].thumbnail = r.thumbnail ? r.thumbnail : "";
         }
         return result;
     }
