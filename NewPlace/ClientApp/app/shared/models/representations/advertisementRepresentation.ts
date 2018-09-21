@@ -2,7 +2,7 @@
 import { Advertisement } from "../advertisement";
 
 export class AdvertisementRepresentation implements Representation<Advertisement> {
-    resource: Advertisement;
-    thumbnail: string;
-    links: object[];
+    resource: Advertisement | undefined;
+    thumbnail: string | undefined;
+    links: object[] | undefined;
 }

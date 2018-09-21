@@ -664,23 +664,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Bartek\\.nuget\\packages\\": {},
+    "C:\\Users\\bartosz.buras\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj",
+      "projectUniqueName": "C:\\Users\\bartosz.buras\\Documents\\Projekty\\neww\\NewPlace\\ApplicationCore\\ApplicationCore.csproj",
       "projectName": "ApplicationCore",
-      "projectPath": "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj",
-      "packagesPath": "C:\\Users\\Bartek\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\ApplicationCore\\obj\\",
+      "projectPath": "C:\\Users\\bartosz.buras\\Documents\\Projekty\\neww\\NewPlace\\ApplicationCore\\ApplicationCore.csproj",
+      "packagesPath": "C:\\Users\\bartosz.buras\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bartosz.buras\\Documents\\Projekty\\neww\\NewPlace\\ApplicationCore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Bartek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bartosz.buras\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -2,6 +2,6 @@
 {
     public class Configuration 
     {
-        public const string DefaultConnectionString = @"Server=.;Database=NewPlaceDb;Trusted_connection=True;";
+        public const string DefaultConnectionString = @"Server=ZOI-0040\SQLEXPRESS;Database=new;Trusted_connection=True;";
     }
 }

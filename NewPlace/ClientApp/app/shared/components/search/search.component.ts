@@ -18,13 +18,11 @@ export class SearchComponent {
     city: string = "";
     msg:string = "";
 
-    constructor(private service: AdvertisementsService) { }
+    constructor(private service: AdvertisementsService, private recomendationService: RecomendationService) { }
 
     public search() {
 
-        let tmp = new RecomendationService();
-        
-        tmp.ConnectionTest((message: string) => {
+        this.recomendationService.ConnectionTest((message: string) => {
                 this.msg = message;
             }
         );

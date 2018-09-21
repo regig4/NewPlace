@@ -1,4 +1,4 @@
 ﻿export interface Representation<T> {
-    resource: T;
-    links: object[];
+    resource: T | undefined;
+    links: object[] | undefined;
 }
