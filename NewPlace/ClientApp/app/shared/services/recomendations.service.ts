@@ -47,8 +47,6 @@ export class RecomendationService {
             .withHubProtocol(new JsonHubProtocol())
             .build();
 
-
-
     }
 
     public ConnectionTest(cb: (message: string) => void) {
