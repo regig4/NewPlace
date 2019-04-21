@@ -20,8 +20,8 @@ namespace Infrastructure
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             #if DEBUG
                 .EnableSensitiveDataLogging()
-//                .UseInMemoryDatabase("NewPlaceDbTest");
-                .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
+                .UseInMemoryDatabase("NewPlaceDbTest");
+                //.UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
             #else
                 .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
             #endif

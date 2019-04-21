@@ -1,25 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.2.0"/>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02"/>
-    <PackageReference Include="MSTest.TestAdapter" Version="1.1.18"/>
-    <PackageReference Include="MSTest.TestFramework" Version="1.1.18"/>
-    <PackageReference Include="Xbehave" Version="2.3.0"/>
-    <PackageReference Include="xunit" Version="2.3.1"/>
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1"/>
-    <PackageReference Include="AutoMapper" Version="7.0.0-alpha-0001"/>
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1"/>
+    <PackageReference Include="FluentAssertions" Version="5.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
+    <PackageReference Include="Xbehave" Version="2.3.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj"/>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="IntegrationTests\"/>
-    <Folder Include="FunctionalTests\"/>
-    <Folder Include="UnitTests\"/>
+    <Folder Include="IntegrationTests\" />
+    <Folder Include="FunctionalTests\" />
+    <Folder Include="UnitTests\" />
   </ItemGroup>
 </Project>

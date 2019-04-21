@@ -1,4 +1,3 @@
-using System.IO;
 using System.Text;
 using Infrastructure;
 using Infrastructure.Data;
@@ -6,10 +5,12 @@ using Infrastructure.Factories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.Webpack;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace NewPlace
@@ -41,11 +42,18 @@ namespace NewPlace
                 };
             });
 
+//            var loggerFactory = LoggerFactory.Create(builder => {
+//                builder.AddFilter("Microsoft", LogLevel.Warning)
+//                       .AddFilter("System", LogLevel.Warning)
+//                       .AddFilter("SampleApp.Program", LogLevel.Debug)
+//                       .AddConsole();
+//            }
+//);
             services.AddTransient(provider => AdvertisementServiceFactory.Instance.CreateAdvertisementService());
             services.AddTransient(provider => AdvertisementServiceFactory.Instance.CreateAuthService());
             services.AddDbContext<NewPlaceDb>();
             services.AddSignalR();
-            services.AddMvc();
+            services.AddMvc(opt => opt.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,10 +76,10 @@ namespace NewPlace
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
+                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                //{
+                //    HotModuleReplacement = true
+                //});
             }
             else
             {
