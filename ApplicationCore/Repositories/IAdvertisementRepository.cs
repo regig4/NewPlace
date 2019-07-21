@@ -12,6 +12,6 @@ namespace Infrastructure.Repositories
     {
         Advertisement GetById(int id);
         Advertisement Find(Func<Advertisement, bool> condition);
-        Task<IEnumerable<Advertisement>> FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity = int.MaxValue);
+        IAsyncEnumerable<Advertisement> FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity = int.MaxValue);
     }
 }

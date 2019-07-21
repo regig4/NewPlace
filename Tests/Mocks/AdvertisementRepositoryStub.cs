@@ -1,4 +1,6 @@
-﻿using Infrastructure.Repositories;
+﻿extern alias reactive;
+
+using Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -48,7 +50,7 @@ namespace UnitTests.Mocks
             };
         }
 
-        Task<IEnumerable<Advertisement>> IAdvertisementRepository.FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity)
+        IAsyncEnumerable<Advertisement> IAdvertisementRepository.FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity)
         {
             throw new NotImplementedException();
             // return Task.FromResult(new List<Advertisement> { new Advertisement()}.Select(a => a));

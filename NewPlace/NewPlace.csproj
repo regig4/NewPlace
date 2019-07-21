@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
@@ -6,51 +6,55 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0-preview4-19216-03" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.0.0-preview4-19216-03" />
-    <PackageReference Include="AutoMapper" Version="8.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0-preview4.19216.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0-preview4.19216.2" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="3.0.0-preview4.19216.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0-preview4-19216-03"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0-preview4-19216-03"/>
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.0.0-preview4-19216-03"/>
+    <PackageReference Include="AutoMapper" Version="8.0.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0"/>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0-preview4.19216.2"/>
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0-preview4.19216.2"/>
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="3.0.0-preview4.19216.2"/>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc2"/>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0"/>
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0"/>
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="ClientApp\**" />
+    <Content Remove="ClientApp\**"/>
   </ItemGroup>
   <ItemGroup>
-    <None Remove="ClientApp\app\components\catalog\Advertisement.ts" />
-    <None Remove="ClientApp\app\components\details\details.component.ts" />
+    <None Remove="ClientApp\app\components\catalog\Advertisement.ts"/>
+    <None Remove="ClientApp\app\components\details\details.component.ts"/>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj"/>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\shared\models\advertisement.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\catalog\catalog.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\services\advertisements.service.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\details\details.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\models\representations\advertisementRepresentation.ts" />
-    <TypeScriptCompile Include="ClientApp\app\shared\models\representations\representation.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\models\advertisement.ts"/>
+    <TypeScriptCompile Include="ClientApp\app\components\catalog\catalog.component.ts"/>
+    <TypeScriptCompile Include="ClientApp\app\shared\services\advertisements.service.ts"/>
+    <TypeScriptCompile Include="ClientApp\app\components\details\details.component.ts"/>
+    <TypeScriptCompile Include="ClientApp\app\shared\models\representations\advertisementRepresentation.ts"/>
+    <TypeScriptCompile Include="ClientApp\app\shared\models\representations\representation.ts"/>
   </ItemGroup>
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <Exec Command="node --version" ContinueOnError="true">
-      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
     </Exec>
-    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js" />
-    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
-    <Message Importance="high" Text="Performing first-run Webpack build..." />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js"/>
+    <Exec Command="node node_modules/webpack/bin/webpack.js"/>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE."/>
+    <Message Importance="high" Text="Performing first-run Webpack build..."/>
   </Target>
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <Exec Command="npm install" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
-    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+    <Exec Command="npm install"/>
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod"/>
+    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod"/>
     <ItemGroup>
-      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
+      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**"/>
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

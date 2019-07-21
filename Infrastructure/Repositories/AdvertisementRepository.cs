@@ -1,4 +1,6 @@
-﻿using System;
+﻿extern alias reactive;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using ApplicationCore.Models;
@@ -33,7 +35,7 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<IEnumerable<Advertisement>> FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity = int.MaxValue)
+        public async IAsyncEnumerable<Advertisement> FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity = int.MaxValue)
         {
             using (var context = ContextFactory.Instance.Create())
             {
@@ -45,7 +47,8 @@ namespace Infrastructure.Repositories
                     .Where(condition)
                     .Take(quantity);
 
-                return await query.ToListAsync();
+                foreach (var item in query)
+                    yield return item;
                 //.Select(new Advertisement()
                 //{
                 //      TODO: get only these columns from db which are important to us

@@ -3,7 +3,6 @@ import { HubConnection, HubConnectionBuilder, LogLevel, JsonHubProtocol, HttpTra
 import { Http, RequestOptions, Headers } from "@angular/http";
 import { UserRepresentation } from '../models/representations/userRepresentation';
 import { User } from "../models/user";
-import { ReadPropExpr } from "../../../../node_modules/@angular/compiler";
 
 @Injectable()
 export class RecomendationService {
@@ -25,11 +24,11 @@ export class RecomendationService {
 
         this._hubConnection = new HubConnectionBuilder()         // TODO: inject dependecies
             .configureLogging(LogLevel.Trace)
-            .withUrl("http://localhost:5000/recommendationHub",
+            .withUrl("http://localhost:9000/recommendationHub",
                 {
                     accessTokenFactory: async () => {
                         let token = localStorage.getItem('token');
-
+                        
                         if (!token) {
                             let response = await this.http.post(this.baseUrl + 'Authorization/Login', JSON.stringify(usrRepr),
                                 {

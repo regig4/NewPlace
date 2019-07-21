@@ -7,19 +7,21 @@
         {
             "name": ".Net+Browser",
             "configurations": [
-                ".NET Core Launch (console)",
-                "Launch Chrome"
+                ".NET Core Launch (console)tmp",
+                "Launch Chrometmp"
             ]
         }
     ],
     "configurations": [
+
+
         
         {
             "name": ".NET Core Launch (console)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/NewPlace/bin/Debug/netcoreapp2.0/NewPlace.dll",
+            "program": "${workspaceFolder}/NewPlace/bin/Debug/netcoreapp3.0/NewPlace.dll",
             "args": [],
             "cwd": "${workspaceRoot}/NewPlace",
             "stopAtEntry": false,
@@ -32,7 +34,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome",
-            "url": "http://localhost:5000",
+            "url": "http://localhost:9000",
             "webRoot": "${workspaceRoot}/NewPlace/wwwroot",
             "sourceMaps": true,
             "sourceMapPathOverrides": {
@@ -45,7 +47,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/NewPlace/bin/Debug/netcoreapp2.0/NewPlace.dll",
+            "program": "${workspaceFolder}/NewPlace/bin/Debug/netcoreapp3.0/NewPlace.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
@@ -76,7 +78,40 @@
             "type": "coreclr",
             "request": "attach",
             "processId": "${command:pickProcess}"
-        }
+        },
+
+
+
+
+
+        /////// TMP:
+
+        {
+            "name": ".NET Core Launch (console)tmp",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/WebApplication1/bin/Debug/netcoreapp3.0/WebApplication1.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}/WebApplication1",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrometmp",
+            "url": "https://localhost:5001",
+            "webRoot": "${workspaceRoot}/WebApplication1/wwwroot",
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "/Views": "${workspaceRoot}/WebApplication1/Views"
+            }
+        },
+
     ]
 
 }

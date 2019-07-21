@@ -230,7 +230,13 @@
           "lib/netcoreapp3.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
-      "Microsoft.NETCore.Platforms/3.0.0-preview4.19212.13": {
+      "Microsoft.NETCore.App/3.0.0-preview6-27804-01": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.0.0-preview6.19303.8"
+        }
+      },
+      "Microsoft.NETCore.Platforms/3.0.0-preview6.19303.8": {
         "type": "package",
         "compile": {
           "lib/netstandard1.0/_._": {}
@@ -1109,17 +1115,30 @@
         "microsoft.extensions.primitives.nuspec"
       ]
     },
-    "Microsoft.NETCore.Platforms/3.0.0-preview4.19212.13": {
-      "sha512": "cBcFp3iIi/c6AK9F/aZxbZaNhWGOLSJD071L9tO8JbyODp38NDKsJ38Xq/KJUCt1EUIlqnyF6PdqOngFuCvD1Q==",
+    "Microsoft.NETCore.App/3.0.0-preview6-27804-01": {
+      "sha512": "ZusFeFw4lm4f3W1GyaTDbEdqln8N0fWFijKpykPLLvrEEsppfZwx8n/UeMm/e56QspzGHKpJfmKi4YF2Z6+G6A==",
       "type": "package",
-      "path": "microsoft.netcore.platforms/3.0.0-preview4.19212.13",
+      "path": "microsoft.netcore.app/3.0.0-preview6-27804-01",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "microsoft.netcore.app.3.0.0-preview6-27804-01.nupkg.sha512",
+        "microsoft.netcore.app.nuspec"
+      ]
+    },
+    "Microsoft.NETCore.Platforms/3.0.0-preview6.19303.8": {
+      "sha512": "9nE9InmtkWL1ZIAvzZPoe8zzr8JNrmyofR5++0NCLomrLSbR70b60hLXFE/7vXIVgbKdTo3CTsCcFTOSZoOIEw==",
+      "type": "package",
+      "path": "microsoft.netcore.platforms/3.0.0-preview6.19303.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/netstandard1.0/_._",
-        "microsoft.netcore.platforms.3.0.0-preview4.19212.13.nupkg.sha512",
+        "microsoft.netcore.platforms.3.0.0-preview6.19303.8.nupkg.sha512",
         "microsoft.netcore.platforms.nuspec",
         "runtime.json",
         "useSharedDesignerContext.txt",
@@ -1228,6 +1247,7 @@
       "type": "package",
       "path": "runtime.win-arm64.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -1242,6 +1262,7 @@
       "type": "package",
       "path": "runtime.win-x64.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -1256,6 +1277,7 @@
       "type": "package",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -1270,6 +1292,7 @@
       "type": "package",
       "path": "system.collections/4.0.11",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1535,6 +1558,7 @@
       "type": "package",
       "path": "system.diagnostics.debug/4.0.11",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1626,6 +1650,7 @@
       "type": "package",
       "path": "system.globalization/4.0.11",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1793,6 +1818,7 @@
       "type": "package",
       "path": "system.linq/4.1.0",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1863,6 +1889,7 @@
       "type": "package",
       "path": "system.linq.expressions/4.1.0",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -1945,6 +1972,7 @@
       "type": "package",
       "path": "system.linq.queryable/4.0.1",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/monoandroid10/_._",
@@ -2023,6 +2051,7 @@
       "type": "package",
       "path": "system.objectmodel/4.0.12",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2271,6 +2300,7 @@
       "type": "package",
       "path": "system.reflection.emit.lightweight/4.0.1",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/net45/_._",
@@ -2302,6 +2332,7 @@
       "type": "package",
       "path": "system.reflection.extensions/4.0.1",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2413,6 +2444,7 @@
       "type": "package",
       "path": "system.reflection.typeextensions/4.1.0",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2465,6 +2497,7 @@
       "type": "package",
       "path": "system.resources.resourcemanager/4.0.1",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2636,6 +2669,7 @@
       "type": "package",
       "path": "system.runtime.extensions/4.1.0",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2715,6 +2749,7 @@
       "type": "package",
       "path": "system.runtime.interopservices.windowsruntime/4.3.0",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2981,6 +3016,7 @@
       "type": "package",
       "path": "system.threading/4.0.11",
       "files": [
+        ".nupkg.metadata",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -3160,7 +3196,7 @@
       "Microsoft.EntityFrameworkCore >= 3.0.0-preview4.19216.3",
       "Microsoft.EntityFrameworkCore.InMemory >= 3.0.0-preview4.19216.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0-preview4.19216.3",
-      "Microsoft.NETCore.Platforms >= 3.0.0-preview4.19212.13",
+      "Microsoft.NETCore.App >= 3.0.0-preview6-27804-01",
       "System.Reactive"
     ]
   },
@@ -3189,13 +3225,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.0": {
@@ -3231,10 +3261,11 @@
             "target": "Package",
             "version": "[3.0.0-preview4.19216.3, )"
           },
-          "Microsoft.NETCore.Platforms": {
+          "Microsoft.NETCore.App": {
+            "include": "None",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[3.0.0-preview4.19212.13, )",
+            "version": "[3.0.0-preview6-27804-01, )",
             "autoReferenced": true
           },
           "System.Reactive": {
@@ -3243,10 +3274,20 @@
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        }
       }
     }
   }

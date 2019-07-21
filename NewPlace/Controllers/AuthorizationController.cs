@@ -22,13 +22,13 @@ public class AuthorizationController : Controller
         _configuration = configuration;
     }
 
-    public async Task<IActionResult> Login([FromBody] UserRepresentation user)
+    public async Task<ActionResult<UserRepresentation>> Login([FromBody] UserRepresentation user)
     {
         var userResult = await _service.AuthorizeAsync(user.Resource, user.Password);
         if (userResult.PasswordHash != null)
         {
             user.Token = BuildToken(user.Resource);
-            return Ok(user);
+            return user;
         }
         return Unauthorized();
     }
