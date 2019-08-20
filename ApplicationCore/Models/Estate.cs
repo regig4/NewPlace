@@ -5,7 +5,19 @@ namespace ApplicationCore.Models
 {
     public class Estate
     {
-        public int Id { get; set; }
+        private Estate(int? id, double area)
+        {
+            Id = id;
+            Area = area;
+        }
+
+        public Estate(int? id, double area, Location location, ICollection<Utility> utilities) : this(id, area)
+        {
+            Location = location;
+            Utilities = utilities;
+        }
+
+        public int? Id { get; set; }
 
         public double Area { get; set; }
         

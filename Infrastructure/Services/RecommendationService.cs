@@ -12,7 +12,7 @@ using ApplicationCore.Services;
 
 namespace Infrastructure.Services
 {
-    class RecommendationService
+    class RecommendationService : IRecommendationService
     {
         private readonly IGeolocationService _geolocationService;
         private readonly IAdvertisementService _advertisementService;
@@ -34,6 +34,11 @@ namespace Infrastructure.Services
             // _advertisementService.GetFavourites(userId);
             // _advertisementService.GetRecentlyViewed();
             // _advertisementService.
+        }
+
+        IObservable<AdvertisementDto> IRecommendationService.RecommendByGeolocation(int userId, Location location)
+        {
+            throw new NotImplementedException();
         }
 
         // public void RecommendUsingMachineLearning

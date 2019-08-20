@@ -1,20 +1,24 @@
-using System.Text;
-using Infrastructure;
-using Infrastructure.Data;
-using Infrastructure.Factories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
+using NewPlace.Data;
+using NewPlace.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Configuration;
+using Microsoft.Extensions.Hosting;
+using Infrastructure.Factories;
+using Infrastructure;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json.Serialization;
-using Swashbuckle.AspNetCore.Swagger;
+using System.Text;
 using Microsoft.OpenApi.Models;
+using Infrastructure.Data;
 
 namespace NewPlace
 {
@@ -30,21 +34,39 @@ namespace NewPlace
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-                };
-            });
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("DefaultConnection")));
 
+            // Enables us to see error details from signalR 
+            IdentityModelEventSource.ShowPII = true;
+
+            services.AddDbContext<NewPlaceDb>(options =>
+    options.UseSqlServer(
+        Infrastructure.Configuration.Configuration.DefaultConnectionString));
+
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = "http://localhost:44350/",//Configuration["Jwt:Issuer"], todo!
+                ValidAudience = "http://localhost:44350/",//Configuration["Jwt:Issuer"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+            };
+        });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
@@ -52,16 +74,40 @@ namespace NewPlace
 
             services.AddTransient(provider => AdvertisementServiceFactory.Instance.CreateAdvertisementService());
             services.AddTransient(provider => AdvertisementServiceFactory.Instance.CreateAuthService());
-            services.AddDbContext<NewPlaceDb>();
+            services.AddTransient(provider => RecommendationServiceFactory.Instance.Create());
+
             services.AddSignalR();
-            services.AddMvc(options => options.EnableEndpointRouting = false)
-                    .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // database initialization
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+
+            app.UseAuthentication();
+            app.UseIdentityServer();
+
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<NewPlaceDb>();
@@ -75,19 +121,7 @@ namespace NewPlace
                 cfg.CreateMap<ApplicationCore.DTOs.AdvertisementDetailsDto, ApplicationCore.Models.Advertisement>();
             });
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                //{
-                //    HotModuleReplacement = true
-                //});
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-            
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -98,24 +132,32 @@ namespace NewPlace
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseAuthentication();
-
-            app.UseStaticFiles();
-
             app.UseSignalR(routes =>
             {
                 routes.MapHub<RecommendationHub>("/recommendationHub");
             });
 
+            //app.UseEndpoints(builder => builder.MapHub<RecommendationHub>("/recommendationHub"));
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller}/{action=Index}/{id?}");
+            });
 
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }

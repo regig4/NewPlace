@@ -6,9 +6,36 @@ namespace ApplicationCore.Models
 {
     public class Advertisement
     {
+        public Advertisement(int? id, string title, string? description, Category category, DateTime createDate, 
+            TimeSpan validityTime, User user, Estate estate, decimal price, decimal? provision)
+        {
+            Id = id;
+            Title = title;
+            Description = description;
+            Category = category;
+            CreateDate = createDate;
+            ValidityTime = validityTime;
+            User = user;
+            Estate = estate;
+            Price = price;
+            Provision = provision;
+        }
+
+        private Advertisement(int? id, string title, string? description, DateTime createDate,
+            TimeSpan validityTime, decimal price, decimal? provision)
+        {
+            Id = id;
+            Title = title;
+            Description = description;
+            CreateDate = createDate;
+            ValidityTime = validityTime;
+            Price = price;
+            Provision = provision;
+        }
+
         public int? Id { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public Category Category { get; set; }
         public DateTime CreateDate { get; set; }
         public TimeSpan ValidityTime { get; set; }

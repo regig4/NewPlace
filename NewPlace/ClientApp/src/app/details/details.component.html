@@ -1,0 +1,15 @@
+<div class="container" *ngIf="advertisement">
+  {{advertisement.id}}
+  <br/> <div class="jumbotron">{{advertisement.title}}</div>
+  <br/>{{advertisement.category}}
+  <br/>{{advertisement.createDate}}
+  <br/>{{advertisement.validityTime}}
+  <br/>{{advertisement.userName}}
+  <br/>{{advertisement.apartmentAddress}}
+  <br/>{{advertisement.price}}
+  <br/>{{advertisement.provision}}
+  <br/>{{advertisement.totalCost}}
+  <br/>{{advertisement.utilitesCost}}
+  <br/><img src="{{advertisement.thumbnail}}" alt="Not found" />
+  <br/>{{advertisement.links}}
+</div>

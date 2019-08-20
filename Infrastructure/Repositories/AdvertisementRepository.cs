@@ -1,6 +1,4 @@
-﻿extern alias reactive;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using ApplicationCore.Models;
@@ -19,11 +17,12 @@ namespace Infrastructure.Repositories
         {
             using (var context = ContextFactory.Instance.Create())
             {
-                return context.Advertisements.Where(a => a.Id.Value == id)
-                    .Include(a => a.Category)
-                    .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
-                    .Include(a => a.User).ThenInclude(user => user.Agency)
-                    .AsEnumerable().SingleOrDefault();
+                return context.Advertisements.Where(a => a.Id!.Value == id)
+                    //.Include(a => a.Category)
+                    //.Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
+                    //.Include(a => a.User).ThenInclude(user => user.Agency)
+                    .AsEnumerable()
+                    .SingleOrDefault();
             }
         }
 
@@ -36,15 +35,16 @@ namespace Infrastructure.Repositories
         }
 
         public async IAsyncEnumerable<Advertisement> FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity = int.MaxValue)
-        {
+        {  
             using (var context = ContextFactory.Instance.Create())
             {
-                IQueryable<Advertisement> query = context.Advertisements
+                var query = context.Advertisements
                     .Include(a => a.Category)
                     .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
                     .Include(a => a.Estate).ThenInclude(apartment => apartment.Location)
                     .Include(a => a.User)
-                    .Where(condition)
+                    .ToList()                   // TODO: calls to db 
+                    //.Where(condition.Compile()) // (ef cant translate Where to sql), when it will be possible delete '.Compile()'
                     .Take(quantity);
 
                 foreach (var item in query)

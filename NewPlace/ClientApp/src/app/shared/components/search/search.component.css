@@ -1,0 +1,13 @@
+#searchArea {
+    background-color: beige;
+    padding: 2.5em;
+    margin: 2em;
+}
+
+#searchResults {
+    margin: 10px;
+}
+
+.advertisementListItem:hover {
+    background-color: burlywood;
+}

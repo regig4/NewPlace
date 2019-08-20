@@ -36,10 +36,10 @@ public class AuthorizationController : Controller
     private string BuildToken(User user)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
-        var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
-          _configuration["Jwt:Issuer"],
+        var token = new JwtSecurityToken($"http://localhost:{HttpContext.Request.Host.Port}/",//_configuration["Jwt:Issuer"],
+          $"http://localhost:{HttpContext.Request.Host.Port}/",//_configuration["Jwt:Issuer"],
           expires: DateTime.Now.AddMinutes(30),
           signingCredentials: creds);
 

@@ -40,7 +40,9 @@ namespace NewPlace.Controllers
         [HttpGet("search")]
         public async Task<IEnumerable<AdvertisementRepresentation>> Search(string estateType, string city, double radius)
         {
-            var advertisements = await _service.GetByCityAndEstateTypeAsync(city, estateType);
+            var advertisements = new List<AdvertisementDto>();
+            foreach (var a in await _service.GetByCityAndEstateTypeAsync(city, estateType))
+                advertisements.Add(a);
             return advertisements.Select(async advertisement => await advertisement.ToRepresentation(HttpContext.Request.Path, _service))
                 .Select(task => task.Result);
         }

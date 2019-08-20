@@ -6,7 +6,7 @@ namespace Infrastructure
 {
     public class NewPlaceDb : DbContext
     {
-        public NewPlaceDb(DbContextOptions options) : base(options)
+        public NewPlaceDb(DbContextOptions<NewPlaceDb> options) : base(options)
         {
         }
 
@@ -20,11 +20,11 @@ namespace Infrastructure
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             #if DEBUG
                 .EnableSensitiveDataLogging()
-                .UseInMemoryDatabase("NewPlaceDbTest");
-                //.UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
-            #else
+                //.UseInMemoryDatabase("NewPlaceDbTest");
                 .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
-            #endif
+#else
+                .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
+#endif
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

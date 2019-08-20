@@ -16,7 +16,7 @@ namespace Infrastructure.Converters
     {
         public async static Task<AdvertisementRepresentation> ToRepresentation(this AdvertisementDto dto, string requestPath, IAdvertisementService service)
         {
-            var thumbnailImage = await service.GetThumbnailBase64(dto.Id.Value);
+            var thumbnailImage = await service.GetThumbnailBase64(dto.Id!.Value);
             return new AdvertisementRepresentation()
             {
                 Resource = dto,
