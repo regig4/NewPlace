@@ -22,7 +22,7 @@ namespace Infrastructure.Data
                     title: "House for sale - only 20000000$",
                     description: "coool",
                     createDate: DateTime.Now,
-                    validityTime: TimeSpan.FromDays(10),
+                    validTo: DateTime.Now + TimeSpan.FromDays(10),
                     estate: new Estate(
                         id: null,
                         area: 200,
@@ -34,7 +34,8 @@ namespace Infrastructure.Data
                             postalCode: "34-345",
                             latitude: 12,
                             longitude: 12,
-                            radius: 12
+                            radius: 12,
+                            country: new Country(1, "Poland")
                         )
                     ),
                     price: 20000000,
@@ -55,7 +56,7 @@ namespace Infrastructure.Data
                     title: "Cheap room for rent",
                     description: "kinda cool",
                     createDate: DateTime.Now,
-                    validityTime: TimeSpan.FromDays(14),
+                    validTo: DateTime.Now + TimeSpan.FromDays(14),
                     category: new Category(id: null, apartmentType: EstateType.Flat, pricingType: PricingType.Exchange),
                     estate: new Estate(
                         id: null,
@@ -68,7 +69,8 @@ namespace Infrastructure.Data
                             postalCode: "4335",
                             latitude: 23,
                             longitude: 32,
-                            radius: 132
+                            radius: 132,
+                            country: new Country(1, "Poland")
                         )
                     ),
                     price: 2000,
@@ -87,7 +89,7 @@ namespace Infrastructure.Data
                     title: "Flat for exchange - urgent!",
                     description: "it's ok",
                     createDate: DateTime.Now,
-                    validityTime: TimeSpan.FromHours(10),
+                    validTo: DateTime.Now + TimeSpan.FromHours(10),
                     estate: new Estate(
                         id: null,
                         area: 40,
@@ -99,7 +101,8 @@ namespace Infrastructure.Data
                             postalCode: "4335",
                             longitude: 12,
                             latitude:12,
-                            radius: 12
+                            radius: 12,
+                            country: new Country(1, "Poland")
                         )
                     ),
                     price: 20000,

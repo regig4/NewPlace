@@ -7,14 +7,14 @@ namespace ApplicationCore.Models
     public class Advertisement
     {
         public Advertisement(int? id, string title, string? description, Category category, DateTime createDate, 
-            TimeSpan validityTime, User user, Estate estate, decimal price, decimal? provision)
+            DateTime validTo, User user, Estate estate, decimal price, decimal? provision)
         {
             Id = id;
             Title = title;
             Description = description;
             Category = category;
             CreateDate = createDate;
-            ValidityTime = validityTime;
+            ValidTo = validTo;
             User = user;
             Estate = estate;
             Price = price;
@@ -22,13 +22,13 @@ namespace ApplicationCore.Models
         }
 
         private Advertisement(int? id, string title, string? description, DateTime createDate,
-            TimeSpan validityTime, decimal price, decimal? provision)
+            DateTime validTo, decimal price, decimal? provision)
         {
             Id = id;
             Title = title;
             Description = description;
             CreateDate = createDate;
-            ValidityTime = validityTime;
+            ValidTo = validTo;
             Price = price;
             Provision = provision;
         }
@@ -38,7 +38,7 @@ namespace ApplicationCore.Models
         public string? Description { get; set; }
         public Category Category { get; set; }
         public DateTime CreateDate { get; set; }
-        public TimeSpan ValidityTime { get; set; }
+        public DateTime ValidTo { get; set; }
         public User User { get; set; }
         public Estate Estate { get; set; }
         public decimal Price { get; set; }

@@ -6,6 +6,8 @@ namespace Infrastructure
 {
     public class NewPlaceDb : DbContext
     {
+        public NewPlaceDb() { }
+
         public NewPlaceDb(DbContextOptions<NewPlaceDb> options) : base(options)
         {
         }

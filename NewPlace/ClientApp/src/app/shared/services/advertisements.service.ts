@@ -2,25 +2,30 @@ import { Injectable, Inject } from '@angular/core';
 import { Advertisement } from '../../shared/models/advertisement';
 import { Representation } from '../../shared/models/representations/representation';
 import { AdvertisementRepresentation } from '../../shared/models/representations/advertisementRepresentation';
-import { Http } from "@angular/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class AdvertisementsService {
 
-    constructor(private http: Http, @Inject('BASE_URL') private baseUrl: string) { }
+    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
     getAdvertisement(id: number): Promise<Advertisement | undefined> {
-        let r: Advertisement = new Advertisement();
-        r.id = 6;
-        return this.http.get(this.baseUrl + 'api/Advertisement/' + id).toPromise().then(
-            result => (result.json() as Representation<Advertisement>).resource
+      return this.http.get(this.baseUrl + 'api/Advertisement/' + id).toPromise().then(
+        result => {
+          let r = (result as Representation<Advertisement>).resource;
+          console.log(r);
+          r.thumbnail = result["thumbnail"];
+          console.log(result);
+
+          return r;
+        }
         );
     }
 
     getAdvertisements(): Promise<Advertisement[]> {
         let advertisements: Advertisement[] = []; 
         this.http.get(this.baseUrl + 'api/Advertisement').subscribe(result => {
-            const represtentations = result.json() as AdvertisementRepresentation[];
+            const represtentations = result as AdvertisementRepresentation[];
             advertisements = this.unpackResponse(represtentations);
         }, error => console.error(error));
         return Promise.resolve(advertisements);
@@ -29,14 +34,26 @@ export class AdvertisementsService {
     getPromoted(count: number): Promise<Advertisement[]> {
         let promoted: Advertisement[] = [];
         this.http.get(this.baseUrl + 'api/Promoted/' + count).toPromise().then(
-            result => promoted = this.unpackResponse(result.json() as AdvertisementRepresentation[]));
+            result => promoted = this.unpackResponse(result as AdvertisementRepresentation[]));
         return Promise.resolve(promoted);
     }
 
     getByFilter(estateType: string, city: string, radius: number): Promise<Advertisement[]> {
         return this.http.get(this.baseUrl + "api/advertisement/search?city=" + city + "&estateType=" + estateType + "&radius=" + radius).toPromise().then(result =>
-            this.unpackResponse(result.json() as AdvertisementRepresentation[]));
+            this.unpackResponse(result as AdvertisementRepresentation[]));
+  }
+
+  addAdvertisement(advertisement: Advertisement) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
     }
+    this.http.post<Advertisement>(this.baseUrl + "api/Advertisement", { resource: advertisement }, options).subscribe(
+      (data: Advertisement) => console.log(data), // success path
+      error => console.log(error) // error path
+    );;
+  }
 
     private unpackResponse(response: AdvertisementRepresentation[]): Advertisement[] {
         let result: Advertisement[] = [];

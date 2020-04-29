@@ -9,6 +9,10 @@ namespace ApplicationCore.DTOs
 {
     public class AdvertisementDto
     {
+        public AdvertisementDto()
+        {
+
+        }
         public AdvertisementDto(Advertisement advertisement)
         {
             Id = advertisement.Id;

@@ -17,7 +17,7 @@ namespace ApplicationCore.DTOs
             ApartmentType = advertisement.Category.ApartmentType.ToFriendlyString();
             PricingType = advertisement.Category.PricingType.ToFriendlyString();
             CreateDate = advertisement.CreateDate;
-            ValidityTime = advertisement.ValidityTime;
+            ValidTo = advertisement.ValidTo;
             UserName = advertisement.User?.Login;
             EstateAddress = advertisement.Estate?.Location?.Address;
             EstateArea = advertisement.Estate == null ? 0 : advertisement.Estate.Area;
@@ -32,7 +32,7 @@ namespace ApplicationCore.DTOs
         public string ApartmentType { get; }
         public string PricingType { get; }
         public DateTime CreateDate { get; }
-        public TimeSpan ValidityTime { get; }
+        public DateTime ValidTo { get; }
         public string UserName { get; }
         public double EstateArea { get; }
         public string EstateAddress { get; }

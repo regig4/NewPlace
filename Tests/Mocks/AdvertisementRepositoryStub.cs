@@ -11,6 +11,11 @@ namespace UnitTests.Mocks
 {
     class AdvertisementRepositoryStub : IAdvertisementRepository
     {
+        public Task<int> Add(Advertisement advertisement)
+        {
+            throw new NotImplementedException();
+        }
+
         public Advertisement Find(Func<Advertisement, bool> condition)
         {
             throw new NotImplementedException();
@@ -34,12 +39,12 @@ namespace UnitTests.Mocks
                     area: 56,
                     id: -1,
                     utilities: new List<Utility>() { new Utility(id: null, name: "TestUtility", cost: 200)},
-                    location: new Location(id: null, address: "stub", postalCode: "wow", city: "tmp", latitude: 12, longitude: 12, radius: 12)
+                    location: new Location(id: null, address: "stub", postalCode: "wow", city: "tmp", latitude: 12, longitude: 12, radius: 12, new Country(1, "Poland"))
                 ),
                 title: "test",
                 description: "tetstest",
                 createDate: DateTime.Now,
-                validityTime: TimeSpan.FromSeconds(20),
+                validTo: DateTime.Now + TimeSpan.FromSeconds(20),
                 id: -1,
                 price: 2000,
                 provision: 2000,

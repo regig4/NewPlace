@@ -17,7 +17,10 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.pipe(switchMap(
           (params: ParamMap) => this.service.getAdvertisement(Number(params.get('id')))))
-          .subscribe(a => this.advertisement = a);
+      .subscribe(a => {
+        console.log(a);
+        this.advertisement = a;
+      });
     }
 
 }

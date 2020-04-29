@@ -8,6 +8,7 @@ namespace NewPlace.ResourceRepresentations
 {
     public class AdvertisementDetailsRepresentation : Representation<AdvertisementDetailsDto>
     {
+        public ImageRepresentation Thumbnail { get; set; }
         ICollection<ImageRepresentation> Images { get; set; }
     }
 }

@@ -1,12 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Advertisement } from '../shared/models/advertisement';
-import { Representation } from '../shared/models/representations/representation';
 import { AdvertisementsService } from '../shared/services/advertisements.service';
-import { RecomendationService } from '../shared/services/recomendations.service';
 
 @Component({
     selector: 'advertisements',
-    templateUrl: './catalog.component.html'
+    templateUrl: './catalog.component.html',
+    styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent {
     public advertisements: Advertisement[] | undefined;

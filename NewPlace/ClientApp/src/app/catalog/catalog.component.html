@@ -1,44 +1,21 @@
 <mySearch (notify)="onSearchResults($event)"></mySearch>
 
-
-<!--<h2 *ngIf="!advertisements">This is where <em>all</em> ads will be (promoted first)...</h2>
-<div *ngIf="advertisements">
-    <ol>
-        <li *ngFor="let advertisement of advertisements">
-            <ul>
-                <li>Id: {{advertisement.id}}</li>
-                <li>Created: {{advertisement.createDate}}</li>
-                <li>Valid: {{advertisement.validityTime}}</li>
-                <li>User: {{advertisement.userName}}</li>
-                <li>Apartment: {{advertisement.apartment}}</li>
-                <li>Price: {{advertisement.price}}</li>
-                <li>Provision: {{advertisement.provision}}</li>
-                <li>Total cost: {{advertisement.totalCost}}</li>
-                <li *ngFor="let utility of advertisement.utilitiesCost">{{utility}}</li>
-                <li *ngFor="let link of advertisement.links"><a [routerLink]='["/details", link.href | slice:-1]'>{{link.title}}</a></li>
-            </ul>
-        </li>
-    </ol>
-</div>-->
-
 <div id="searchResults" [hidden]="!advertisements">
-  <div *ngFor="let result of advertisements" [routerLink]="['/details', result.id]" class="jumbotron row">
+  <div *ngFor="let result of advertisements" [routerLink]="['/details', result.id]" class="jumbotron row searchResult">
     <div class="col-3">
       <img class="img-thumbnail" src="data:{{result.thumbnail.mediaType}};base64,{{result.thumbnail.resource}}" />
     </div>
     <div class="col">
       <strong>{{result.title}}</strong><br />
       <ul class="list-inline">
-        <li class="list-inline-item">Id: {{result.id}}</li>
-        <li class="list-inline-item">Created: {{result.createDate}}</li>
-        <li class="list-inline-item">Valid: {{result.validityTime}}</li>
+        <li class="list-inline-item">Valid to: {{result.validityTime}}</li>
         <li class="list-inline-item">User: {{result.userName}}</li>
         <li class="list-inline-item">Apartment: {{result.apartment}}</li>
         <li class="list-inline-item">Price: <img src="/assets/img/icons/dollar.svg" style="height: 15px;" /> {{result.price}}</li>
         <li class="list-inline-item">Provision: {{result.provision}}</li>
         <li class="list-inline-item">Total cost: {{result.totalCost}}</li>
+        <li class="list-inline-item">Area: {{result.estateArea}}</li>
         <li class="list-inline-item" *ngFor="let utility of result.utilitiesCost">{{utility}}</li>
-        <li class="list-inline-item" *ngFor="let link of result.links"><a [routerLink]='["/details", link.href | slice:-1]'>{{link.title}}</a></li>
       </ul>
     </div>
   </div>

@@ -16,7 +16,11 @@ namespace Infrastructure.Converters
     {
         public async static Task<AdvertisementRepresentation> ToRepresentation(this AdvertisementDto dto, string requestPath, IAdvertisementService service)
         {
-            var thumbnailImage = await service.GetThumbnailBase64(dto.Id!.Value);
+            if (dto?.Id == null)
+                throw new ArgumentNullException(nameof(dto));
+
+            var thumbnailImage = await service.GetThumbnailBase64(dto.Id.Value);
+
             return new AdvertisementRepresentation()
             {
                 Resource = dto,
@@ -30,7 +34,7 @@ namespace Infrastructure.Converters
                         new Link()
                         {
                             Rel = "self",
-                            Href = Path.Combine("/", requestPath, dto.Id.ToString()),
+                            Href = Path.Combine("/", requestPath, dto.Id.ToString()!),
                             Method = HttpMethod.Get.ToString(),
                             Title = LinkDescriptions.Self
                         }

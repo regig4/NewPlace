@@ -1,3 +1,4 @@
+using ApplicationCore.Models;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ public class MapperTests
         var domain = new ApplicationCore.Models.Advertisement
         (
             id: 1,
-            validityTime: TimeSpan.FromDays(10),
+            validTo: DateTime.Now + TimeSpan.FromDays(10),
             description: "test",
             createDate: DateTime.Now,
             user: new ApplicationCore.Models.User(id: null, login: "login", passwordHash: "pass", email: "email", agency: null),
@@ -29,7 +30,7 @@ public class MapperTests
             price: 324,
             provision: null,
             estate: new ApplicationCore.Models.Estate(id: null, area: 23, 
-                location: new ApplicationCore.Models.Location(id: null, address: "tm", postalCode: "?", city: "ktk", latitude: 12, longitude: 23, radius: 12), 
+                location: new ApplicationCore.Models.Location(id: null, address: "tm", postalCode: "?", city: "ktk", latitude: 12, longitude: 23, radius: 12, country: new Country(1, "Poland")), 
                 utilities: new List<ApplicationCore.Models.Utility> { new ApplicationCore.Models.Utility(id: null, name: "name", cost: 12) }
         ));
 

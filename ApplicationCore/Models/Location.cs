@@ -6,7 +6,12 @@ namespace ApplicationCore.Models
 {
     public class Location
     {
-        public Location(int? id, string address, string postalCode, string city, double latitude, double longitude, double radius)
+        public Location(int? id, string address, string postalCode, string city, double latitude, double longitude, double radius, Country country)
+            : this(id, address, postalCode, city, latitude, longitude, radius)
+        {
+            Country = country;
+        }
+        private Location(int? id, string address, string postalCode, string city, double latitude, double longitude, double radius)
         {
             Id = id;
             Address = address;
@@ -22,6 +27,7 @@ namespace ApplicationCore.Models
         public string Address { get; set; }
         public string PostalCode { get; set; }
         public string City { get; set; }
+        public Country Country { get; }
 
 
         // Precise location:

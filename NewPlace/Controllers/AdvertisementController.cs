@@ -48,11 +48,16 @@ namespace NewPlace.Controllers
         }
 
         [HttpGet("{id}")]
-        public AdvertisementDetailsRepresentation Get(int id)
+        public async Task<AdvertisementDetailsRepresentation> Get(int id)
         {
             return new AdvertisementDetailsRepresentation()
             {
                 Resource = _service.GetById(id),
+                Thumbnail = new ImageRepresentation
+                {
+                    Resource = await _service.GetThumbnailBase64(id),
+                    MediaType = MediaTypeNames.Image.Jpeg
+                }, 
                 Links = new List<Link>
                 {
                     new Link()
@@ -67,8 +72,9 @@ namespace NewPlace.Controllers
 
         // POST api/Advertisement
         [HttpPost]
-        public void Post(Advertisement advertisement)
+        public void Post([FromBody]AdvertisementRepresentation advertisement)
         {
+            _service.Add(advertisement.Resource.ToDomain());
         }
 
         // PUT api/Advertisement/5

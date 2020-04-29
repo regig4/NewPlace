@@ -22,6 +22,17 @@ import { RecomendationService } from './shared/services/recomendations.service';
 import { AdvertisementsService } from './shared/services/advertisements.service';
 
 import { HttpModule } from '@angular/http'; // TODO: delete this
+import { AdvertisementFormComponent } from './shared/components/advertisement-form/advertisement-form.component';
+
+import { HttpLogInterceptor } from './http.interceptor';
+import { SafeHtmlPipe } from './shared/pipes/safe-html.pipe';
+
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSliderModule } from '@angular/material/slider';
+
 
 
 @NgModule({
@@ -33,24 +44,33 @@ import { HttpModule } from '@angular/http'; // TODO: delete this
     FetchDataComponent,
     CatalogComponent,
     DetailsComponent,
-    SearchComponent
+    SearchComponent,
+    AdvertisementFormComponent,
+    SafeHtmlPipe
   ],
   imports: [
+    MatSelectModule,
+    MatStepperModule,
+    MatRadioModule,
+    MatSliderModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     HttpModule,
     FormsModule,
     ApiAuthorizationModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'catalog', component: CatalogComponent },
+      { path: '', component: CatalogComponent },
+      { path: 'new', component: AdvertisementFormComponent },
       { path: 'details/:id', component: DetailsComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-    ])
+    ]),
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpLogInterceptor, multi: true },
     AdvertisementsService,
     RecomendationService
   ],

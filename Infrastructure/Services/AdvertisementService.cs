@@ -60,5 +60,10 @@ namespace Infrastructure.Services
         {
             return await _imageService.GetBase64OfFileAsync(Path.Combine("..", "Infrastructure", "Content", "Images", id.ToString() + ".jpg"));
         }
+
+        public async Task<int> Add(Advertisement advertisement)
+        {
+            return await _repository.Add(advertisement);
+        }
     }
 }
