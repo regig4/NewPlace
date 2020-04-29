@@ -1,0 +1,16 @@
+.btn-primary {
+  color: #fff;
+  background-color: #dbb16e;
+  border-color: #dbb16e;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  color: #fff;
+  background-color: #b17a21 !important;
+  border-color: #b17a21 !important;
+}
+
+.row-title {
+    margin: 40px;
+}

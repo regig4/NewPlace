@@ -1,0 +1,86 @@
+<div class="container">
+
+  <mat-horizontal-stepper #stepper>
+    <mat-step label="Step 1">
+
+      <div class="row row-title">
+        <div class="col">
+          <input class="form-control" type="text" id="title" name="title" [(ngModel)]="advertisement.title" placeholder="Title of advertisement" #title="ngModel" />
+          <div *ngIf="!advertisement.title.length && (title.dirty || title.touched)"
+               class="alert alert-danger">
+            Title is required
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col" align="justify">
+          <label>Pick category of your ad:</label> <br />
+          <mat-radio-group aria-label="Select an option">
+            <mat-radio-button value="1">House</mat-radio-button><br />
+            <mat-radio-button value="2">Flat</mat-radio-button><br />
+            <mat-radio-button value="3">Room</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="col" align="justify">
+          <label>Pick type of payment:</label> <br />
+          <mat-radio-group aria-label="Select an option">
+            <mat-radio-button value="1">For sale</mat-radio-button><br />
+            <mat-radio-button value="2">Rent</mat-radio-button><br />
+            <mat-radio-button value="3">For exchange</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+
+    </mat-step>
+
+    <mat-step label="Step 2">
+      <div class="row">
+        <div class="col">
+          <label>Area of apartment:</label>
+        </div>
+        <div class="col">
+          <input class="form-control" type="text" name="estateArea" [(ngModel)]="advertisement.estateArea" />
+          <div [hidden]="advertisement.estateArea.length" class="alert alert-danger">
+            estateArea is required
+          </div>
+        </div>
+      </div>
+      <textarea class="form-control" name="estateAddress" [(ngModel)]="advertisement.estateAddress"> </textarea>
+      <div [hidden]="advertisement.estateAddress.length" class="alert alert-danger">
+        estateAddress is required
+      </div>
+      <input class="form-control" type="text" name="estateCity" [(ngModel)]="advertisement.estateCity" />
+      <div [hidden]="advertisement.estateCity.length" class="alert alert-danger">
+        estateCity is required
+      </div>
+    </mat-step>
+
+    <mat-step label="Step 3">
+
+      <input class="form-control" type="text" name="price" [(ngModel)]="advertisement.price" />
+      <div [hidden]="advertisement.price.length" class="alert alert-danger">
+        price is required
+      </div>
+
+
+      <input class="form-control" type="text" name="provision" [(ngModel)]="advertisement.provision" />
+      <div [hidden]="advertisement.provision.length" class="alert alert-danger">
+        provision is required
+      </div>
+      <input class="form-control" type="text" name="totalCost" [(ngModel)]="advertisement.totalCost" />
+  <div [hidden]="advertisement.totalCost.length" class="alert alert-danger">
+    totalCost is required
+  </div>
+
+  <input *ngFor="let utility of advertisement.utilitiesCost" class="form-control" type="text"  />
+  <button (click)="onAddUtilityClick()" class="btn btn-primary float-right">Add utility</button>
+  
+    </mat-step>
+  </mat-horizontal-stepper>
+  <button class="btn btn-primary float-right" type="submit" [disabled]="!advertisement.title.length">Send</button>
+
+
+</div>

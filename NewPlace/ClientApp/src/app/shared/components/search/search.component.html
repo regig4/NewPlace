@@ -1,0 +1,52 @@
+<div id="searchArea">
+  <h1>{{msg}}</h1>
+  <form (ngSubmit)="search()">
+    <fieldset>
+      <legend>
+        Search
+        <small class="text-muted float-right">Find your perfect place</small>
+      </legend>
+      <div class="container">
+        <div class='row'>
+          <div class="col-sm">
+            Locality: <input class="form-control" name="city" type="text" required minlength="3" placeholder="e.g. city name, country..." [(ngModel)]="city" #name="ngModel" />
+          </div>
+
+
+
+
+          <div class="col-sm">
+            Type of estate:
+            <select class="form-control" name="estateType" required [(ngModel)]="estateTypeSelected">
+              <option *ngFor="let estateType of estateTypes" [value]="estateType">{{estateType}}</option>
+            </select>
+          </div>
+
+
+
+          <div class="col-sm">
+            Type of payment:
+            <select class="form-control" name="paymentType">
+              <option value="rent">Rent</option>
+              <option value="forSale">For Sale</option>
+              <option value="exchange">Exchange</option>
+            </select>
+          </div>  
+        </div>
+      </div>
+      <br />
+
+      <div *ngIf="name.invalid && (name.dirty || name.touched)"
+           class="alert alert-danger float-left">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.minlength">
+          Locality must be at least 3 characters long.
+        </div>
+      </div>
+
+      <button class="btn btn-primary float-right" type="submit">Search</button>
+    </fieldset>
+  </form>
+</div>

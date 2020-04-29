@@ -6,7 +6,14 @@ namespace ApplicationCore.Models
 {
     public class Category
     {
-        public int Id { get; set; }
+        public Category(int? id, EstateType apartmentType, PricingType pricingType)
+        {
+            Id = id;
+            ApartmentType = apartmentType;
+            PricingType = pricingType;
+        }
+
+        public int? Id { get; set; }
         public EstateType ApartmentType { get; set; }
         public PricingType PricingType { get; set; }
     }

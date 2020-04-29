@@ -8,6 +8,7 @@ using System.Linq;
 using ApplicationCore.DTOs;
 using ApplicationCore.Helpers;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
@@ -27,21 +28,42 @@ namespace Infrastructure.Services
             return new AdvertisementDetailsDto(_repository.GetById(id));
         }
 
-        public IEnumerable<AdvertisementDto> GetAll()
+        public async Task<IEnumerable<AdvertisementDto>> GetAllAsync()
         {
-            return _repository.FindAll(advertisement => true).Select(a => new AdvertisementDto(a));
+            //var allAdvertisements = await _repository.FindAllAsync(advertisement => true);
+            //return allAdvertisements.Select(a => new AdvertisementDto(a));
+            return null;
         }
 
-        public IEnumerable<AdvertisementDto> GetByCityAndEstateType(string city, string estateType)
+        public async Task<IEnumerable<AdvertisementDto>> GetAllPagedAsync   (int page)
         {
-            return _repository.FindAll(a => a.Estate.Location.City.ToLower() == city.ToLower() 
-                && a.Category.ApartmentType.ToFriendlyString().ToLower() == estateType.ToApartmentType().ToFriendlyString().ToLower())
-                .Select(a => new AdvertisementDto(a));
+            // TODO
+            throw new NotImplementedException();
         }
 
-        public string GetThumbnailBase64(int id)
+        public async Task<IEnumerable<AdvertisementDto>> GetByCityAndEstateTypeAsync(string city, string estateType)
         {
-            return _imageService.GetBase64OfFile(Path.Combine("..", "Infrastructure", "Content", "Images", id.ToString() + ".jpg"));
+            if (city == null || estateType == null)
+                throw new ArgumentException("City and estateType cannot be null");
+
+            var advertisements = new List<Advertisement>();
+
+            await foreach (var a in (_repository.FindAllAsync(a =>
+            a.Estate.Location.City.ToLower() == city.ToLower()
+             && a.Category.ApartmentType.ToFriendlyString().ToLower() == estateType.ToLower())))
+                advertisements.Add(a);
+
+            return advertisements.Select(a => new AdvertisementDto(a));
+        }
+
+        public async Task<string> GetThumbnailBase64(int id)
+        {
+            return await _imageService.GetBase64OfFileAsync(Path.Combine("..", "Infrastructure", "Content", "Images", id.ToString() + ".jpg"));
+        }
+
+        public async Task<int> Add(Advertisement advertisement)
+        {
+            return await _repository.Add(advertisement);
         }
     }
 }

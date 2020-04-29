@@ -1,9 +1,22 @@
 C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\bin\Debug\netcoreapp2.0\ApplicationCore.deps.json
 C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\bin\Debug\netcoreapp2.0\ApplicationCore.dll
 C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\bin\Debug\netcoreapp2.0\ApplicationCore.pdb
-C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.csprojResolveAssemblyReference.cache
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.Models.ResourceRepresentations.LinkDescriptions.resources
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.csproj.GenerateResource.cache
 C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.csproj.CoreCompileInputs.cache
 C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.AssemblyInfoInputs.cache
 C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.AssemblyInfo.cs
 C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.dll
 C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.pdb
+C:\Users\Bartek\Documents\Visual Studio 2017\Projects\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.csprojAssemblyReference.cache
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\bin\Debug\netcoreapp2.0\ApplicationCore.deps.json
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\bin\Debug\netcoreapp2.0\ApplicationCore.dll
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\bin\Debug\netcoreapp2.0\ApplicationCore.pdb
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.csprojAssemblyReference.cache
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.Models.ResourceRepresentations.LinkDescriptions.resources
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.csproj.GenerateResource.cache
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.csproj.CoreCompileInputs.cache
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.AssemblyInfoInputs.cache
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.AssemblyInfo.cs
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.dll
+C:\Users\bartosz.buras\Documents\Projekty\neww\NewPlace\ApplicationCore\obj\Debug\netcoreapp2.0\ApplicationCore.pdb

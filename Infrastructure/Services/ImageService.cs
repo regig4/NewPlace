@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
     public class ImageService : IImageService
     {
-        public string GetBase64OfFile(string filePath)
+        public async Task<string> GetBase64OfFileAsync(string filePath)
         {
-            byte[] bytes = File.ReadAllBytes(filePath);
+            byte[] bytes = await File.ReadAllBytesAsync(filePath);
             return Convert.ToBase64String(bytes);
         }
     }

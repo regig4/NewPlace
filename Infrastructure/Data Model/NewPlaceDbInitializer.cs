@@ -17,82 +17,105 @@ namespace Infrastructure.Data
 
             context.Advertisements.AddRange(new Advertisement[]
             {
-                new Advertisement()
-                {
-                    Title = "House for sale - only 20000000$",
-                    Estate = new Estate()
-                    {
-                        Area = 200,
-                        Utilities = new List<Utility>() { new Utility() { Name = "Electricity", Cost = 300 } },
-                        Location = new Location()
-                        {
-                            Address = "Wesoła bardzo 24",
-                            City = "Warszawa",
-                            PostalCode = "34-345"
-                        }
-                    },
-                    Price = 20000000,
-                    Provision = 20000,
-                    User = new User()
-                    {
-                        Login = "AgencyNewPlace",
-                        Email = "aaa@b4b.com",
-                        PasswordHash = "!@#4d3g3",
-                        Agency = new Agency() { Name = "NewPlaceAgency", Address = null, Information = "New Place Agency" }
-                    },
-                    Category = new Category() { ApartmentType = EstateType.House, PricingType = PricingType.Sale }
-                },
+                new Advertisement(
+                    id: null,
+                    title: "House for sale - only 20000000$",
+                    description: "coool",
+                    createDate: DateTime.Now,
+                    validTo: DateTime.Now + TimeSpan.FromDays(10),
+                    estate: new Estate(
+                        id: null,
+                        area: 200,
+                        utilities: new List<Utility>() { new Utility(id: null, name: "Electricity", cost: 300) },
+                        location: new Location(
+                            id: null,
+                            address: "Wesoła bardzo 24",
+                            city: "Warszawa",
+                            postalCode: "34-345",
+                            latitude: 12,
+                            longitude: 12,
+                            radius: 12,
+                            country: new Country(1, "Poland")
+                        )
+                    ),
+                    price: 20000000,
+                    provision: 20000,
+                    user: new User
+                    (
+                        id: null,
+                        login: "AgencyNewPlace",
+                        email: "aaa@b4b.com",
+                        passwordHash: "!@#4d3g3",
+                        agency: new Agency(id: null, name: "NewPlaceAgency", address: "notnull", information: "New Place Agency" )
+                    ),
+                    category: new Category(id: null, apartmentType: EstateType.House, pricingType: PricingType.Sale)
+                ),
 
-                new Advertisement()
-                {
-                    Title = "Cheap room for rent",
-                    Estate = new Estate()
-                    {
-                        Area = 56,
-                        Utilities = new List<Utility>() { new Utility() { Name = "Internet", Cost = 100 } },
-                        Location = new Location()
-                        {
-                            Address = "Amelininymowa 12",
-                            City = "Kraków",
-                            PostalCode = "4335"                            
-                        }
-                    },
-                    Price = 2000,
-                    Provision = 2000,
-                    User = new User()
-                    {
-                        Login = "Matt",
-                        PasswordHash = "!@t$d3g3",
-                        Email = "matt@damon.com"
-                    },
-                    Category = new Category() { ApartmentType = EstateType.Room, PricingType = PricingType.Rent }
-                },
+                new Advertisement(
+                    id: null,
+                    title: "Cheap room for rent",
+                    description: "kinda cool",
+                    createDate: DateTime.Now,
+                    validTo: DateTime.Now + TimeSpan.FromDays(14),
+                    category: new Category(id: null, apartmentType: EstateType.Flat, pricingType: PricingType.Exchange),
+                    estate: new Estate(
+                        id: null,
+                        area: 56,
+                        utilities: new List<Utility>() { new Utility(id: null, name: "Internet", cost: 100) },
+                        location: new Location(
+                            id: null,
+                            address: "Amelininymowa 12",
+                            city: "Kraków",
+                            postalCode: "4335",
+                            latitude: 23,
+                            longitude: 32,
+                            radius: 132,
+                            country: new Country(1, "Poland")
+                        )
+                    ),
+                    price: 2000,
+                    provision: 2000,
+                    user: new User(
+                        id: null,
+                        login: "Matt",
+                        passwordHash: "!@t$d3g3",
+                        email: "matt@damon.com",
+                        agency: null
+                    )
+                ),
 
-                new Advertisement()
-                {
-                    Title = "Flat for exchange - urgent!",
-                    Estate = new Estate()
-                    {
-                        Area = 40,
-                        Utilities = new List<Utility>() { new Utility() { Name = "Water", Cost = 203} },
-                        Location = new Location()
-                        {
-                            Address = "Amelininymowa 13",
-                            City = "Kraków",
-                            PostalCode = "4335"
-                        }
-                    },
-                    Price = 20000,
-                    Provision = 20000,
-                    User = new User()
-                    {
-                        Login = "Agency",
-                        PasswordHash = "!@#$d3g3",
-                        Agency = new Agency() { Name = "AgencyAgency" },
-                        Email = "aaa@bbb.com"
-                    },
-                    Category = new Category() { ApartmentType = EstateType.Flat, PricingType = PricingType.Exchange }
-                }
+                new Advertisement(
+                    id: null,
+                    title: "Flat for exchange - urgent!",
+                    description: "it's ok",
+                    createDate: DateTime.Now,
+                    validTo: DateTime.Now + TimeSpan.FromHours(10),
+                    estate: new Estate(
+                        id: null,
+                        area: 40,
+                        utilities: new List<Utility>() { new Utility(id: null, name : "Water", cost: 203) },
+                        location: new Location(
+                            id: null,
+                            address: "Amelininymowa 13",
+                            city: "Kraków",
+                            postalCode: "4335",
+                            longitude: 12,
+                            latitude:12,
+                            radius: 12,
+                            country: new Country(1, "Poland")
+                        )
+                    ),
+                    price: 20000,
+                    provision: 20000,
+                    user: new User(
+                        id: null,
+                        login: "Agency",
+                        passwordHash: "!@#$d3g3",
+                        agency: new Agency(id: null, address: "tmp", information: "still tmp", name: "AgencyAgency" ),
+                        email: "aaa@bbb.com"
+                    ),
+                    category: new Category(id: null, apartmentType: EstateType.Flat, pricingType: PricingType.Exchange)
+                )
             });
 
             context.SaveChanges();

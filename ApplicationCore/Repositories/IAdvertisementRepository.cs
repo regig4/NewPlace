@@ -1,7 +1,10 @@
 ﻿using ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
@@ -9,6 +12,7 @@ namespace Infrastructure.Repositories
     {
         Advertisement GetById(int id);
         Advertisement Find(Func<Advertisement, bool> condition);
-        IEnumerable<Advertisement> FindAll(Func<Advertisement, bool> condition, int quantity = int.MaxValue);
+        IAsyncEnumerable<Advertisement> FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity = int.MaxValue);
+        Task<int> Add(Advertisement advertisement);
     }
 }

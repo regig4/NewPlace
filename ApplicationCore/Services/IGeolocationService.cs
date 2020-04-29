@@ -5,7 +5,7 @@ using ApplicationCore.Models;
 
 namespace ApplicationCore.Services
 {
-    interface IGeolocationService
+    public interface IGeolocationService
     {
         Location GetCurrentPosition();
         double GetDistanceToPosition(Location destination);
