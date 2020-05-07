@@ -39,7 +39,7 @@ export class AdvertisementsService {
     }
 
     getByFilter(estateType: string, city: string, radius: number): Promise<Advertisement[]> {
-        return this.http.get(this.baseUrl + "api/advertisement/search?city=" + city + "&estateType=" + estateType + "&radius=" + radius).toPromise().then(result =>
+        return this.http.get(this.baseUrl + "api/advertisement/search?city=" +  city + "&estateType=" + estateType + "&radius=" + radius).toPromise().then(result =>
             this.unpackResponse(result as AdvertisementRepresentation[]));
   }
 

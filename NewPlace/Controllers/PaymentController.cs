@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Net.Client;
+using Infrastructure.Models.Commands;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PaymentService;
 
 
 namespace NewPlace.Controllers
 {
     public class PaymentController : Controller
     {
-        public async Task<string> Donate()
+        IMediator _mediator;
+
+        public PaymentController(IMediator mediator)
         {
-            using var channel = GrpcChannel.ForAddress("https://localhost:5001");     // todo: inject or service discovery?
-            var client = new Greeter.GreeterClient(channel);
-            var response = await client.SayHelloAsync(new HelloRequest { Name = "world!" });
-            return response.Message;
+            _mediator = mediator;
+        }
+
+        public async Task<IActionResult> Donate(int userId, decimal amount, string currency)
+        {
+            var donationConfirmation = await _mediator.Send(new DonateCommand(userId, amount, currency));
+            return Ok(donationConfirmation);
         }
     }
 }

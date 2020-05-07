@@ -35,7 +35,7 @@ namespace Infrastructure.Services
             return null;
         }
 
-        public async Task<IEnumerable<AdvertisementDto>> GetAllPagedAsync   (int page)
+        public async Task<IEnumerable<AdvertisementDto>> GetAllPagedAsync(int page)
         {
             // TODO
             throw new NotImplementedException();

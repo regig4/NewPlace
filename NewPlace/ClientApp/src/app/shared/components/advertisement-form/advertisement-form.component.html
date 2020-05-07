@@ -39,45 +39,69 @@
     <mat-step label="Step 2">
       <div class="row">
         <div class="col">
-          <label>Area of apartment:</label>
+          <label class="float-right">Area of apartment (in  m<sup>2</sup>):</label>
         </div>
         <div class="col">
-          <input class="form-control" type="text" name="estateArea" [(ngModel)]="advertisement.estateArea" />
-          <div [hidden]="advertisement.estateArea.length" class="alert alert-danger">
-            estateArea is required
+          <input class="form-control inline" type="text" name="estateArea" [(ngModel)]="advertisement.estateArea" #area="ngModel" />
+          <div *ngIf="!advertisement.estateArea.length && (area.dirty || area.touched)"
+               class="alert alert-danger">
+            Estate area is required
           </div>
         </div>
       </div>
-      <textarea class="form-control" name="estateAddress" [(ngModel)]="advertisement.estateAddress"> </textarea>
-      <div [hidden]="advertisement.estateAddress.length" class="alert alert-danger">
-        estateAddress is required
+      <div class="row">
+        <div class="col">
+          <label class="float-right">Address</label>
+        </div>
+        <div class="col">
+          <textarea class="form-control" name="estateAddress" [(ngModel)]="advertisement.estateAddress" #address="ngModel"> </textarea>
+          <div *ngIf="!advertisement.estateAddress.length && (address.dirty || address.touched)"
+               class="alert alert-danger">
+            Estate address is required
+          </div>
+        </div>
       </div>
-      <input class="form-control" type="text" name="estateCity" [(ngModel)]="advertisement.estateCity" />
-      <div [hidden]="advertisement.estateCity.length" class="alert alert-danger">
-        estateCity is required
+
+      <div class="row">
+        <div class="col">
+          <label class="float-right">City</label>
+        </div>
+        <div class="col">
+          <input class="form-control" type="text" name="estateCity" [(ngModel)]="advertisement.estateCity" #city="ngModel" />
+          <div *ngIf="!advertisement.estateCity.length && (city.dirty || city.touched)"
+               class="alert alert-danger">
+            City is required
+          </div>
+        </div>
       </div>
     </mat-step>
 
     <mat-step label="Step 3">
 
-      <input class="form-control" type="text" name="price" [(ngModel)]="advertisement.price" />
+      Price: <input class="form-control" type="text" name="price" [(ngModel)]="advertisement.price" />
       <div [hidden]="advertisement.price.length" class="alert alert-danger">
         price is required
       </div>
 
 
-      <input class="form-control" type="text" name="provision" [(ngModel)]="advertisement.provision" />
+      Provision: <input class="form-control" type="text" name="provision" [(ngModel)]="advertisement.provision" />
       <div [hidden]="advertisement.provision.length" class="alert alert-danger">
         provision is required
       </div>
-      <input class="form-control" type="text" name="totalCost" [(ngModel)]="advertisement.totalCost" />
-  <div [hidden]="advertisement.totalCost.length" class="alert alert-danger">
-    totalCost is required
-  </div>
 
-  <input *ngFor="let utility of advertisement.utilitiesCost" class="form-control" type="text"  />
-  <button (click)="onAddUtilityClick()" class="btn btn-primary float-right">Add utility</button>
-  
+      <div *ngFor="let utility of advertisement.utilitesCost" class="row" #utilites>
+        <div class="col">
+          <input placeholder="name of utility" class="form-control" type="text" [(ngModel)]="utility.name" />
+        </div>
+        <div class="col">
+          <input placeholder="name of utility" class="form-control" type="text" [(ngModel)]="utility.price" />
+        </div>
+      </div>
+      <button (click)="onAddUtilityClick()" class="btn btn-primary float-right">Add utility</button>
+      <br />
+      <br />
+      Total: <input readonly="readonly" class="form-control" type="text" name="totalCost" [(ngModel)]="advertisement.totalCost" />
+
     </mat-step>
   </mat-horizontal-stepper>
   <button class="btn btn-primary float-right" type="submit" [disabled]="!advertisement.title.length">Send</button>

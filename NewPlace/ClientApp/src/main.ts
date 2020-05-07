@@ -6,9 +6,9 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 export function getBaseUrl() {
-  console.log(document.getElementsByTagName('base')[0].href);
-  return 'http://127.0.0.1:5000/';
-  //return document.getElementsByTagName('base')[0].href;
+  //console.log(document.getElementsByTagName('base')[0].href);
+  //return 'http://127.0.0.1:5000/';
+  return document.getElementsByTagName('base')[0].href;
 }
 
 const providers = [

@@ -19,6 +19,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Infrastructure.Data;
+using MediatR;
+using System.Reflection;
 
 namespace NewPlace
 {
@@ -34,6 +36,8 @@ namespace NewPlace
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+
             services.AddCors(options =>
             {
                 options.AddPolicy("MyAllowSpecificOrigins",
@@ -54,8 +58,8 @@ namespace NewPlace
             IdentityModelEventSource.ShowPII = true;
 
             services.AddDbContext<NewPlaceDb>(options =>
-    options.UseSqlServer(
-        Infrastructure.Configuration.Configuration.DefaultConnectionString));
+                options.UseSqlServer(
+                    Infrastructure.Configuration.Configuration.DefaultConnectionString));
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
