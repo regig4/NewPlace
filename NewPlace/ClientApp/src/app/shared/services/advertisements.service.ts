@@ -49,7 +49,9 @@ export class AdvertisementsService {
         'Content-Type': 'application/json'
       })
     }
-    this.http.post<Advertisement>(this.baseUrl + "api/Advertisement", { resource: advertisement }, options).subscribe(
+    const body = { resource: advertisement };
+    const bodyJSON = JSON.stringify(body);
+    this.http.post<Advertisement>(this.baseUrl + "api/Advertisement", bodyJSON, options).subscribe(
       (data: Advertisement) => console.log(data), // success path
       error => console.log(error) // error path
     );;

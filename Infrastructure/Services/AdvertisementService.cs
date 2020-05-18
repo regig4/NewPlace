@@ -43,18 +43,19 @@ namespace Infrastructure.Services
 
         public async Task<IEnumerable<AdvertisementDto>> GetByCityAndEstateTypeAsync(string city, string estateType)
         {
-            if (city == null || estateType == null)
-                throw new ArgumentException("City and estateType cannot be null");
-
             var advertisements = new List<Advertisement>();
 
-            await foreach (var a in (_repository.FindAllAsync(a =>
-            a.Estate.Location.City.ToLower() == city.ToLower()
-             && a.Category.ApartmentType.ToFriendlyString().ToLower() == estateType.ToLower())))
-                advertisements.Add(a);
+            if (city == null || estateType == null)
+                await foreach (var a in (_repository.FindAllAsync(a => 1 == 1)))
+                    advertisements.Add(a);    
+            else 
+                await foreach (var a in (_repository.FindAllAsync(a =>
+                a.Estate.Location.City.ToLower() == city.ToLower()
+                 && a.Category.ApartmentType.ToFriendlyString().ToLower() == estateType.ToLower())))
+                    advertisements.Add(a);
 
             return advertisements.Select(a => new AdvertisementDto(a));
-        }
+        }   
 
         public async Task<string> GetThumbnailBase64(int id)
         {

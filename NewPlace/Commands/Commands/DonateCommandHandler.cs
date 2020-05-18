@@ -14,8 +14,8 @@ namespace Infrastructure.Models.Commands
         public async Task<DonationConfirmation> Handle(DonateCommand request, CancellationToken cancellationToken)
         {
             using var channel = GrpcChannel.ForAddress("https://localhost:5003");
-            var client = new Greeter.GreeterClient(channel);
-            var response = await client.SayHelloAsync(new HelloRequest { Name = "world!" });
+            var client = new Payment.PaymentClient(channel);
+            var response = await client.PayAsync(new PaymentRequest { Value = request.Amount, Currency = request.Currency });
             return await Task.FromResult(new DonationConfirmation(1, 10, "USD", DonationConfirmation.DonationStatus.Success));
         }
     }

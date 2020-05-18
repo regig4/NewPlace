@@ -1,0 +1,8 @@
+<agm-map [latitude]='latitude' [longitude]='longitude'
+         [mapTypeId]='mapType'>
+  <agm-marker *ngFor="let marker of markers"
+              [latitude]="marker.lat"
+              [longitude]="marker.lng"
+              (markerClick)="selectMarker($event)">
+  </agm-marker>
+</agm-map>

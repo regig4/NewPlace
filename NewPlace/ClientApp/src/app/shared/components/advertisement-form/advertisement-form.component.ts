@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Advertisement } from '../../models/advertisement';
-import { AdvertisementsService } from '../../services/advertisements.service';
-
+import { AdvertisementsService } from '../../services/advertisements.service'; 
 @Component({
   selector: 'app-advertisement-form',
   templateUrl: './advertisement-form.component.html',

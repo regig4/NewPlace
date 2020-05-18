@@ -33,6 +33,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSliderModule } from '@angular/material/slider';
 
+import { AgmCoreModule } from '@agm/core';
+import { RecommendationsComponent } from './recommendations/recommendations.component';
 
 
 @NgModule({
@@ -44,6 +46,7 @@ import { MatSliderModule } from '@angular/material/slider';
     FetchDataComponent,
     CatalogComponent,
     DetailsComponent,
+    RecommendationsComponent,
     SearchComponent,
     AdvertisementFormComponent,
     SafeHtmlPipe
@@ -63,9 +66,17 @@ import { MatSliderModule } from '@angular/material/slider';
       { path: 'counter', component: CounterComponent },
       { path: '', component: CatalogComponent },
       { path: 'new', component: AdvertisementFormComponent },
+      { path: 'recommend', component: RecommendationsComponent },
       { path: 'details/:id', component: DetailsComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
     ]),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDUT4MrztopHqglMDoCx0qi8MbWapM0u6k'
+      /* apiKey is required, unless you are a
+      premium customer, in which case you can
+      use clientId
+      */
+    }),
     BrowserAnimationsModule
   ],
   providers: [

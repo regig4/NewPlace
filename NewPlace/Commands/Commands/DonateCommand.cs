@@ -6,7 +6,7 @@ namespace Infrastructure.Models.Commands
 {
     public class DonateCommand : ICommand<DonationConfirmation>
     {
-        public DonateCommand(int userId, decimal amount, string currency)
+        public DonateCommand(int userId, ulong amount, string currency)
         {
             UserId = userId;
             Amount = amount;
@@ -14,7 +14,7 @@ namespace Infrastructure.Models.Commands
         }
 
         public int UserId { get; }
-        public decimal Amount { get; }
+        public ulong Amount { get; }
         public string Currency { get; }
     }
 }

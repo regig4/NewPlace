@@ -19,7 +19,7 @@ namespace NewPlace.Controllers
             _mediator = mediator;
         }
 
-        public async Task<IActionResult> Donate(int userId, decimal amount, string currency)
+        public async Task<IActionResult> Donate(int userId, ulong amount, string currency)
         {
             var donationConfirmation = await _mediator.Send(new DonateCommand(userId, amount, currency));
             return Ok(donationConfirmation);

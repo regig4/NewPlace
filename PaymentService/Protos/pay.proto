@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "PaymentService";
+
+
+package pay;
+
+service Payment {
+	rpc Pay (PaymentRequest) returns (PaymentReply);
+}
+
+message PaymentRequest {
+	uint64 value = 1;
+	string currency = 2;
+}
+
+message PaymentReply {
+	string msg = 1;
+	uint64 value = 2;
+	string currency = 3;
+}

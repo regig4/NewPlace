@@ -32,6 +32,7 @@ namespace PaymentService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<Services.PaymentService>();
 
                 endpoints.MapGet("/", async context =>
                 {

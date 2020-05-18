@@ -12,9 +12,17 @@ var Advertisement = /** @class */ (function () {
         this.estateCity = "";
         this.price = 0;
         this.provision = 0;
-        this.totalCost = 0;
+        this._totalCost = 0;
         this.thumbnail = "";
     }
+    Object.defineProperty(Advertisement.prototype, "totalCost", {
+        get: function () {
+            this._totalCost = +this.price + +this.provision; // todo add utilites cost
+            return this._totalCost;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return Advertisement;
 }());
 exports.Advertisement = Advertisement;
