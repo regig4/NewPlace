@@ -31,7 +31,7 @@ namespace Infrastructure.Repositories
             return context.Advertisements.Where(condition).FirstOrDefault();
         }
 
-        public async IAsyncEnumerable<Advertisement> FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity = int.MaxValue)
+        public async IAsyncEnumerable<Advertisement> FindAsync(Expression<Func<Advertisement, bool>> condition, int quantity = int.MaxValue)
         {
             using var context = ContextFactory.Instance.Create();
             var query = context.Advertisements
@@ -73,10 +73,17 @@ namespace Infrastructure.Repositories
 
         public async Task<int> Add(Advertisement advertisement)
         {
-            using var context = ContextFactory.Instance.Create();
-            context.Advertisements.Add(advertisement);
-            int id = await context.SaveChangesAsync();
-            return id;
+            try
+            {
+                using var context = ContextFactory.Instance.Create();
+                context.Advertisements.Add(advertisement);
+                int id = await context.SaveChangesAsync();
+                return id;
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
         }
     }
 }

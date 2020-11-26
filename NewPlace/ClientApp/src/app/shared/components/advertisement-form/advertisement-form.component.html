@@ -17,19 +17,24 @@
       <div class="row">
         <div class="col" align="justify">
           <label>Pick category of your ad:</label> <br />
-          <mat-radio-group aria-label="Select an option">
-            <mat-radio-button value="1">House</mat-radio-button><br />
-            <mat-radio-button value="2">Flat</mat-radio-button><br />
-            <mat-radio-button value="3">Room</mat-radio-button>
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="advertisement.estateType">
+            <mat-radio-button value="House">House</mat-radio-button><br />
+            <mat-radio-button value="Flat">Flat</mat-radio-button><br />
+            <mat-radio-button value="Room">Room</mat-radio-button>
           </mat-radio-group>
         </div>
         <div class="col" align="justify">
           <label>Pick type of payment:</label> <br />
-          <mat-radio-group aria-label="Select an option">
-            <mat-radio-button value="1">For sale</mat-radio-button><br />
-            <mat-radio-button value="2">Rent</mat-radio-button><br />
-            <mat-radio-button value="3">For exchange</mat-radio-button>
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="advertisement.pricingType">
+            <mat-radio-button value="For sale">For sale</mat-radio-button><br />
+            <mat-radio-button value="Rent">Rent</mat-radio-button><br />
+            <mat-radio-button value="For exchange">For exchange</mat-radio-button>
           </mat-radio-group>
+        </div>
+        <div class="col">
+          <label>Pick a thumbnail photo:</label><br/>
+          <img *ngIf="base64" [src]="base64" />
+          <input type="file" (change)="handleFileInput($event.target.files)" />
         </div>
       </div>
 
@@ -42,7 +47,7 @@
           <label class="float-right">Area of apartment (in  m<sup>2</sup>):</label>
         </div>
         <div class="col">
-          <input class="form-control inline" type="text" name="estateArea" [(ngModel)]="advertisement.estateArea" #area="ngModel" />
+          <input class="form-control inline" type="number" name="estateArea" [(ngModel)]="advertisement.estateArea" #area="ngModel" />
           <div *ngIf="!advertisement.estateArea.length && (area.dirty || area.touched)"
                class="alert alert-danger">
             Estate area is required
@@ -87,13 +92,13 @@
 
     <mat-step label="Price">
 
-      Price: <input class="form-control" type="text" name="price" [(ngModel)]="advertisement.price" #price="ngModel" required />
+      Price: <input class="form-control" type="number" name="price" [(ngModel)]="advertisement.price" #price="ngModel" required />
       <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
         price is required
       </div>
 
 
-      Provision: <input class="form-control" type="text" name="provision" [(ngModel)]="advertisement.provision" #provision="ngModel" required />
+      Provision: <input class="form-control" type="number" name="provision" [(ngModel)]="advertisement.provision" #provision="ngModel" required />
       <div [hidden]="provision.valid || provision.pristine" class="alert alert-danger">
         provision is required
       </div>

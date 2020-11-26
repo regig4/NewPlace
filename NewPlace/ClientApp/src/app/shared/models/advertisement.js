@@ -5,15 +5,13 @@ var Advertisement = /** @class */ (function () {
         this.id = 0;
         this.title = "";
         this.createDate = "";
-        this.validityTime = "";
         this.userName = "";
-        this.estateArea = "";
+        this.estateArea = 0;
         this.estateAddress = "";
         this.estateCity = "";
         this.price = 0;
         this.provision = 0;
         this._totalCost = 0;
-        this.thumbnail = "";
     }
     Object.defineProperty(Advertisement.prototype, "totalCost", {
         get: function () {

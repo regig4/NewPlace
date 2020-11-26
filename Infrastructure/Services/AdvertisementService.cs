@@ -46,10 +46,10 @@ namespace Infrastructure.Services
             var advertisements = new List<Advertisement>();
 
             if (city == null || estateType == null)
-                await foreach (var a in (_repository.FindAllAsync(a => 1 == 1)))
-                    advertisements.Add(a);    
-            else 
-                await foreach (var a in (_repository.FindAllAsync(a =>
+                await foreach (var a in (_repository.FindAsync(a => 1 == 1)))
+                    advertisements.Add(a);
+            else
+                await foreach (var a in (_repository.FindAsync(a =>
                 a.Estate.Location.City.ToLower() == city.ToLower()
                  && a.Category.ApartmentType.ToFriendlyString().ToLower() == estateType.ToLower())))
                     advertisements.Add(a);
@@ -62,9 +62,11 @@ namespace Infrastructure.Services
             return await _imageService.GetBase64OfFileAsync(Path.Combine("..", "Infrastructure", "Content", "Images", id.ToString() + ".jpg"));
         }
 
-        public async Task<int> Add(Advertisement advertisement)
+        public async Task<int> Add(Advertisement advertisement, string thumbnailBase64)
         {
-            return await _repository.Add(advertisement);
+            int id = await _repository.Add(advertisement);
+            await _imageService.SaveBase64Img(id + ".jpg", thumbnailBase64);
+            return id;
         }
     }
 }

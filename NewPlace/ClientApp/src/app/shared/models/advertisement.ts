@@ -1,11 +1,11 @@
 export class Advertisement {
-  id: number = 0;
-  title: string = "";
-  category: object | undefined;
-  createDate: string = "";
-  validityTime: string = "";
+  id = 0;
+  title = "";
+  estateType: string;
+  pricingType: string;
+  createDate = "";
   userName: string = "";
-  estateArea: string = "";
+  estateArea: number = 0;
   estateAddress: string = "";
   estateCity: string = "";
   price: number = 0;
@@ -15,7 +15,8 @@ export class Advertisement {
     this._totalCost = +this.price + +this.provision; // todo add utilites cost
     return this._totalCost;
   }
+  utilities: object[];
   utilitesCost: object[] | undefined;
-  thumbnail: string = "";
+  thumbnail: object | string;
   links: object[] | undefined;
 }

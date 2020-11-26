@@ -14,6 +14,6 @@ namespace ApplicationCore.Services
         Task<IEnumerable<AdvertisementDto>> GetAllPagedAsync(int page);
         Task<IEnumerable<AdvertisementDto>> GetByCityAndEstateTypeAsync(string city, string estateType);
         Task<string> GetThumbnailBase64(int id);
-        Task<int> Add(Advertisement advertisement);
+        Task<int> Add(Advertisement advertisement, string thumbnailBase64);
     }
 }

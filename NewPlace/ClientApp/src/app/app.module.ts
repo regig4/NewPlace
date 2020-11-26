@@ -80,7 +80,7 @@ import { RecommendationsComponent } from './recommendations/recommendations.comp
     BrowserAnimationsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpLogInterceptor, multi: true },
     AdvertisementsService,
     RecomendationService

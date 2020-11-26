@@ -49,12 +49,15 @@ export class AdvertisementsService {
         'Content-Type': 'application/json'
       })
     }
-    const body = { resource: advertisement };
+    const body = {
+      resource: advertisement,
+      thumbnail: advertisement.thumbnail
+    };
     const bodyJSON = JSON.stringify(body);
     this.http.post<Advertisement>(this.baseUrl + "api/Advertisement", bodyJSON, options).subscribe(
       (data: Advertisement) => console.log(data), // success path
       error => console.log(error) // error path
-    );;
+    );
   }
 
     private unpackResponse(response: AdvertisementRepresentation[]): Advertisement[] {

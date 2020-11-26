@@ -26,20 +26,18 @@ namespace ApplicationCore.DTOs
             Utilities = advertisement.Estate.Utilities.Select(u => u.Name).ToList();
             Price = advertisement.Price;
             Provision = advertisement.Provision;
-            TotalCost = advertisement.TotalCost;
         }
 
-        public int? Id { get; }
-        public string Title { get; }
-        public string EstateType { get; }
-        public string PricingType { get; }
-        public string UserName { get; }
-        public double EstateArea { get; }
-        public string EstateAddress { get; }
-        public string EstateCity { get; }
-        public List<string> Utilities { get; }
-        public decimal Price { get; }
-        public decimal? Provision { get; }
-        public string TotalCost { get; }
+        public int? Id { get; set; }
+        public string Title { get; set; }
+        public string EstateType { get; set; }
+        public string PricingType { get; set; }
+        public string UserName { get; set; }
+        public double EstateArea { get; set; }
+        public string EstateAddress { get; set; }
+        public string EstateCity { get; set; }
+        public List<string> Utilities { get; set; }
+        public decimal Price { get; set; }
+        public decimal? Provision { get; set; }
     }
 }

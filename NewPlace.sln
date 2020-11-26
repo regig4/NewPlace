@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlace", "NewPlace\NewPla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService", "PaymentService\PaymentService.csproj", "{1DE643D6-8617-4CAA-BCCC-4C29C25EAFC3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlaceBlazor", "NewPlaceBlazor\NewPlaceBlazor.csproj", "{0104250C-2939-4031-A9D4-60390F23191F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{166378C8-AA90-4EAC-8078-6FCF4AFC0BC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{1DE643D6-8617-4CAA-BCCC-4C29C25EAFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DE643D6-8617-4CAA-BCCC-4C29C25EAFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DE643D6-8617-4CAA-BCCC-4C29C25EAFC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0104250C-2939-4031-A9D4-60390F23191F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0104250C-2939-4031-A9D4-60390F23191F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0104250C-2939-4031-A9D4-60390F23191F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0104250C-2939-4031-A9D4-60390F23191F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{166378C8-AA90-4EAC-8078-6FCF4AFC0BC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{166378C8-AA90-4EAC-8078-6FCF4AFC0BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{166378C8-AA90-4EAC-8078-6FCF4AFC0BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{166378C8-AA90-4EAC-8078-6FCF4AFC0BC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

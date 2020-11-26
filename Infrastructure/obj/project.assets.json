@@ -704,7 +704,7 @@
       },
       "ApplicationCore/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v3.0",
+        "framework": ".NETStandard,Version=v2.1",
         "compile": {
           "bin/placeholder/ApplicationCore.dll": {}
         },
@@ -2391,6 +2391,7 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "targetAlias": "netcoreapp3.0",
           "projectReferences": {
             "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj": {
               "projectPath": "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj"
@@ -2406,6 +2407,7 @@
     },
     "frameworks": {
       "netcoreapp3.0": {
+        "targetAlias": "netcoreapp3.0",
         "dependencies": {
           "AutoMapper": {
             "target": "Package",
@@ -2481,7 +2483,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

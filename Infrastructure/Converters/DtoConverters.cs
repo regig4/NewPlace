@@ -11,7 +11,28 @@ namespace Infrastructure.Converters
         public static Advertisement ToDomain(this AdvertisementDto dto)
         {
             // todo
-            return new Advertisement(dto.Id, dto.Title, null, null, DateTime.Now, DateTime.Now + TimeSpan.FromHours(24), null, null, 10, 10);
+            return new Advertisement(dto.Id, dto.Title, null, new Category(null, EstateTypeFromString(dto.EstateType), PricingTypeFromString(dto.PricingType)), 
+                DateTime.Now, DateTime.Now + TimeSpan.FromHours(24), new User(null, "asdf", "asdf", "asdf", null), 
+                new Estate(null, dto.EstateArea, new Location(null, dto.EstateAddress, "postal", dto.EstateCity, 3, 23,32, null), null), 10, 10);
         }
+
+        private static PricingType PricingTypeFromString(string p) =>
+            p switch
+            {
+                "For Sale"      => PricingType.Sale,
+                "Rent"          => PricingType.Rent,
+                "For Exchange"  => PricingType.Exchange,
+                _               => PricingType.Unknown
+            };
+
+        private static EstateType EstateTypeFromString(string e) =>
+            e switch
+            {
+                "House"         => EstateType.House,
+                "Flat"          => EstateType.Flat,
+                "Room"          => EstateType.Room,
+                _               => throw new Exception("Unknown estateType")
+            };
+
     }
 }

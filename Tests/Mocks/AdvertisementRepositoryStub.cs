@@ -59,7 +59,7 @@ namespace UnitTests.Mocks
             );
         }
 
-        IAsyncEnumerable<Advertisement> IAdvertisementRepository.FindAllAsync(Expression<Func<Advertisement, bool>> condition, int quantity)
+        IAsyncEnumerable<Advertisement> IAdvertisementRepository.FindAsync(Expression<Func<Advertisement, bool>> condition, int quantity)
         {
             throw new NotImplementedException();
             // return Task.FromResult(new List<Advertisement> { new Advertisement()}.Select(a => a));
