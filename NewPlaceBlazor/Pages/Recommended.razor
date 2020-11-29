@@ -1,0 +1,17 @@
+﻿@page "/recommended"
+@inject IJSRuntime JSRuntime
+
+<h3>Recommended</h3>
+
+<div id="map" style="height:500px;width:100%;">
+</div>
+
+@code {
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeMap", null);
+        }
+    }
+}

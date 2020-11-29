@@ -9,6 +9,7 @@ namespace ApplicationCore.DTOs
 {
     public class AdvertisementDetailsDto
     {
+        public AdvertisementDetailsDto() { }
         public AdvertisementDetailsDto(Advertisement advertisement)
         {
             Id = advertisement.Id;
@@ -26,21 +27,21 @@ namespace ApplicationCore.DTOs
             // TODO: rewrite rest
         }
 
-        public int? Id { get; }
-        public string Title { get; }
-        public string Description { get; }
-        public string ApartmentType { get; }
-        public string PricingType { get; }
-        public DateTime CreateDate { get; }
-        public DateTime ValidTo { get; }
-        public string UserName { get; }
-        public double EstateArea { get; }
-        public string EstateAddress { get; }
-        public string EstateCity { get; }
-        public List<(string utility, decimal? cost)> Utilities { get; } 
-        public decimal Price { get; }
-        public decimal? Provision { get; }
-        public string TotalCost { get; }
-        private (decimal Cost, string Additionaly) UtilitesCost { get; }
+        public int? Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ApartmentType { get; set; }
+        public string PricingType { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime ValidTo { get; set; }
+        public string UserName { get; set; }
+        public double EstateArea { get; set; }
+        public string EstateAddress { get; set; }
+        public string EstateCity { get; set; }
+        public List<(string utility, decimal? cost)> Utilities { get; set; }
+        public decimal Price { get; set; }
+        public decimal? Provision { get; set; }
+        public string TotalCost { get; set; }
+        private (decimal Cost, string Additionaly) UtilitesCost { get; set; }
     }
 }

@@ -1,84 +1,95 @@
 ﻿@page "/catalog"
 @inject HttpClient Http
 
-<fieldset>
-    <legend>
-        Search
-        <small class="text-muted float-right">Find your perfect place</small>
-    </legend>
-    <div class="container">
-        <div class='row'>
-            <div class="col-sm">
-                Locality: <input @bind="city" class="form-control" name="city" type="text" required minlength="3" placeholder="e.g. city name, country..." />
-            </div>
+    <div class="searchArea">
+        <fieldset>
+            <legend>
+                Search
+                <small class="text-muted float-right">Find your perfect place</small>
+            </legend>
+            <div class="container">
+                <div class='row'>
+                    <div class="col-sm">
+                        Locality: <input @bind="city" class="form-control" name="city" type="text" required minlength="3" placeholder="e.g. city name, country..." />
+                    </div>
 
-            <div class="col-sm">
-                Type of estate:
-                <select @bind="type" class="form-control" name="estateType" required>
-                    @foreach (var estateType in estateTypes)
-                    {
-                        <option value="@estateType" >@estateType</option>
-                    }
-                </select>
-            </div>
+                    <div class="col-sm">
+                        Type of estate:
+                        <select @bind="type" class="form-control" name="estateType" required>
+                            @foreach (var estateType in estateTypes)
+                            {
+                                <option value="@estateType">@estateType</option>
+                            }
+                        </select>
+                    </div>
 
-            <div class="col-sm">
-                Type of payment:
-                <select class="form-control" name="paymentType">
-                    <option value="rent">Rent</option>
-                    <option value="forSale">For Sale</option>
-                    <option value="exchange">Exchange</option>
-                </select>
+                    <div class="col-sm">
+                        Type of payment:
+                        <select class="form-control" name="paymentType">
+                            <option value="rent">Rent</option>
+                            <option value="forSale">For Sale</option>
+                            <option value="exchange">Exchange</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <button class="btn btn-primary float-right" @onclick="Search">Search</button>
+        </fieldset>
+    </div>
+
+    @if (advertisements != null)
+    {
+        <div id="searchResults">
+            @foreach (var result in advertisements)
+            {
+                <div class="jumbotron row searchResult">
+                    <div class="col-3">
+                        <img class="img-thumbnail" src="data:@result.Thumbnail.MediaType;base64,@result.Thumbnail.Resource" />
+                    </div>
+                    <div class="col">
+                        <strong><a href="Details/@result.Resource.Id">@result.Resource.Title</a></strong><br />
+                        <ul class="list-inline">
+                            <li class="list-inline-item">Valid to: @DateTime.Now.AddDays(2)</li>
+                            <li class="list-inline-item">User: @result.Resource.UserName</li>
+                            <li class="list-inline-item">Address: @result.Resource.EstateAddress</li>
+                            <li class="list-inline-item">Price: <img src="/assets/img/icons/dollar.svg" style="height: 15px;" /> @result.Resource.Price</li>
+                            <li class="list-inline-item">Provision: @result.Resource.Provision</li>
+                            <li class="list-inline-item">Area: @result.Resource.EstateArea</li>
+                            @foreach (var utility in result.Resource.Utilities)
+                            {
+                                <li class="list-inline-item">@utility</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
         </div>
-    </div>
-    <br />
-    <button class="btn btn-primary float-right" @onclick="Search">Search</button>
-</fieldset>
+    }
 
-@if (advertisements != null)
-{
-    <div id="searchResults">
-        @foreach (var result in advertisements)
+
+    @code {
+        private List<AdvertisementRepresentation> advertisements;
+        private List<string> estateTypes = new List<string> { "room", "flat", "house" };
+        private string type = "room";
+        private string city = "";
+
+        protected override async Task OnInitializedAsync()
         {
-            <div class="jumbotron row searchResult">
-                <div class="col-3">
-                    <img class="img-thumbnail" src="data:@result.Thumbnail.MediaType;base64,@result.Thumbnail.Resource" />
-                </div>
-                <div class="col">
-                    <strong><a href="Details/@result.Resource.Id">@result.Resource.Title</a></strong><br />
-                    <ul class="list-inline">
-                        <li class="list-inline-item">Valid to: @DateTime.Now.AddDays(2)</li>
-                        <li class="list-inline-item">User: @result.Resource.UserName</li>
-                        <li class="list-inline-item">Address: @result.Resource.EstateAddress</li>
-                        <li class="list-inline-item">Price: <img src="/assets/img/icons/dollar.svg" style="height: 15px;" /> @result.Resource.Price</li>
-                        <li class="list-inline-item">Provision: @result.Resource.Provision</li>
-                        <li class="list-inline-item">Area: @result.Resource.EstateArea</li>
-                        @foreach (var utility in result.Resource.Utilities)
-                        {
-                            <li class="list-inline-item">@utility</li>
-                        }
-                    </ul>
-                </div>
-            </div>
+            advertisements = await Http.GetFromJsonAsync<List<AdvertisementRepresentation>>("https://localhost:44347/api/advertisement/search?city=&estateType=&radius=");
         }
-    </div>
-}
 
-@code {
-    private List<AdvertisementRepresentation> advertisements;
-    private List<string> estateTypes = new List<string> { "room", "flat", "house" };
-    private string type = "room";
-    private string city = "";
-
-    protected override async Task OnInitializedAsync()
-    {
-        advertisements = await Http.GetFromJsonAsync<List<AdvertisementRepresentation>>("https://localhost:44347/api/advertisement/search?city=&estateType=&radius=");
+        private async void Search()
+        {
+            advertisements = await Http.GetFromJsonAsync<List<AdvertisementRepresentation>>("https://localhost:44347/api/advertisement/search?city=" + city +
+                                                                                            "&estateType=" + type + "&radius=0");
+        }
     }
-
-    private async void Search()
-    {
-        advertisements = await Http.GetFromJsonAsync<List<AdvertisementRepresentation>>("https://localhost:44347/api/advertisement/search?city=" + city +
-                                                                                        "&estateType=" + type + "&radius=0");
-    }
-}
