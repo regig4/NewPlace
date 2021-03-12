@@ -7,15 +7,18 @@ package pay;
 
 service Payment {
 	rpc Pay (PaymentRequest) returns (PaymentReply);
+	rpc Donate (PaymentRequest) returns (PaymentReply);
 }
 
-message PaymentRequest {
-	uint64 value = 1;
-	string currency = 2;
-}
+	message PaymentRequest {
+		uint64 value = 1;
+		string currency = 2;
+		uint64 userId = 3;
+	}
 
-message PaymentReply {
-	string msg = 1;
-	uint64 value = 2;
-	string currency = 3;
-}
+	message PaymentReply {
+		string id = 1;
+		string msg = 2;
+		uint64 value = 3;
+		string currency = 4;
+	}

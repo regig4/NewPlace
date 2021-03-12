@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlaceBlazor", "NewPlaceB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{166378C8-AA90-4EAC-8078-6FCF4AFC0BC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{CA94467C-2D18-4500-97CC-F122B5D396D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{166378C8-AA90-4EAC-8078-6FCF4AFC0BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{166378C8-AA90-4EAC-8078-6FCF4AFC0BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{166378C8-AA90-4EAC-8078-6FCF4AFC0BC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA94467C-2D18-4500-97CC-F122B5D396D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA94467C-2D18-4500-97CC-F122B5D396D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA94467C-2D18-4500-97CC-F122B5D396D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA94467C-2D18-4500-97CC-F122B5D396D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

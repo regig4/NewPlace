@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NewPlace.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class PaymentController : Controller
     {
         IMediator _mediator;
@@ -19,7 +21,8 @@ namespace NewPlace.Controllers
             _mediator = mediator;
         }
 
-        public async Task<IActionResult> Donate(int userId, ulong amount, string currency)
+        [HttpGet]
+        public async Task<IActionResult> Donate(ulong userId, ulong amount, string currency)
         {
             var donationConfirmation = await _mediator.Send(new DonateCommand(userId, amount, currency));
             return Ok(donationConfirmation);

@@ -35,6 +35,7 @@ import { MatSliderModule } from '@angular/material/slider';
 
 import { AgmCoreModule } from '@agm/core';
 import { RecommendationsComponent } from './recommendations/recommendations.component';
+import { PaymentService } from './shared/services/payment.service';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { RecommendationsComponent } from './recommendations/recommendations.comp
     //{ provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpLogInterceptor, multi: true },
     AdvertisementsService,
-    RecomendationService
+    RecomendationService,
+    PaymentService
   ],
   bootstrap: [AppComponent]
 })

@@ -10,6 +10,16 @@
         "runtime": {
           "lib/netstandard2.0/FluentValidation.dll": {}
         }
+      },
+      "Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
+        }
       }
     }
   },
@@ -31,10 +41,16 @@
         "lib/netstandard2.0/FluentValidation.dll",
         "lib/netstandard2.0/FluentValidation.xml"
       ]
+    },
+    "Common/1.0.0": {
+      "type": "project",
+      "path": "../Common/Common.csproj",
+      "msbuildProject": "../Common/Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
+      "Common >= 1.0.0",
       "FluentValidation >= 9.3.0"
     ]
   },
@@ -68,7 +84,11 @@
       "frameworks": {
         "netstandard2.1": {
           "targetAlias": "netstandard2.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\Common\\Common.csproj": {
+              "projectPath": "C:\\Users\\Bartek\\Documents\\Visual Studio 2017\\Projects\\NewPlace\\Common\\Common.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

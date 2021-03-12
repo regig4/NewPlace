@@ -6,7 +6,7 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
@@ -49,9 +49,11 @@
     <None Remove="ClientApp\src\app\details\details.component.ts" />
     <None Remove="ClientApp\src\app\http.interceptor.ts" />
     <None Remove="ClientApp\src\app\shared\models\advertisement.ts" />
+    <None Remove="ClientApp\src\app\shared\models\payment-confirmation.ts" />
     <None Remove="ClientApp\src\app\shared\models\representations\advertisementRepresentation.ts" />
     <None Remove="ClientApp\src\app\shared\models\representations\representation.ts" />
     <None Remove="ClientApp\src\app\shared\services\advertisements.service.ts" />
+    <None Remove="ClientApp\src\app\shared\services\payment.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,9 +66,11 @@
     <TypeScriptCompile Include="ClientApp\src\app\details\details.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\http.interceptor.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\advertisement.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\models\payment-confirmation.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\representations\advertisementRepresentation.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\models\representations\representation.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\shared\services\advertisements.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\shared\services\payment.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

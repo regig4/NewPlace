@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 <PropertyGroup>
-	<LangVersion>8.0</LangVersion>
+	<LangVersion>9.0</LangVersion>
   <Nullable>enable</Nullable>
 </PropertyGroup>
   <ItemGroup>
@@ -8,7 +8,7 @@
     <Protobuf Include="Protos\pay.proto" GrpcServices="Client" />
   </ItemGroup>
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.11.4" />
@@ -25,11 +25,13 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0-preview8.19405.11" />
     <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
     <PackageReference Include="System.Reactive" Version="4.2.0-preview.625" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0-preview8.19405.11" />    
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj" />
+    <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
   <Target Name="AddAssemblyAliasToReactiveAsync" AfterTargets="ResolveAssemblyReferences" Condition=" '$(TargetFramework)' != '' AND ( '$(TargetFramework)' == 'netcoreapp3.0' OR '$(TargetFramework)' == 'netstandard2.1' ) ">
     <ItemGroup>

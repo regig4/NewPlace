@@ -4,9 +4,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ApplicationCore.Services;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Factories;
+using Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -90,7 +92,9 @@ namespace API
 
             services.AddTransient(provider => AdvertisementServiceFactory.Instance.CreateAdvertisementService());
             services.AddTransient(provider => AdvertisementServiceFactory.Instance.CreateAuthService());
+            services.AddTransient(provider => GrpcChannelFactory.Instance.Create());
             services.AddTransient(provider => RecommendationServiceFactory.Instance.Create());
+            services.AddTransient<IMessageQueue>(provider => new MessageQueue());
 
             services.AddSignalR();
 
@@ -130,13 +134,9 @@ namespace API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<RecommendationHub>("/recommendationHub");
-            });
-
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<RecommendationHub>("/recommendationHub");
                 endpoints.MapControllers();
             });
         }
