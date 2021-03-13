@@ -25,5 +25,5 @@ Web application for real estate advertisements. Clients developed with Angular a
 - MediatR
 - SignalR
 - xUnit
-- xBeheve
+- xBehave
 - Automapper
