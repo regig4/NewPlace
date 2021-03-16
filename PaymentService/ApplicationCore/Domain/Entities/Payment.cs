@@ -1,24 +1,22 @@
-﻿using PaymentService.Domain.Enums;
+﻿using PaymentService.ApplicationCore.Domain.ValueObjects;
+using PaymentService.Domain.Enums;
 using PaymentService.Domain.Events;
 using PaymentService.Domain.Exceptions;
-using PaymentService.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PaymentService.Domain.Entities
+namespace PaymentService.ApplicationCore.Domain.Entities
 {
     public class Payment : Entity
     {
-        public Guid Id { get; set; }
         public User Payer { get; private set; }
         public User Payee { get; private set; }
         public TransactionType TransactionType { get; private set; }
         public PaymentStatus PaymentStatus { get; private set; }
-        public Points Points { get; private set; }
-        public decimal Amount { get; private set; }
-        public string Currency { get; private set; }
+        public PointsValue PointsValue { get; private set; }
+        public MoneyValue MoneyValue { get; private set; }
 
         public static Payment CreateBonusForCreatingAccount(User user)
         {
@@ -27,7 +25,7 @@ namespace PaymentService.Domain.Entities
             var paymentForCreatingAccountStarted = new PaymentForCreatingAccountStarted(
                 payment.Id,
                 payment.Payee,
-                payment.Points
+                payment.PointsValue
                 );
 
             payment.AddDomainEvent(paymentForCreatingAccountStarted);
@@ -35,7 +33,7 @@ namespace PaymentService.Domain.Entities
             return payment;
         }
 
-        public void FinalizeBonusForCreatingAccount()
+        public void CompleteBonusForCreatingAccount()
         {
             if (PaymentStatus != PaymentStatus.Started)
                 throw new PaymentNotStartedException();
@@ -47,24 +45,38 @@ namespace PaymentService.Domain.Entities
             var paymentForCreatingAccountStarted = new PaymentForCreatingAccountCompleted(
                 Id,
                 Payee,
-                Points
+                PointsValue
                 );
 
             AddDomainEvent(paymentForCreatingAccountStarted);
         }
 
-        public static Payment CreateDonation(ulong userId, ulong value, string currency)
+        public static Payment CreateDonation(Guid userId, ulong value, string currency)
         {
+            if (userId == Guid.Empty)
+                throw new ArgumentException(nameof(userId));
+            if (value <= 0)
+                throw new ArgumentException(nameof(value));
+            if (string.IsNullOrWhiteSpace(currency))
+                throw new ArgumentException(nameof(currency));
+
             var payment = new Payment
             {
                 PaymentStatus = PaymentStatus.Started,
                 TransactionType = TransactionType.Donation,
                 Payer = new User { Id = userId },
-                Amount = value,
-                Currency = currency
+                MoneyValue = new MoneyValue(value, currency)
             };
 
             return payment;
+        }
+
+        public void CompleteDonation()
+        {
+            if (PaymentStatus != PaymentStatus.Started)
+                throw new PaymentNotStartedException();
+
+            PaymentStatus = PaymentStatus.Completed;
         }
     }
 }

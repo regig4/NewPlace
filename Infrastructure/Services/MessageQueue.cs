@@ -1,6 +1,6 @@
 ﻿using ApplicationCore.Services;
 using Common.IntegrationEvents;
-using Common.IntegrationEvents.Payment;
+using Common.IntegrationEvents.Payment;  
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -20,7 +20,6 @@ namespace Infrastructure.Services
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
-
 
             channel.QueueDeclare(queue: "queue",
                                  durable: false,

@@ -5,6 +5,11 @@ namespace ApplicationCore.Models
 {
     public class Estate
     {
+        private Estate()
+        {
+            // for Automapper
+        }
+
         private Estate(int? id, double area)
         {
             Id = id;

@@ -4,7 +4,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)system.reactive\4.2.0-preview.625\buildTransitive\netcoreapp3.0\System.Reactive.targets" Condition="Exists('$(NuGetPackageRoot)system.reactive\4.2.0-preview.625\buildTransitive\netcoreapp3.0\System.Reactive.targets')" />
-    <Import Project="$(NuGetPackageRoot)grpc.tools\2.28.1\build\Grpc.Tools.targets" Condition="Exists('$(NuGetPackageRoot)grpc.tools\2.28.1\build\Grpc.Tools.targets')" />
+    <Import Project="$(NuGetPackageRoot)grpc.tools\2.36.1\build\Grpc.Tools.targets" Condition="Exists('$(NuGetPackageRoot)grpc.tools\2.36.1\build\Grpc.Tools.targets')" />
   </ImportGroup>
 </Project>

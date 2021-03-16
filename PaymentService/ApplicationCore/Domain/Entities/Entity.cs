@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PaymentService.Domain.Entities
+namespace PaymentService.ApplicationCore.Domain.Entities
 {
     public abstract class Entity
     {
+        public Guid Id { get; set; }
+
         private List<IDomainEvent> _domainEvents;
 
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents?.AsReadOnly();
@@ -22,6 +24,18 @@ namespace PaymentService.Domain.Entities
             _domainEvents ??= new List<IDomainEvent>();
 
             this._domainEvents.Add(domainEvent);
+        }
+
+        protected void Apply(IDomainEvent domainEvent)
+        {
+            dynamic entity = this;
+            Type eventType = domainEvent.GetType();
+
+            foreach(var eventProperty in eventType.GetProperties())
+            {
+                var 
+                eventProperty.SetValue(entity, eventProperty.GetValue(domainEvent));
+            }
         }
     }
 }

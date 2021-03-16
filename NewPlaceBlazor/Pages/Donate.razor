@@ -1,0 +1,50 @@
+﻿@page "/donate"
+@using Common.Dto
+@inject HttpClient Http
+<h3>Donate</h3>
+
+<p>
+    Please enter how much you want to donate (in USD) in field below.
+</p>
+
+<input class="form-control" @bind="Amount" type="number" />
+<br />
+<button class="btn btn-success" @onclick="MakeDonation">Donate</button>
+
+<p>
+    @ConfirmationText
+</p>
+
+@if (Loading)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+}
+
+
+@code {
+    public ulong Amount { get; set; }
+    public bool Loading { get; set; }
+    public string ConfirmationText { get; set; }
+
+    public async void MakeDonation()
+    {
+        ConfirmationText = string.Empty;
+        Loading = true;
+        var result = await Http.PostAsJsonAsync<dynamic>(
+            "https://localhost:44347/api/payment/donate", 
+            new 
+            { 
+                userId = "068ff0b4-aee2-49b5-96e1-c30e2bf9141c",
+                amount = Amount,
+                currency = "USD"
+            });
+        var confirmation = await result.Content.ReadFromJsonAsync<DonationConfirmation>();
+        Console.WriteLine(confirmation.PaymentId);
+        Loading = false;
+        ConfirmationText = $"Thank you for donation. You donated {confirmation.Amount}USD. Id of your payment is {confirmation.PaymentId}";
+    }
+}

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PaymentService.ApplicationCore.Application.Services;
 using PaymentService.Infrastructure.MessageQueue;
 
 namespace PaymentService
@@ -18,6 +19,7 @@ namespace PaymentService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IMessageQueue>(provider => new MessageQueue());
+            services.AddTransient<IPaymentApplicationService>(provider => new PaymentApplicationService(new MessageQueue()));
             services.AddGrpc();
         }
 

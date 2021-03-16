@@ -1,14 +1,12 @@
-﻿        using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
-namespace Infrastructure.Models.Commands
+namespace Common.Dto
 {
     public record DonationConfirmation
     {
         public DonationConfirmation() { }
 
-        public DonationConfirmation(Guid paymentId, ulong userId, decimal amount, string currency, DonationStatus status)
+        public DonationConfirmation(Guid paymentId, Guid userId, decimal amount, string currency, DonationStatus status)
         {
             PaymentId = paymentId;
             UserId = userId;
@@ -18,7 +16,7 @@ namespace Infrastructure.Models.Commands
         }
 
         public Guid PaymentId { get; init; }
-        public ulong UserId { get; init; }
+        public Guid UserId { get; init; }
         public decimal Amount { get; init; }
         public string Currency { get; init; }
 

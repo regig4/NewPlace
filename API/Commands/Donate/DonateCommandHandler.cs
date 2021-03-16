@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Services;
+using Common.Dto;
 using Common.IntegrationEvents.Payment;
 using Grpc.Net.Client;
 using MediatR;
@@ -34,7 +35,7 @@ namespace Infrastructure.Models.Commands
                 {
                     Value = request.Amount,
                     Currency = request.Currency,
-                    UserId = request.UserId
+                    UserId = request.UserId.ToString()
                 });
 
             var donationSuccessfulEvent = await _messageQueue.WaitForEvent(new DonationSuccessfulEvent(new Guid())) as DonationSuccessfulEvent;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Queries.PaymentStatus;
+using Common.Dto;
 using Grpc.Net.Client;
 using Infrastructure.Models.Commands;
 using MediatR;
@@ -21,10 +23,17 @@ namespace NewPlace.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Donate(ulong userId, ulong amount, string currency)
+        [HttpPost("donate")]
+        public async Task<IActionResult> Donate(DonateRequest request)
         {
-            var donationConfirmation = await _mediator.Send(new DonateCommand(userId, amount, currency));
+            var donationConfirmation = await _mediator.Send(new DonateCommand(Guid.Parse(request.UserId), request.Amount, request.Currency));
+            return Ok(donationConfirmation);
+        }
+
+        [HttpGet("status")]
+        public async Task<IActionResult> CheckStatus(string paymentId)
+        {
+            var donationConfirmation = await _mediator.Send(new PaymentStatusQuery(Guid.Parse(paymentId)));
             return Ok(donationConfirmation);
         }
     }

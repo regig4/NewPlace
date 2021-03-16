@@ -1,23 +1,19 @@
-﻿using PaymentService.Domain.Entities;
-using PaymentService.Domain.ValueObjects;
+﻿using PaymentService.ApplicationCore.Domain.Entities;
+using PaymentService.ApplicationCore.Domain.ValueObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PaymentService.Domain.Events
 {
     public class PaymentForCreatingAccountStarted : DomainEventBase
     {
-        public PaymentForCreatingAccountStarted(Guid id, User payee, Points points)
+        public PaymentForCreatingAccountStarted(Guid id, User payee, PointsValue points)
         {
             Id = id;
             Payee = payee;
             Points = points;
         }
 
-        public Guid Id { get; }
         public User Payee { get; }
-        public Points Points { get; }
+        public PointsValue Points { get; }
     }
 }

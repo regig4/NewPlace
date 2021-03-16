@@ -1,12 +1,18 @@
-﻿using System;
+﻿using PaymentService.ApplicationCore.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PaymentService.Domain.Entities
+namespace PaymentService.ApplicationCore.Domain.Entities
 {
-    public class User
+    public class User : Entity
     {
-        public ulong Id { get; set; }
+        public PointsValue PointsValue { get; }
+
+        public bool HasEnoughPointsForPromotion(PointsValue recommendationPrice)
+        {
+            return PointsValue >= recommendationPrice;
+        }
     }
 }

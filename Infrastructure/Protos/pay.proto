@@ -13,7 +13,7 @@ service Payment {
 	message PaymentRequest {
 		uint64 value = 1;
 		string currency = 2;
-		uint64 userId = 3;
+		string userId = 3;
 	}
 
 	message PaymentReply {

@@ -9,7 +9,7 @@ namespace PaymentService.Domain.Enums
     {
         Donation,
         CreatedAccountBonus,
-        PointsTransfer,
-        RecommendationPayment
+        BuyingPoints,
+        PromotionPayment
     }
 }

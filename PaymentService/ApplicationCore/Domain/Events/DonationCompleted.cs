@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PaymentService.Domain.ValueObjects
+namespace PaymentService.ApplicationCore.Domain.Events
 {
-    public class Points
+    public class DonationCompleted
     {
-        public decimal Amount { get; set; }
     }
 }

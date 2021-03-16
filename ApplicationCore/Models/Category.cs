@@ -7,6 +7,10 @@ namespace ApplicationCore.Models
 {
     public class Category : IEquatable<Category>
     {
+        private Category()
+        { 
+        }
+
         public Category(int? id, EstateType apartmentType, PricingType pricingType)
         {
             Id = id;
