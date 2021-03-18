@@ -7,5 +7,6 @@ namespace PaymentService.Domain.Events
         Guid Id { get; }
 
         DateTime OccurredOn { get; }
+        bool Commited { get; set; }
     }
 }

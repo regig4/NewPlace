@@ -39,6 +39,7 @@ namespace Infrastructure.Services
                                  consumer: consumer);
 
             await Task.Delay(timeSpan.Value);
+
             return @event;
         }
 

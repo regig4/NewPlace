@@ -11,8 +11,8 @@ namespace PaymentService.Infrastructure.MessageQueue
         public async void Publish(DonationSuccessfulEvent @event)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
-            var connection = factory.CreateConnection();
-            var channel = connection.CreateModel();
+            using var connection = factory.CreateConnection();
+            using var channel = connection.CreateModel();
             channel.QueueDeclare(queue: "queue",
                                  durable: false,
                                  exclusive: false,

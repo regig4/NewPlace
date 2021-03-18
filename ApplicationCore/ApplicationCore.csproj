@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Models\ResourceRepresentations\LinkDescriptions.Designer.cs">
+    <Compile Update="Domain\Models\ResourceRepresentations\LinkDescriptions.Designer.cs">
       <DependentUpon>LinkDescriptions.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -25,10 +25,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Models\ResourceRepresentations\LinkDescriptions.resx">
+    <EmbeddedResource Update="Domain\Models\ResourceRepresentations\LinkDescriptions.resx">
       <LastGenOutput>LinkDescriptions.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain\Events\" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PaymentService.ApplicationCore.Application.Repositories;
 using PaymentService.ApplicationCore.Application.Services;
+using PaymentService.Infrastructure.EventStream;
 using PaymentService.Infrastructure.MessageQueue;
 
 namespace PaymentService
@@ -19,7 +21,11 @@ namespace PaymentService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IMessageQueue>(provider => new MessageQueue());
-            services.AddTransient<IPaymentApplicationService>(provider => new PaymentApplicationService(new MessageQueue()));
+            services.AddTransient<IEventQueue>(provider => new EventQueue());
+            services.AddTransient<IEventStore>(provider => new EventStore());
+            services.AddTransient<IEventRepository>(provider => new EventRepository(new EventStore(), new EventQueue()));
+            services.AddTransient<IPaymentApplicationService>(provider => 
+                new PaymentApplicationService(new MessageQueue(), new EventRepository(new EventStore(), new EventQueue())));
             services.AddGrpc();
         }
 

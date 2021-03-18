@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Common.IntegrationEvents
 {
-    public class IntegrationEvent
+    public record IntegrationEvent
     {
     }
 }

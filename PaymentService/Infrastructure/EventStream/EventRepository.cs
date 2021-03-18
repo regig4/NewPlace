@@ -1,0 +1,35 @@
+﻿using PaymentService.ApplicationCore.Application.Repositories;
+using PaymentService.ApplicationCore.Application.Services;
+using PaymentService.ApplicationCore.Domain.Entities;
+using PaymentService.Domain.Events;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PaymentService.Infrastructure.EventStream
+{
+    public class EventRepository : IEventRepository
+    {
+        private readonly IEventStore _store;
+        private readonly IEventQueue _queue;
+
+        public EventRepository(IEventStore store, IEventQueue queue)
+        {
+            _store = store;
+            _queue = queue;
+        }
+
+        public async Task<List<IDomainEvent>> GetEvents(Guid entityId)
+        {
+            return await _store.GetEvents(entityId);
+        }
+
+        public async Task SaveEvents(Entity entity)
+        {
+            var uncommitedEvents = entity.DomainEvents.Where(e => !e.Commited).ToList();
+            await _store.SaveEvents(entity.Id, uncommitedEvents);
+            _queue.Publish(entity, uncommitedEvents);
+        }
+    }
+}

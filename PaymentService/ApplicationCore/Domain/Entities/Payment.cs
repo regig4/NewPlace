@@ -1,4 +1,5 @@
-﻿using PaymentService.ApplicationCore.Domain.ValueObjects;
+﻿using PaymentService.ApplicationCore.Domain.Events;
+using PaymentService.ApplicationCore.Domain.ValueObjects;
 using PaymentService.Domain.Enums;
 using PaymentService.Domain.Events;
 using PaymentService.Domain.Exceptions;
@@ -60,23 +61,23 @@ namespace PaymentService.ApplicationCore.Domain.Entities
             if (string.IsNullOrWhiteSpace(currency))
                 throw new ArgumentException(nameof(currency));
 
-            var payment = new Payment
-            {
-                PaymentStatus = PaymentStatus.Started,
-                TransactionType = TransactionType.Donation,
-                Payer = new User { Id = userId },
-                MoneyValue = new MoneyValue(value, currency)
-            };
+            var payment = new Payment();
+
+            var donationCreated = new DonationCreated(payment.Payer, payment.MoneyValue);
+            payment.Apply(donationCreated);
+            payment.AddDomainEvent(donationCreated);
 
             return payment;
         }
 
-        public void CompleteDonation()
+        public void CompleteDonation(Guid id)
         {
             if (PaymentStatus != PaymentStatus.Started)
                 throw new PaymentNotStartedException();
 
-            PaymentStatus = PaymentStatus.Completed;
+            var donationCompleted = new DonationCompleted(id);
+            Apply(donationCompleted);
+            AddDomainEvent(donationCompleted);
         }
     }
 }

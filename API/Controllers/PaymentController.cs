@@ -16,7 +16,7 @@ namespace NewPlace.Controllers
     [Route("api/[controller]")]
     public class PaymentController : Controller
     {
-        IMediator _mediator;
+        readonly IMediator _mediator;
 
         public PaymentController(IMediator mediator)
         {

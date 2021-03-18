@@ -1,5 +1,5 @@
-﻿using ApplicationCore.DTOs;
-using ApplicationCore.Models.ResourceRepresentations;
+﻿using ApplicationCore.Domain.Models.ResourceRepresentations;
+using ApplicationCore.DTOs;
 using ApplicationCore.Services;
 using NewPlace.ResourceRepresentations;
 using System;

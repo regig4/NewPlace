@@ -26,15 +26,20 @@ namespace PaymentService.ApplicationCore.Domain.Entities
             this._domainEvents.Add(domainEvent);
         }
 
-        protected void Apply(IDomainEvent domainEvent)
+        public void Apply(IDomainEvent domainEvent)
         {
-            dynamic entity = this;
             Type eventType = domainEvent.GetType();
+            Type entityType = GetType();
 
             foreach(var eventProperty in eventType.GetProperties())
             {
-                var 
-                eventProperty.SetValue(entity, eventProperty.GetValue(domainEvent));
+                if (eventProperty.Name == nameof(Id))
+                    continue;
+
+                var entityProperty = entityType.GetProperty(eventProperty.Name);
+
+                if(entityProperty != null)
+                    entityProperty.SetValue(this, eventProperty.GetValue(domainEvent));
             }
         }
     }

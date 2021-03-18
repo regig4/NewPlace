@@ -4,7 +4,7 @@ using System;
 
 namespace PaymentService.Domain.Events
 {
-    public class PaymentForCreatingAccountCompleted : DomainEventBase
+    public record PaymentForCreatingAccountCompleted : DomainEventBase
     {
         public PaymentForCreatingAccountCompleted(Guid id, User payee, PointsValue points)
         {

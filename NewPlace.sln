@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{CA94467C-2D18-4500-97CC-F122B5D396D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventConsumerService", "EventConsumerService\EventConsumerService.csproj", "{BC5AF7CD-C2B7-43D8-8596-C40527E14ADB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{CA94467C-2D18-4500-97CC-F122B5D396D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA94467C-2D18-4500-97CC-F122B5D396D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA94467C-2D18-4500-97CC-F122B5D396D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC5AF7CD-C2B7-43D8-8596-C40527E14ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC5AF7CD-C2B7-43D8-8596-C40527E14ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC5AF7CD-C2B7-43D8-8596-C40527E14ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC5AF7CD-C2B7-43D8-8596-C40527E14ADB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

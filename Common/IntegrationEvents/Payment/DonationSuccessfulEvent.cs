@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Common.IntegrationEvents.Payment
 {
-    public class DonationSuccessfulEvent : IntegrationEvent
+    public record DonationSuccessfulEvent : IntegrationEvent
     {
         public DonationSuccessfulEvent(Guid id)
         {
