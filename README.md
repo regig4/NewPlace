@@ -6,6 +6,8 @@ Web application for real estate advertisements. Clients developed with Angular a
 - Onion Architecture
 - Microservice Architecture
 - Domain Driven Design
+- CQRS
+- Event Sourcing
 - Behaviour Driven Development
 - Mediator
 - Factory

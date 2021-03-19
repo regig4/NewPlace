@@ -33,10 +33,17 @@ namespace PaymentService.Infrastructure.Repositories
 
         public async Task Update(ApplicationCore.Domain.Entities.Payment payment)
         {
-            using var context = ContextFactory.Instance.Create();
-            payment.Payer = null;
-            context.Payments.Update(payment);
-            await context.SaveChangesAsync();
+            try
+            {
+                using var context = ContextFactory.Instance.Create();
+                payment.Payer = null;
+                context.Payments.Update(payment);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
