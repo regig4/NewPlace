@@ -63,7 +63,7 @@ namespace PaymentService.ApplicationCore.Domain.Entities
 
             var payment = new Payment();
 
-            var donationCreated = new DonationCreated(payment.Payer, payment.MoneyValue);
+            var donationCreated = new DonationCreated(new User { Id = userId }, new MoneyValue(value, currency));
             payment.Apply(donationCreated);
             payment.AddDomainEvent(donationCreated);
 

@@ -23,12 +23,13 @@ namespace PaymentService.ApplicationCore.Application.Services
         public async Task<DonationResult> Donate(Guid userId, ulong amount, string currency)
         {
             var payment = Domain.Entities.Payment.CreateDonation(userId, amount, currency);
-            // todo: await _thirdPartyService.MakePayment() get id
-            payment.Id = Guid.NewGuid();
+            // todo: await _thirdPartyService.MakePayment() get id, for now id of donatationcreated is id of entity
+            //payment.Id = Guid.NewGuid();
             payment.CompleteDonation(payment.Id);
             _messageQueue.Publish(new DonationSuccessfulEvent(payment.Id));
             await _eventRepository.SaveEvents(payment);
-            //_eventQueue.Publish(payment.DomainEvents); event queue sends events to handlers asynchronously, one handler writes to event store, another writes do db
+            payment.CommitAllEvents();
+
             return new DonationResult
             (
                 payment.Id,

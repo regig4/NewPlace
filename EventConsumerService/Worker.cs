@@ -1,3 +1,4 @@
+using EventConsumerService.Utils;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PaymentService.Domain.Events;
@@ -37,19 +38,32 @@ namespace EventConsumerService
                                  arguments: null);
 
             var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
+            consumer.Received += async (model, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var json = Encoding.UTF8.GetString(body);
+                _logger.LogInformation(json);
                 var msg = JsonSerializer.Deserialize<EventMessage>(json);
-                // todo: get from db based from type and id
+
+                var repository = RepositoryByType.Instance[Type.GetType(msg.EntityFullType)];
+                _payment = await repository.Get(msg.EntityId);
+
+                bool isInsert = false;
+
                 if(_payment == null)
-                    _payment = (PaymentService.ApplicationCore.Domain.Entities.Payment) Activator.CreateInstance("PaymentService", msg.EntityType).Unwrap();
+                {
+                    isInsert = true;
+                    _payment = (PaymentService.ApplicationCore.Domain.Entities.Payment)Activator.CreateInstance(msg.EntityAssembly, msg.EntityType).Unwrap();
+                }
 
                 var eventJson = ((JsonElement)msg.Event).GetRawText();
                 var eventToApply = (DomainEventBase) JsonSerializer.Deserialize(eventJson, Type.GetType(msg.EventType));
                 _payment.Apply(eventToApply);
-                // todo: save to db 
+
+                if (isInsert)
+                    await repository.Add(_payment);
+                else
+                    await repository.Update(_payment);
             };
 
             channel.BasicConsume(queue: "eventqueue",
@@ -58,9 +72,6 @@ namespace EventConsumerService
 
             while (!stoppingToken.IsCancellationRequested)
             {
-
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
             }
         }
     }

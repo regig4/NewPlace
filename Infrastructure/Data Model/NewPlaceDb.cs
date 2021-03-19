@@ -24,9 +24,9 @@ namespace Infrastructure
                 .EnableSensitiveDataLogging()
                 //.UseInMemoryDatabase("NewPlaceDbTest");
                 .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
-#else
+            #else
                 .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
-#endif
+            #endif
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

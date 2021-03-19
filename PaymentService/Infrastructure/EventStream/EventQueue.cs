@@ -28,14 +28,18 @@ namespace PaymentService.Infrastructure.EventStream
 
             foreach (var e in uncommitedEvents)
             {
-                var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(
+                var json = JsonSerializer.Serialize(
                 new EventMessage
                 {
                     EntityId = entity.Id,
+                    EntityFullType = entity.GetType().AssemblyQualifiedName,
+                    EntityAssembly = entity.GetType().Assembly.FullName,
                     EntityType = entity.GetType().FullName,
                     EventType = e.GetType().AssemblyQualifiedName,
                     Event = e
-                }));
+                });
+
+                var body = Encoding.UTF8.GetBytes(json);
 
                 channel.BasicPublish(exchange: "",
                                  routingKey: "eventqueue",

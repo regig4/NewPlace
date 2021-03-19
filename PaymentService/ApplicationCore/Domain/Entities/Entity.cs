@@ -19,10 +19,18 @@ namespace PaymentService.ApplicationCore.Domain.Entities
             _domainEvents?.Clear();
         }
 
+        public void CommitAllEvents()
+        {
+            if (_domainEvents == null)
+                return;
+
+            foreach (var e in _domainEvents)
+                e.Commited = true;
+        }
+
         protected void AddDomainEvent(IDomainEvent domainEvent)
         {
             _domainEvents ??= new List<IDomainEvent>();
-
             this._domainEvents.Add(domainEvent);
         }
 
@@ -33,7 +41,7 @@ namespace PaymentService.ApplicationCore.Domain.Entities
 
             foreach(var eventProperty in eventType.GetProperties())
             {
-                if (eventProperty.Name == nameof(Id))
+                if (eventProperty.Name == nameof(Id) && (Guid)entityType.GetProperty(eventProperty.Name).GetValue(this) != Guid.Empty)
                     continue;
 
                 var entityProperty = entityType.GetProperty(eventProperty.Name);
