@@ -17,10 +17,12 @@ namespace PaymentService.ApplicationCore.Domain.Events
             MoneyValue = moneyValue;
             PaymentStatus = PaymentStatus.Started;
             TransactionType = TransactionType.Donation;
+            PayerId = Payer?.Id;
         }
 
         public PaymentStatus PaymentStatus { get; }
         public TransactionType TransactionType { get; }
+        public Guid? PayerId { get; }
         public User Payer { get; }
         public MoneyValue MoneyValue { get; }
     };
