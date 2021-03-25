@@ -30,3 +30,7 @@ Web application for real estate advertisements. Clients developed with Angular a
 - xBehave
 - FluentAssertions
 - Automapper
+
+## Components diagram
+
+![componets diagram](Components.png)
