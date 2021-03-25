@@ -1,6 +1,6 @@
 ﻿@page "/donate"
-@using Common.Dto
 @inject HttpClient Http
+@inject ApiClient ApiClient
 <h3>Donate</h3>
 
 <p>
@@ -29,11 +29,36 @@
     </div>
 }
 
+@if (Donations != null)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User id</th>
+                <th>Amount</th>
+                <th>Currency</th>
+            </tr>
+        </thead>
+        @foreach (var d in Donations)
+        {
+            <tr>
+                <td>@d.UserId</td>
+                <td>@d.Amount</td>
+                <td>@d.Currency</td>
+            </tr>
+        }
+    </table>
+}
+
 
 @code {
     public ulong Amount { get; set; }
     public bool Loading { get; set; }
     public string ConfirmationText { get; set; } = string.Empty;
+    public ICollection<PaymentDto> Donations { get; set; }
+
+    public record PaymentStatusResponse(Guid PaymentId, int Status);
+
 
     public async Task MakeDonation()
     {
@@ -46,9 +71,10 @@
                 amount = Amount,
                 currency = "USD"
             });
-        var confirmation = await result.Content.ReadFromJsonAsync<DonationConfirmation>();
+        var confirmation = await result.Content.ReadFromJsonAsync<PaymentStatusResponse>();
         Console.WriteLine(confirmation.PaymentId);
+        Donations = await ApiClient.TopDonationsAsync(10);
         Loading = false;
-        ConfirmationText = $"Thank you for donation. You donated {confirmation.Amount}USD. Id of your payment is {confirmation.PaymentId}";
+        ConfirmationText = $"Thank you for donation. You donated {Amount}USD. Id of your payment is {confirmation.PaymentId}";
     }
 }

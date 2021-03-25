@@ -18,6 +18,7 @@ namespace NewPlaceBlazor
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddTransient(sp => new ApiClient("https://localhost:44347/", new HttpClient()));
 
             await builder.Build().RunAsync();
         }

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
-using API.Queries.PaymentStatus;
+using ApplicationCore.Application.Commands;
+using ApplicationCore.Application.Queries;
 using Common.Dto;
-using Grpc.Net.Client;
-using Infrastructure.Models.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +29,16 @@ namespace NewPlace.Controllers
             return Ok(donationConfirmation);
         }
 
+        [HttpGet("top-donations")]
+        [ProducesResponseType(typeof(List<PaymentDto>), (int) HttpStatusCode.OK)]
+        public async Task<IActionResult> TopDonations(uint count = 10)
+        {
+            var donations = await _mediator.Send(new TopDonationsQuery(count));
+            return Ok(donations);
+        }
+
         [HttpGet("status")]
+        [ProducesResponseType(typeof(PaymentStatusResponse), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> CheckStatus(string paymentId)
         {
             var donationConfirmation = await _mediator.Send(new PaymentStatusQuery(Guid.Parse(paymentId)));

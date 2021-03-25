@@ -1,4 +1,5 @@
 using EventConsumerService.Utils;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PaymentService.Domain.Events;
@@ -45,6 +46,9 @@ namespace EventConsumerService
                 _logger.LogInformation(json);
                 var msg = JsonSerializer.Deserialize<EventMessage>(json);
 
+                var eventJson = ((JsonElement)msg.Event).GetRawText();
+                var eventToApply = (DomainEventBase)JsonSerializer.Deserialize(eventJson, Type.GetType(msg.EventType));
+
                 var repository = RepositoryByType.Instance[Type.GetType(msg.EntityFullType)];
                 _payment = await repository.Get(msg.EntityId);
 
@@ -56,12 +60,19 @@ namespace EventConsumerService
                     _payment = (PaymentService.ApplicationCore.Domain.Entities.Payment)Activator.CreateInstance(msg.EntityAssembly, msg.EntityType).Unwrap();
                 }
 
-                var eventJson = ((JsonElement)msg.Event).GetRawText();
-                var eventToApply = (DomainEventBase) JsonSerializer.Deserialize(eventJson, Type.GetType(msg.EventType));
                 _payment.Apply(eventToApply);
 
                 if (isInsert)
-                    await repository.Add(_payment);
+                    try
+                    {
+                        await repository.Add(_payment);
+                    }
+                    catch (Exception)
+                    {
+                        _payment = await repository.Get(_payment.Id);
+                        _payment.Apply(eventToApply);
+                        await repository.Update(_payment);
+                    }
                 else
                     await repository.Update(_payment);
             };

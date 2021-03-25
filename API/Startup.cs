@@ -4,10 +4,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ApplicationCore.Application.Commands;
 using ApplicationCore.Services;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Factories;
+using Infrastructure.Models.Commands;
 using Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
@@ -44,7 +46,11 @@ namespace API
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(
+                Assembly.GetExecutingAssembly(), 
+                Assembly.GetAssembly(typeof(ICommand)), 
+                Assembly.GetAssembly(typeof(DonateCommandHandler))
+            );
 
             services.AddCors(options =>
             {
@@ -87,7 +93,7 @@ namespace API
         });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
 
             services.AddTransient(provider => AdvertisementServiceFactory.Instance.CreateAdvertisementService());
@@ -135,7 +141,7 @@ namespace API
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
             });
 
             app.UseEndpoints(endpoints =>

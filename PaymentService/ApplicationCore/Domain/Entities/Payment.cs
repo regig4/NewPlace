@@ -4,18 +4,12 @@ using PaymentService.Domain.Enums;
 using PaymentService.Domain.Events;
 using PaymentService.Domain.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PaymentService.ApplicationCore.Domain.Entities
 {
     public class Payment : Entity
     {
-        public Guid? PayerId { get; set; }
-        [ForeignKey("PayerId")]
-        public virtual User Payer { get; set; }
+        public User Payer { get; private set; }
         public User Payee { get; private set; }
         public TransactionType TransactionType { get; private set; }
         public PaymentStatus PaymentStatus { get; private set; }

@@ -64,7 +64,8 @@ namespace PaymentService.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
 
                     b.HasKey("Id");
 
@@ -87,10 +88,12 @@ namespace PaymentService.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<decimal>("Amount")
-                                .HasColumnType("decimal(20,0)");
+                                .HasColumnType("decimal(20,0)")
+                                .HasColumnName("money_amount");
 
                             b1.Property<string>("Currency")
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("money_currency");
 
                             b1.HasKey("PaymentId");
 
@@ -106,7 +109,8 @@ namespace PaymentService.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<decimal>("Amount")
-                                .HasColumnType("decimal(18,2)");
+                                .HasColumnType("decimal(18,2)")
+                                .HasColumnName("points_amount");
 
                             b1.HasKey("PaymentId");
 
@@ -121,6 +125,28 @@ namespace PaymentService.Migrations
                     b.Navigation("Payee");
 
                     b.Navigation("Payer");
+
+                    b.Navigation("PointsValue");
+                });
+
+            modelBuilder.Entity("PaymentService.ApplicationCore.Domain.Entities.User", b =>
+                {
+                    b.OwnsOne("PaymentService.ApplicationCore.Domain.ValueObjects.PointsValue", "PointsValue", b1 =>
+                        {
+                            b1.Property<Guid>("UserId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<decimal>("Amount")
+                                .HasColumnType("decimal(18,2)")
+                                .HasColumnName("points_amount");
+
+                            b1.HasKey("UserId");
+
+                            b1.ToTable("User");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
 
                     b.Navigation("PointsValue");
                 });
