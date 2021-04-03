@@ -1,5 +1,6 @@
 using EventConsumerService.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PaymentService.Domain.Events;
@@ -21,14 +22,18 @@ namespace EventConsumerService
         private readonly ILogger<Worker> _logger;
         private PaymentService.ApplicationCore.Domain.Entities.Payment _payment;
 
-        public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker> logger, IConfiguration configuration)
         {
             _logger = logger;
+            Configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            _logger.LogInformation(Configuration.GetConnectionString("rabbitmq")?.ToString());
+            var factory = new ConnectionFactory() { HostName = Configuration.GetConnectionString("rabbitmq")?.ToString() ?? "localhost" };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 

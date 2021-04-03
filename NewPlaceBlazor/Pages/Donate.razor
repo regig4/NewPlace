@@ -1,6 +1,7 @@
 ﻿@page "/donate"
 @inject HttpClient Http
 @inject ApiClient ApiClient
+@inject IConfiguration Configuration 
 <h3>Donate</h3>
 
 <p>
@@ -64,7 +65,7 @@
     {
         Loading = true;
         var result = await Http.PostAsJsonAsync<dynamic>(
-            "https://localhost:44347/api/payment/donate",
+            "https://localhost:14148/api/payment/donate",
             new
             {
                 userId = "068ff0b4-aee2-49b5-96e1-c30e2bf9141c",

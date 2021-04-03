@@ -5,6 +5,7 @@ using Common.Dto;
 using Common.IntegrationEvents.Payment;
 using Grpc.Net.Client;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using PaymentService;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -20,6 +21,13 @@ namespace Infrastructure.Models.Commands
 {
     public class TopDonationsQueryHandler : IRequestHandler<TopDonationsQuery, List<PaymentDto>>
     {
+        public TopDonationsQueryHandler(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
         public async Task<List<PaymentDto>> Handle(TopDonationsQuery request, CancellationToken cancellationToken)
         {
             try
@@ -28,10 +36,11 @@ namespace Infrastructure.Models.Commands
                 // Return `true` to allow certificates that are untrusted/invalid
                 httpHandler.ServerCertificateCustomValidationCallback =
                     HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-                var channel = GrpcChannel.ForAddress("https://localhost:5003",
+                var channel = GrpcChannel.ForAddress(Configuration.GetServiceUri("catalogservice") ?? new Uri("https://localhost:5001"),
                     new GrpcChannelOptions { HttpClient = new HttpClient(httpHandler) });
                 var client = new CatalogService.Catalog.CatalogClient(channel);
                 var result = await client.TopDonationsAsync(new CatalogService.TopDonationsQuery { Count = request.Count });
+                channel.Dispose();
                 return result.Payments.Select(p => new PaymentDto
                 (
                     Guid.Parse(p.UserId),

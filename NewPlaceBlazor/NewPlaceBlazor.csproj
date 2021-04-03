@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <OpenApiReference Include="D:\new\Api.json" CodeGenerator="NSwagCSharp" Namespace="NewPlaceBlazor" Link="OpenAPIs\Api.json" />
+    <OpenApiReference Include="OpenApi\Api.json" CodeGenerator="NSwagCSharp" Namespace="NewPlaceBlazor" Link="OpenApi\swagger.json" />
   </ItemGroup>
 
   <ItemGroup>

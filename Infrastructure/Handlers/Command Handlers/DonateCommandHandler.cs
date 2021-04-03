@@ -4,6 +4,7 @@ using Common.Dto;
 using Common.IntegrationEvents.Payment;
 using Grpc.Net.Client;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using PaymentService;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -21,8 +22,14 @@ namespace Infrastructure.Models.Commands
         private readonly GrpcChannel _channel;
         private readonly IMessageQueue _messageQueue;
 
-        public DonateCommandHandler(GrpcChannel channel, IMessageQueue messageQueue)
+        public DonateCommandHandler(IConfiguration configuration, IMessageQueue messageQueue)
         {
+            var httpHandler = new HttpClientHandler();
+            // Return `true` to allow certificates that are untrusted/invalid
+            httpHandler.ServerCertificateCustomValidationCallback =
+                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+            var channel = GrpcChannel.ForAddress(configuration.GetServiceUri("paymentservice") ?? new Uri("https://localhost:5003"),
+                new GrpcChannelOptions { HttpClient = new HttpClient(httpHandler) });
             _channel = channel;
             _messageQueue = messageQueue;
         }

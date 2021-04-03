@@ -16,9 +16,15 @@ namespace NewPlaceBlazor
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
-
-            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddTransient(sp => new ApiClient("https://localhost:44347/", new HttpClient()));
+            builder.Services.AddTransient(sp =>
+            {
+                return new HttpClient() { BaseAddress = new Uri("https://localhost:14148/") };
+            });
+            builder.Services.AddTransient(sp =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                return new ApiClient("https://localhost:14148/", new HttpClient());
+            });
 
             await builder.Build().RunAsync();
         }

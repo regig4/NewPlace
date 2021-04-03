@@ -1,0 +1,37 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: newplace
+services:
+- name: api
+  project: API/API.csproj
+  bindings:
+    - port: 14148
+      protocol: https
+      name: https
+    - port: 14147
+      protocol: http
+      name: http
+- name: newplace
+  project: NewPlace/NewPlace.csproj
+- name: paymentservice
+  project: PaymentService/PaymentService.csproj
+- name: newplaceblazor
+  project: NewPlaceBlazor/NewPlaceBlazor.csproj
+  bindings:
+    - port: 5001
+      protocol: https
+- name: eventconsumerservice
+  project: EventConsumerService/EventConsumerService.csproj
+- name: catalogservice
+  project: CatalogService/CatalogService.csproj
+- name: rabbitmq
+  image: rabbitmq:3-management
+  bindings:
+    - protocol: amqp
+      port: 5672
+      connectionString: "${host}"
+

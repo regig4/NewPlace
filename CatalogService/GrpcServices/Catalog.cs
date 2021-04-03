@@ -19,10 +19,25 @@ namespace CatalogService
 
         public async override Task<TopDonationResult> TopDonations(TopDonationsQuery request, ServerCallContext context)
         {
-            var donations = (List<PaymentDto>)await _mediator.Send(request);
-            var result = new TopDonationResult();
-            result.Payments.Add(donations);
-            return result;
+            try
+            {
+                var donations = (IReadOnlyCollection<Common.Dto.PaymentDto>)await _mediator.Send(new Application.Queries.TopDonationsQuery((int)request.Count));
+                var result = new TopDonationResult();
+                foreach(var d in donations)
+                    result.Payments.Add(new PaymentDto 
+                    {
+                        Amount = d.Amount.ToString(),
+                        Currency = d.Currency,
+                        UserId = d.UserId.ToString()
+                    });
+                return result;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }        
         }
     }
 }
