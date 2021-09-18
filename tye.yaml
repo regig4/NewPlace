@@ -15,23 +15,26 @@ services:
     - port: 14147
       protocol: http
       name: http
-- name: newplace
-  project: NewPlace/NewPlace.csproj
+#- name: newplace
+#  project: NewPlace/NewPlace.csproj
 - name: paymentservice
   project: PaymentService/PaymentService.csproj
 - name: newplaceblazor
   project: NewPlaceBlazor/NewPlaceBlazor.csproj
   bindings:
     - port: 5001
-      protocol: https
+      protocol: http
 - name: eventconsumerservice
   project: EventConsumerService/EventConsumerService.csproj
 - name: catalogservice
   project: CatalogService/CatalogService.csproj
-- name: rabbitmq
+- name: rabbit
   image: rabbitmq:3-management
   bindings:
-    - protocol: amqp
+    - name: default
+      protocol: amqp
       port: 5672
-      connectionString: "${host}"
-
+    - name: ui
+      protocol: http
+      port: 15672
+      containerPort: 15672

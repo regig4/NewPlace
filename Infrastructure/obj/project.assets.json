@@ -6307,11 +6307,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\NewPlace\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "c:\\NewPlace\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "C:\\NewPlace\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "c:\\NewPlace\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Bartek\\.nuget\\packages\\",
-      "outputPath": "C:\\NewPlace\\Infrastructure\\obj\\",
+      "outputPath": "c:\\NewPlace\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6331,11 +6331,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\NewPlace\\ApplicationCore\\ApplicationCore.csproj": {
-              "projectPath": "C:\\NewPlace\\ApplicationCore\\ApplicationCore.csproj"
+            "c:\\NewPlace\\ApplicationCore\\ApplicationCore.csproj": {
+              "projectPath": "c:\\NewPlace\\ApplicationCore\\ApplicationCore.csproj"
             },
-            "C:\\NewPlace\\Common\\Common.csproj": {
-              "projectPath": "C:\\NewPlace\\Common\\Common.csproj"
+            "c:\\NewPlace\\Common\\Common.csproj": {
+              "projectPath": "c:\\NewPlace\\Common\\Common.csproj"
             }
           }
         }

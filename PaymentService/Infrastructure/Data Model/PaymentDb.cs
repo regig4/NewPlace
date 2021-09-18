@@ -31,7 +31,7 @@ namespace Infrastructure
                 //.UseInMemoryDatabase("NewPlaceDbTest");
                 .UseSqlServer(Configuration.DefaultConnectionString);
 #else
-                .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
+                .UseSqlServer(Configuration.DefaultConnectionString);
 #endif
         }
 

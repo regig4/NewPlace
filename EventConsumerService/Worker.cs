@@ -32,8 +32,16 @@ namespace EventConsumerService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation(Configuration.GetConnectionString("rabbitmq")?.ToString());
-            var factory = new ConnectionFactory() { HostName = Configuration.GetConnectionString("rabbitmq")?.ToString() ?? "localhost" };
+            var uri = Configuration.GetServiceUri(name: "rabbit", binding: "default");
+            _logger.LogInformation("----------------------------------------------------");
+            _logger.LogInformation("rabbit, default: " + uri.ToString());
+            _logger.LogInformation("----------------------------------------------------");
+            var factory = new ConnectionFactory() 
+            { 
+                Endpoint = new AmqpTcpEndpoint(uri), 
+                UserName = "abc",
+                Password = "123"
+            };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 
