@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PaymentService.ApplicationCore.Domain.Entities
 {
-    public abstract class Entity
+    public abstract class Entity : IEntity
     {
         public Guid Id { get; set; }
 

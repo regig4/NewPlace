@@ -20,6 +20,12 @@
             "type": "shell",
             "command": "eclsho Hello",
             "problemMatcher": []
+        },
+        {
+            "applicationName": "newplace",
+            "label": "tye-run",
+            "type": "tye-run",
+            "watch": true
         }
     ]
 }

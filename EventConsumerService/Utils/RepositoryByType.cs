@@ -1,4 +1,5 @@
 ﻿using Common.Dto;
+using PaymentService.ApplicationCore.Application.Repositories;
 using PaymentService.ApplicationCore.Domain.Entities;
 using PaymentService.Infrastructure.Repositories;
 using System;
@@ -11,14 +12,15 @@ namespace EventConsumerService.Utils
 
         public static RepositoryByType Instance { get; } = new RepositoryByType();
 
-        public PaymentRepository this[Type type]
+        public object this[Type type]
         {
             get
             {
-                if (type == typeof(Payment))
-                    return new PaymentRepository();
-                else
-                    throw new InvalidOperationException();
+                return type switch 
+                {
+                    { Name: nameof(Payment) } => new PaymentRepository(),
+                    _ => null
+                };
             }
         }
     }

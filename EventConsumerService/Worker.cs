@@ -20,7 +20,7 @@ namespace EventConsumerService
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        private PaymentService.ApplicationCore.Domain.Entities.Payment _payment;
+        static SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
         public Worker(ILogger<Worker> logger, IConfiguration configuration)
         {
@@ -33,15 +33,14 @@ namespace EventConsumerService
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var uri = Configuration.GetServiceUri(name: "rabbit", binding: "default");
-            _logger.LogInformation("----------------------------------------------------");
-            _logger.LogInformation("rabbit, default: " + uri.ToString());
-            _logger.LogInformation("----------------------------------------------------");
-            var factory = new ConnectionFactory() 
-            { 
-                Endpoint = new AmqpTcpEndpoint(uri), 
+
+            var factory = new ConnectionFactory()
+            {
+                Endpoint = new AmqpTcpEndpoint(uri),
                 UserName = "abc",
                 Password = "123"
             };
+
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
 
@@ -52,8 +51,22 @@ namespace EventConsumerService
                                  arguments: null);
 
             var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += async (model, ea) =>
+            consumer.Received += HandleEvent;
+
+            channel.BasicConsume(queue: "eventqueue",
+                                 autoAck: true,
+                                 consumer: consumer);
+
+            while (!stoppingToken.IsCancellationRequested)
             {
+            }
+        }
+
+        private async void HandleEvent(object? model, BasicDeliverEventArgs ea)
+        {
+            try
+            {
+                await _semaphoreSlim.WaitAsync();
                 var body = ea.Body.ToArray();
                 var json = Encoding.UTF8.GetString(body);
                 _logger.LogInformation(json);
@@ -62,40 +75,31 @@ namespace EventConsumerService
                 var eventJson = ((JsonElement)msg.Event).GetRawText();
                 var eventToApply = (DomainEventBase)JsonSerializer.Deserialize(eventJson, Type.GetType(msg.EventType));
 
-                var repository = RepositoryByType.Instance[Type.GetType(msg.EntityFullType)];
-                _payment = await repository.Get(msg.EntityId);
+                dynamic repository = RepositoryByType.Instance[Type.GetType(msg.EntityFullType)];
+                var entity = await repository.Get(msg.EntityId);
 
                 bool isInsert = false;
 
-                if(_payment == null)
+                if (entity == null)
                 {
                     isInsert = true;
-                    _payment = (PaymentService.ApplicationCore.Domain.Entities.Payment)Activator.CreateInstance(msg.EntityAssembly, msg.EntityType).Unwrap();
+                    entity = Activator.CreateInstance(msg.EntityAssembly, msg.EntityType).Unwrap();
                 }
 
-                _payment.Apply(eventToApply);
+                entity.Apply(eventToApply);
 
                 if (isInsert)
-                    try
-                    {
-                        await repository.Add(_payment);
-                    }
-                    catch (Exception)
-                    {
-                        _payment = await repository.Get(_payment.Id);
-                        _payment.Apply(eventToApply);
-                        await repository.Update(_payment);
-                    }
+                    await repository.Add(entity);
                 else
-                    await repository.Update(_payment);
-            };
-
-            channel.BasicConsume(queue: "eventqueue",
-                                 autoAck: true,
-                                 consumer: consumer);
-
-            while (!stoppingToken.IsCancellationRequested)
+                    await repository.Update(entity);
+            }
+            catch (Exception)
             {
+                //TODO: logging exceptions 
+            }
+            finally
+            {
+                _semaphoreSlim.Release();
             }
         }
     }
