@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 <PropertyGroup>
-	<LangVersion>9.0</LangVersion>
+	<LangVersion>10.0</LangVersion>
   <Nullable>enable</Nullable>
 </PropertyGroup>
   <ItemGroup>
@@ -8,7 +8,7 @@
     <Protobuf Include="Protos\pay.proto" GrpcServices="Client" />
   </ItemGroup>
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.78" />
