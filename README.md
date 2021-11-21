@@ -20,6 +20,7 @@ Web application for real estate advertisements. Clients developed with Angular a
 - Angular
 - Blazor
 - Entity Framework Core
+- Dapper
 - OpenApi
 - gRPC
 - FluentValidation
