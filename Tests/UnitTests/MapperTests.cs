@@ -12,15 +12,17 @@ namespace Tests.UnitTests
         public void TestMap()
         {
             // Arrange
-            Mapper.Initialize(cfg =>
+            var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ApplicationCore.Models.Advertisement, ApplicationCore.DTOs.AdvertisementDetailsDto>()
+                cfg.CreateMap<Advertisement, ApplicationCore.DTOs.AdvertisementDetailsDto>()
                     .ForMember(dest => dest.PricingType, opts => opts.MapFrom(src => src.Category.PricingType))
                     .ForMember(dest => dest.ApartmentType, opts => opts.MapFrom(src => src.Category.ApartmentType))
                     .ReverseMap();
             });
 
-            var domain = new ApplicationCore.Models.Advertisement
+            var mapper = config.CreateMapper();
+
+            var domain = new Advertisement
             (
                 id: 1,
                 validTo: DateTime.Now + TimeSpan.FromDays(10),
@@ -31,7 +33,7 @@ namespace Tests.UnitTests
                 title: "AAA",
                 price: 324,
                 provision: null,
-                estate: new ApplicationCore.Models.Estate(id: null, area: 23,
+                estate: new Estate(id: null, area: 23,
                     location: new ApplicationCore.Models.Location(id: null, address: "tm", postalCode: "?", city: "ktk", latitude: 12, longitude: 23, radius: 12, country: new Country(1, "Poland")),
                     utilities: new List<ApplicationCore.Models.Utility> { new ApplicationCore.Models.Utility(id: null, name: "name", cost: 12) }
             ));
@@ -39,7 +41,7 @@ namespace Tests.UnitTests
             var dto = new ApplicationCore.DTOs.AdvertisementDetailsDto(domain);
 
             // Act
-            var mapped = Mapper.Map<ApplicationCore.Models.Advertisement>(dto);
+            var mapped = mapper.Map<ApplicationCore.Models.Advertisement>(dto);
 
             // Assert
             Assert.Equal(mapped.Title, domain.Title);

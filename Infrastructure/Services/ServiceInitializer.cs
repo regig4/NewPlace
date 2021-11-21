@@ -1,3 +1,4 @@
+using AutoMapper;
 using Infrastructure;
 using Infrastructure.Data;
 
@@ -15,8 +16,8 @@ public class ServiceInitializer : IServiceInitializer
         // Database initialization
         NewPlaceDbInitializer.Initialize(_dbContext);
 
-        // Automapper initialization
-        AutoMapper.Mapper.Initialize(cfg =>
+        // Automapper initialization (TODO: inject)
+        var config = new MapperConfiguration(cfg =>
         {
             cfg.CreateMap<ApplicationCore.Models.Advertisement, ApplicationCore.DTOs.AdvertisementDetailsDto>();
             cfg.CreateMap<ApplicationCore.DTOs.AdvertisementDetailsDto, ApplicationCore.Models.Advertisement>();
