@@ -16,7 +16,7 @@ namespace UnitTests.Mocks
             throw new NotImplementedException();
         }
 
-        public Advertisement Find(Func<Advertisement, bool> condition)
+        public Advertisement FindFirstOrDefault(Func<Advertisement, bool> condition)
         {
             throw new NotImplementedException();
         }

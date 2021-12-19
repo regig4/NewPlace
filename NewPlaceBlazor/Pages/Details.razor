@@ -49,6 +49,6 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        advertisement = await Http.GetFromJsonAsync<AdvertisementDetailsRepresentation>(Configuration.GetServiceUri("api", "https") + "api/advertisement/" + Id);
+        advertisement = await Http.GetFromJsonAsync<AdvertisementDetailsRepresentation>((Configuration.GetServiceUri("api", "https")?.ToString() ?? "https://localhost:14148/") + "api/advertisement/" + Id);
     }
 }

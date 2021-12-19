@@ -28,8 +28,8 @@ namespace Infrastructure.Services
             
             var all = _advertisementService.GetAllAsync();
             var timer = Observable.Interval(TimeSpan.FromSeconds(1));
-            var tmp = all.Result.ToObservable();            // TODO: change to pagination
-            var tmp2 = tmp.Zip(timer, (a, t) => a);
+            //var tmp = all.ToObservable();            // TODO: change to pagination
+            //var tmp2 = tmp.Zip(timer, (a, t) => a);
             return null;
             // _advertisementService.GetFavourites(userId);
             // _advertisementService.GetRecentlyViewed();

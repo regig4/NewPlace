@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using ApplicationCore.Application.Commands;
 using ApplicationCore.Services;
 using Infrastructure;
@@ -13,16 +9,15 @@ using Infrastructure.Models.Commands;
 using Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -71,26 +66,32 @@ namespace API
             // Enables us to see error details from signalR 
             IdentityModelEventSource.ShowPII = true;
 
+            services.AddLogging();
+
+            services.AddReverseProxy().LoadFromConfig(Configuration.GetSection("ReverseProxy"));
+
             services.AddDbContext<NewPlaceDb>(options =>
                 options.UseSqlServer(
                     Infrastructure.Configuration.Configuration.DefaultConnectionString));
 
             services.AddAuthentication()
-                .AddIdentityServerJwt();
+                    .AddIdentityServerJwt();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters()
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = "http://localhost:44347/",//Configuration["Jwt:Issuer"], todo!
-                ValidAudience = "http://localhost:44381/",//Configuration["Jwt:Issuer"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-            };
-        });
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters()
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = "http://localhost:44347/",//Configuration["Jwt:Issuer"], todo!
+                            ValidAudience = "http://localhost:44381/",//Configuration["Jwt:Issuer"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                        };
+                    });
+            services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
+                    .AddCertificate();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -103,7 +104,6 @@ namespace API
             services.AddTransient<IMessageQueue>(provider => new MessageQueue());
 
             services.AddSignalR();
-
             services.AddControllers();
         }
 
@@ -118,6 +118,8 @@ namespace API
             {
                 app.UseExceptionHandler("/error");
             }
+
+            app.UseHttpLogging();
 
             app.UseHttpsRedirection();
 
@@ -148,6 +150,7 @@ namespace API
             {
                 endpoints.MapHub<RecommendationHub>("/recommendationHub");
                 endpoints.MapControllers();
+                endpoints.MapReverseProxy();
             });
         }
     }

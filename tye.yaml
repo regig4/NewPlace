@@ -6,28 +6,28 @@
 #
 name: newplace
 services:
-- name: api
-  project: API/API.csproj
-  bindings:
-    - port: 14148
-      protocol: https
-      name: https
-    - port: 14147
-      protocol: http
-      name: http
+#- name: api
+#  project: API/API.csproj
+#  bindings:
+#    - port: 14148
+#      protocol: https
+#      name: https
+#    - port: 14147
+#      protocol: http
+#      name: http
 #- name: newplace
 #  project: NewPlace/NewPlace.csproj
-- name: paymentservice
-  project: PaymentService/PaymentService.csproj
-- name: newplaceblazor
-  project: NewPlaceBlazor/NewPlaceBlazor.csproj
-  bindings:
-    - port: 5001
-      protocol: http
-- name: eventconsumerservice
-  project: EventConsumerService/EventConsumerService.csproj
-- name: catalogservice
-  project: CatalogService/CatalogService.csproj
+#- name: paymentservice
+#  project: PaymentService/PaymentService.csproj
+#- name: newplaceblazor
+#  project: NewPlaceBlazor/NewPlaceBlazor.csproj
+#  bindings:
+#    - port: 5001
+#      protocol: http
+#- name: eventconsumerservice
+#  project: EventConsumerService/EventConsumerService.csproj
+#- name: catalogservice
+#  project: CatalogService/CatalogService.csproj
 - name: rabbit
   image: rabbitmq:3-management
   bindings:

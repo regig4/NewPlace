@@ -31,7 +31,6 @@ namespace CatalogService
                         UserId = d.UserId.ToString()
                     });
                 return result;
-
             }
             catch (Exception)
             {

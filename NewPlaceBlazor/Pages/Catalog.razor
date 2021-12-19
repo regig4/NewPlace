@@ -85,12 +85,14 @@
 
         protected override async Task OnInitializedAsync()
         {
-            advertisements = await Http.GetFromJsonAsync<List<AdvertisementRepresentation>>(Configuration.GetServiceUri("api", "https") + "api/advertisement/search?city=&estateType=&radius=");
+            advertisements = await Http.GetFromJsonAsync<List<AdvertisementRepresentation>>(
+                (Configuration.GetServiceUri("api", "https")?.ToString() ?? "https://localhost:14148/") + "api/advertisement/search?city=&estateType=&radius=");
         }
 
         private async void Search()
         {
-            advertisements = await Http.GetFromJsonAsync<List<AdvertisementRepresentation>>(Configuration.GetServiceUri("api", "https") + "api/advertisement/search?city=" + city +
+            advertisements = await Http.GetFromJsonAsync<List<AdvertisementRepresentation>>(
+                (Configuration.GetServiceUri("api", "https")?.ToString() ?? "https://localhost:14148/") + "api/advertisement/search?city=" + city +
                                                                                             "&estateType=" + type + "&radius=0");
         }
     }

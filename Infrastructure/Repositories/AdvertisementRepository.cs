@@ -13,7 +13,7 @@ namespace Infrastructure.Repositories
 {
     public class AdvertisementRepository : IAdvertisementRepository
     {
-        public Advertisement GetById(int id)
+        public Advertisement? GetById(int id)
         {
             using var context = ContextFactory.Instance.Create();
             return context.Advertisements.Where(a => a.Id!.Value == id)
@@ -25,7 +25,7 @@ namespace Infrastructure.Repositories
 
         }
 
-        public Advertisement Find(Func<Advertisement, bool> condition)
+        public Advertisement? FindFirstOrDefault(Func<Advertisement, bool> condition)
         {
             using var context = ContextFactory.Instance.Create();
             return context.Advertisements.Where(condition).FirstOrDefault();
@@ -39,8 +39,7 @@ namespace Infrastructure.Repositories
                 .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
                 .Include(a => a.Estate).ThenInclude(apartment => apartment.Location)
                 .Include(a => a.User)
-                .ToList()                   // TODO: calls to db 
-                                            .Where(condition.Compile()) // (ef cant translate Where to sql), when it will be possible delete '.Compile()'
+                .Where(condition.Compile())
                 .Take(quantity);
 
             foreach (var item in query)

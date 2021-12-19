@@ -40,4 +40,4 @@ namespace ApplicationCore.DTOs
         public decimal Price { get; set; }
         public decimal? Provision { get; set; }
     }
-}
+}   

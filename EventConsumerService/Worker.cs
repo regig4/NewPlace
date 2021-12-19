@@ -29,7 +29,7 @@ namespace EventConsumerService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var uri = Configuration.GetServiceUri(name: "rabbit", binding: "default");
+            var uri = Configuration.GetServiceUri(name: "rabbit", binding: "default") ?? new Uri("amqp://localhost:5672");
 
             var factory = new ConnectionFactory()
             {

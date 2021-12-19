@@ -31,7 +31,10 @@ namespace NewPlace.Controllers
         [HttpGet]
         public async Task<IEnumerable<AdvertisementRepresentation>> Get()
         {
-            var advertisements = await _service.GetAllAsync();
+            var ads = _service.GetAllAsync();
+            List<AdvertisementDto> advertisements = new();
+            await foreach (var a in ads)
+                advertisements.Add(a);
             return advertisements.AsParallel().AsOrdered()
                 .Select(async advertisement => await advertisement.ToRepresentation(HttpContext.Request.Path, _service))
                 .AsEnumerable().Select(task => task.Result).ToList();

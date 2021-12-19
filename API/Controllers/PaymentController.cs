@@ -16,7 +16,7 @@ namespace NewPlace.Controllers
     public class PaymentController : Controller
     {
         readonly IMediator _mediator;
-
+        
         public PaymentController(IMediator mediator)
         {
             _mediator = mediator;

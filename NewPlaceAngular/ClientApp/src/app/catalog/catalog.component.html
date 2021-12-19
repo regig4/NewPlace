@@ -1,0 +1,22 @@
+<mySearch (notify)="onSearchResults($event)"></mySearch>
+
+<div id="searchResults" [hidden]="!advertisements">
+  <div *ngFor="let result of advertisements" [routerLink]="['/details', result.id]" class="jumbotron row searchResult">
+    <div class="col-3">
+      <img class="img-thumbnail" src="data:{{result.thumbnail.mediaType}};base64,{{result.thumbnail.resource}}" />
+    </div>
+    <div class="col">
+      <strong>{{result.title}}</strong><br />
+      <ul class="list-inline">
+        <li class="list-inline-item">User: {{result.userName}}</li>
+        <li class="list-inline-item">Address: {{result.estateAddress}}</li>
+        <li class="list-inline-item">Price: <img src="/assets/img/icons/dollar.svg" style="height: 15px;" /> {{result.price}}</li>
+        <li class="list-inline-item">Provision: {{result.provision}}</li>
+        <li class="list-inline-item">Total cost: {{result.totalCost}}</li>
+        <li class="list-inline-item">Area: {{result.estateArea}}</li>
+        <li class="list-inline-item" *ngFor="let utility of result.utilitesCost">{{utility}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
