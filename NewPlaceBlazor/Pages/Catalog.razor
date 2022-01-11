@@ -1,5 +1,5 @@
 ﻿@page "/catalog"
-@inject HttpClient Http
+@inject ApiClient Api
 @inject IConfiguration Configuration
 
     <div class="searchArea">
@@ -85,14 +85,11 @@
 
         protected override async Task OnInitializedAsync()
         {
-            advertisements = await Http.GetFromJsonAsync<List<AdvertisementRepresentation>>(
-                (Configuration.GetServiceUri("api", "https")?.ToString() ?? "https://localhost:14148/") + "api/advertisement/search?city=&estateType=&radius=");
+            advertisements = (List<AdvertisementRepresentation>) await Api.SearchAsync(null, null, null);
         }
 
         private async void Search()
         {
-            advertisements = await Http.GetFromJsonAsync<List<AdvertisementRepresentation>>(
-                (Configuration.GetServiceUri("api", "https")?.ToString() ?? "https://localhost:14148/") + "api/advertisement/search?city=" + city +
-                                                                                            "&estateType=" + type + "&radius=0");
+            advertisements = (List<AdvertisementRepresentation>) await Api.SearchAsync(city, type, 0);
         }
     }

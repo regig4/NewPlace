@@ -1,7 +1,4 @@
-using Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.ML;
-using Microsoft.ML.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -21,66 +19,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.MapControllers();
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/test-connection", () =>
 {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-       new WeatherForecast
-       (
-           DateTime.Now.AddDays(index),
-           Random.Shared.Next(-20, 55),
-           summaries[Random.Shared.Next(summaries.Length)]
-       ))
-        .ToArray();
-    return forecast;
+    return true;
 })
-.WithName("GetWeatherForecast");
-
-
-
-app.MapGet("/test-prediction", (float area) =>
-{
-    var mlContext = new MLContext();
-
-    using var db = new NewPlaceDb();
-
-    var data = db.Advertisements.Include(a => a.Estate).Select(a => new EstateData((float) a.Estate.Area, (float) a.Price)).ToList();
-
-    IDataView trainingData = mlContext.Data.LoadFromEnumerable<EstateData>(data);
-
-    var pipeline = mlContext.Transforms.Concatenate("Features", new[] { "Area" })
-                   .Append(mlContext.Regression.Trainers.Sdca(labelColumnName: "Price", maximumNumberOfIterations: 100));
-
-    var model = pipeline.Fit(trainingData);
-
-    var test = new EstateData(area, 0);
-
-    var price = mlContext.Model.CreatePredictionEngine<EstateData, Prediction>(model).Predict(test);
-
-    return price;
-})
-.WithName("TestPrediction");
-
-
+.WithName("TestConnection");
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
-
-record EstateData(float Area, float Price);
-
-class Prediction
-{
-    [ColumnName("Score")] 
-    public float Price { get; set; }
-}
 
 
 

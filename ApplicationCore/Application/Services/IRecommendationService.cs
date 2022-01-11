@@ -9,6 +9,6 @@ namespace ApplicationCore.Services
 {
     public interface IRecommendationService
     {
-        IObservable<AdvertisementDto> RecommendByGeolocation(int userId, Location location);
+        Task<IObservable<AdvertisementDto>> RecommendByGeolocation(Guid userId, Location location);
     }
 }

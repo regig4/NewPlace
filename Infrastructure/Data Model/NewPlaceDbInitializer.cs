@@ -15,8 +15,16 @@ namespace Infrastructure.Data
             if (context.Advertisements.Any())
                 return;
 
-            context.Advertisements.AddRange(new Advertisement[]
-            {
+            Advertisement[] testData = GetTestData(); 
+            context.Advertisements.AddRange(testData);
+
+            context.SaveChanges();
+        }
+
+        private static Advertisement[] GetTestData()
+        {
+            return new Advertisement[]
+                        {
                 new Advertisement(
                     id: null,
                     title: "House for sale - only 20000000$",
@@ -116,9 +124,7 @@ namespace Infrastructure.Data
                     ),
                     category: new Category(id: null, apartmentType: EstateType.Flat, pricingType: PricingType.Exchange)
                 )
-            });
-
-            context.SaveChanges();
+                        };
         }
     }
 }

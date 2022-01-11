@@ -6,6 +6,12 @@ namespace ApplicationCore.Models
 {
     public class Location
     {
+        public Location(double longitude, double latitude)
+        {
+            Longitude = Longitude;
+            Latitude = latitude;
+        }
+
         public Location(int? id, string address, string postalCode, string city, double latitude, double longitude, double radius, Country country)
             : this(id, address, postalCode, city, latitude, longitude, radius)
         {

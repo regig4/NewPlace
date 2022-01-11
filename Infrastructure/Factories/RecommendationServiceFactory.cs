@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Services;
+using Infrastructure.Repositories;
 using Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Infrastructure.Factories
 
         public IRecommendationService Create()
         {
-            return new RecommendationService(null, null);
+            return new RecommendationService(null, new AdvertisementService(new AdvertisementRepository(), new ImageService()));
         }
     }
 }

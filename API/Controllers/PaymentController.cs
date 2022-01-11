@@ -6,6 +6,7 @@ using ApplicationCore.Application.Commands;
 using ApplicationCore.Application.Queries;
 using Common.Dto;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -22,6 +23,7 @@ namespace NewPlace.Controllers
             _mediator = mediator;
         }
 
+        [Authorize]
         [HttpPost("donate")]
         public async Task<IActionResult> Donate(DonateRequest request)
         {

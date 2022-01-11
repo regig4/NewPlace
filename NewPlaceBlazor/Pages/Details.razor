@@ -1,5 +1,5 @@
 ﻿@page "/details/{Id}"
-@inject HttpClient Http
+@inject ApiClient Api
 @inject IConfiguration Configuration
 
 <h1>Details</h1>
@@ -49,6 +49,6 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        advertisement = await Http.GetFromJsonAsync<AdvertisementDetailsRepresentation>((Configuration.GetServiceUri("api", "https")?.ToString() ?? "https://localhost:14148/") + "api/advertisement/" + Id);
+        advertisement = await Api.AdvertisementGETAsync(int.Parse(Id));
     }
 }

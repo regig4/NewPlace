@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using ApplicationCore.Application.Commands;
@@ -42,8 +43,8 @@ namespace API
             });
 
             services.AddMediatR(
-                Assembly.GetExecutingAssembly(), 
-                Assembly.GetAssembly(typeof(ICommand)), 
+                Assembly.GetExecutingAssembly(),
+                Assembly.GetAssembly(typeof(ICommand)),
                 Assembly.GetAssembly(typeof(DonateCommandHandler))
             );
 
@@ -59,6 +60,8 @@ namespace API
                     .AllowAnyMethod();
                 });
             });
+
+
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlServer(
             //        Configuration.GetConnectionString("DefaultConnection")));
@@ -118,6 +121,7 @@ namespace API
             {
                 app.UseExceptionHandler("/error");
             }
+            app.UseCors("MyAllowSpecificOrigins");
 
             app.UseHttpLogging();
 
@@ -135,7 +139,6 @@ namespace API
                 NewPlaceDbInitializer.Initialize(context);
             }
 
-            app.UseCors("MyAllowSpecificOrigins");
 
             app.UseSwagger();
 
