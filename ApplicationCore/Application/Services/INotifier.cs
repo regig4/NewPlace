@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ApplicationCore.Models;
+using Common.Dto;
 
 namespace ApplicationCore.Services
 {
     interface INotifier
     {
-        void SendMessage(User user, string title, string message);
+        void SendMessage(UserDto user, string title, string message);
     }
 }

@@ -54,6 +54,7 @@ import { MatSliderModule } from '@angular/material/slider';
       { path: 'recommend', component: RecommendationsComponent },
       { path: 'new', component: AdvertisementFormComponent },
       { path: '', component: CatalogComponent },
+      { path: 'details', component: DetailsComponent }
     ])
   ],
   providers: [

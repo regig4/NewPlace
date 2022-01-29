@@ -8,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using ApplicationCore.Application.Services;
 using ApplicationCore.DTOs;
-using ApplicationCore.Models;
 using ApplicationCore.Services;
+using Common.Dto;
 using NewPlace.ResourceRepresentations;
 
 namespace Infrastructure.Services
 {
-    class RecommendationService : IRecommendationService
+    public class RecommendationService : IRecommendationService
     {
         private readonly IGeolocationService _geolocationService;
         private readonly IAdvertisementService _advertisementService;
@@ -52,21 +52,21 @@ namespace Infrastructure.Services
                         await foreach (var r in _advertisementService.GetAllAsync())
                             if (!observedAdvertisements.Any(o => o.Id == r.Id))
                                 observer.OnNext(r);
-                    });
+                    }, cancelationToken);
 
                     var getMostSimiliarToObservedByLocationTask = Task.Run(async () =>
                     {
                         await foreach (var r in _advertisementService.GetAllAsync())
                             if (!observedAdvertisements.Any(o => o.Id == r.Id))
                                 observer.OnNext(r);
-                    });
+                    }, cancelationToken);
 
                     var getPromotedByLocationTask = Task.Run(async () =>
                     {
                         await foreach (var r in _advertisementService.GetAllAsync())
                             if (!observedAdvertisements.Any(o => o.Id == r.Id))
                                 observer.OnNext(r);
-                    });
+                    }, cancelationToken);
 
                     await Task.WhenAll(getMostViewedByLocationTask, 
                                        getMostSimiliarToObservedByLocationTask, 

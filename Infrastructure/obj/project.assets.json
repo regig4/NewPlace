@@ -807,7 +807,8 @@
         "dependencies": {
           "Common": "1.0.0",
           "FluentValidation": "10.3.4",
-          "MediatR": "9.0.0"
+          "MediatR": "9.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.0"
         },
         "compile": {
           "bin/placeholder/ApplicationCore.dll": {}
@@ -2451,19 +2452,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\sacha\\.nuget\\packages\\": {}
+    "C:\\Users\\Bartosz\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sacha\\source\\repos\\NewPlace\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Bartosz\\Projects\\NewPlace\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "C:\\Users\\sacha\\source\\repos\\NewPlace\\Infrastructure\\Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\sacha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sacha\\source\\repos\\NewPlace\\Infrastructure\\obj\\",
+      "projectPath": "C:\\Users\\Bartosz\\Projects\\NewPlace\\Infrastructure\\Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Bartosz\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Bartosz\\Projects\\NewPlace\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\sacha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Bartosz\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2477,11 +2478,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\sacha\\source\\repos\\NewPlace\\ApplicationCore\\ApplicationCore.csproj": {
-              "projectPath": "C:\\Users\\sacha\\source\\repos\\NewPlace\\ApplicationCore\\ApplicationCore.csproj"
+            "C:\\Users\\Bartosz\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj": {
+              "projectPath": "C:\\Users\\Bartosz\\Projects\\NewPlace\\ApplicationCore\\ApplicationCore.csproj"
             },
-            "C:\\Users\\sacha\\source\\repos\\NewPlace\\Common\\Common.csproj": {
-              "projectPath": "C:\\Users\\sacha\\source\\repos\\NewPlace\\Common\\Common.csproj"
+            "C:\\Users\\Bartosz\\Projects\\NewPlace\\Common\\Common.csproj": {
+              "projectPath": "C:\\Users\\Bartosz\\Projects\\NewPlace\\Common\\Common.csproj"
             }
           }
         }

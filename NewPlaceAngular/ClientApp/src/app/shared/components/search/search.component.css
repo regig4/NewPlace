@@ -1,11 +1,12 @@
 #searchArea {
     background-color: beige;
     padding: 2.5em;
-    margin: 2em;
+    margin: 0em;
+    margin-bottom: 2em;
 }
 
 #searchResults {
-    margin: 10px;
+    margin: 5px;
 }
 
 .advertisementListItem:hover {

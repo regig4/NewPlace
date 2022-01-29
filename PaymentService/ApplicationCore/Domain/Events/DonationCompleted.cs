@@ -1,5 +1,5 @@
-﻿using PaymentService.Domain.Enums;
-using PaymentService.Domain.Events;
+﻿using Common.ApplicationCore.Domain.Events;
+using PaymentService.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

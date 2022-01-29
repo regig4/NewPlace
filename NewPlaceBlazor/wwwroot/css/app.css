@@ -47,7 +47,7 @@ app {
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, #3a8612 0%, #1637b6 70%);
+    background-image: linear-gradient(180deg, midnightblue, green);
 }
 
     .sidebar .top-row {

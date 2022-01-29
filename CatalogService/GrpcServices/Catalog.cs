@@ -1,3 +1,5 @@
+using AutoMapper;
+using CatalogService.Application.Queries;
 using Grpc.Core;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -11,17 +13,25 @@ namespace CatalogService
     public class CatalogService : Catalog.CatalogBase
     {
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public CatalogService(IMediator mediator)
+        public CatalogService(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
-        public async override Task<TopDonationResult> TopDonations(TopDonationsQuery request, ServerCallContext context)
+        public override async Task<AdvertisementDetailsResult> AdvertisementDetails(AdvertisementDetailsRequest request, ServerCallContext context)
+        {
+            var advertisement = await _mediator.Send(new AdvertisementDetailsQuery(request.Id));
+            return _mapper.Map<AdvertisementDetailsResult>(advertisement);
+        }
+
+        public async override Task<TopDonationResult> TopDonations(TopDonationsRequest request, ServerCallContext context)
         {
             try
             {
-                var donations = (IReadOnlyCollection<Common.Dto.PaymentDto>)await _mediator.Send(new Application.Queries.TopDonationsQuery((int)request.Count));
+                var donations = (IReadOnlyCollection<Common.Dto.PaymentDto>)await _mediator.Send(new TopDonationsQuery((int)request.Count));
                 var result = new TopDonationResult();
                 foreach(var d in donations)
                     result.Payments.Add(new PaymentDto 

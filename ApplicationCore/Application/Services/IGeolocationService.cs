@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ApplicationCore.Models;
+using Common.Dto;
 
 namespace ApplicationCore.Services
 {

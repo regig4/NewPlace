@@ -1,8 +1,8 @@
+using Common.ApplicationCore.Domain.Events;
 using EventConsumerService.Utils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using PaymentService.Domain.Events;
 using PaymentService.Infrastructure.EventStream;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -17,7 +17,7 @@ namespace EventConsumerService
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        static SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
+        private static readonly SemaphoreSlim _semaphoreSlim = new(initialCount: 1, maxCount: 1);
 
         public Worker(ILogger<Worker> logger, IConfiguration configuration)
         {

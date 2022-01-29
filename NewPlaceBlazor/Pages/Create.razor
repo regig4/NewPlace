@@ -1,47 +1,50 @@
 ﻿@page "/create"
 
-<h3>Create step @_selected</h3>
 
-<MudPagination Color="Color.Primary" Count="3" @bind-Selected="@_selected" />
+<div style="margin:auto;text-align:center">
+	<h6>Create new advertisement (step @_selected)  </h6>
 
-<nav aria-label="Page navigation example">
-    <ul class="pagination pagination-lg justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
+	<MudPagination Color="Color.Info" Count="3" @bind-Selected="@_selected" />
+</div>
 
-<div hidden="@(_selected != 1)" ><Step1 advertisement="@advertisement" /></div>
-<div hidden="@(_selected != 2)" ><Step2 advertisement="@advertisement" /></div>
-<div hidden="@(_selected != 3)" ><Step3 advertisement="@advertisement" /></div>
 
-<nav aria-label="Page navigation example">
-    <ul class="pagination pagination-lg justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
-</nav>
+
+<EditForm Model="@advertisement" OnValidSubmit="@SubmitValidForm">
+
+<FluentValidationValidator />
+	<div class="alert-danger">
+		<ValidationSummary />
+	</div>
+
+	<div hidden="@(_selected != 1)"><Step1 advertisement="@advertisement" /></div>
+	<div hidden="@(_selected != 2)"><Step2 advertisement="@advertisement" /></div>
+	<div hidden="@(_selected != 3)"><Step3 advertisement="@advertisement" /></div>
+
+</EditForm>
+
+<br />
+<button hidden="@(_selected == 3)" class="btn btn-primary float-right" @onclick="GoToNextStep">Next step</button>
+<button hidden="@(_selected != 3)" class="btn btn-info float-right" type="submit">Create advertisement</button>
+
 
 @code {
-    private int current { get; set; } = 1;
-    private int _selected = 1;
-    private AdvertisementDetailsRepresentation advertisement = new AdvertisementDetailsRepresentation
-    {
-        Thumbnail = new ImageRepresentation(),
-        Resource = new AdvertisementDetailsDto()
-    };
+	private int current { get; set; } = 1;
+	private int _selected = 1;
+
+	private void GoToNextStep()
+	{
+		if (_selected != 3)
+			_selected++;
+	}
+
+	private AdvertisementDetailsRepresentation advertisement = new AdvertisementDetailsRepresentation
+		{
+			Thumbnail = new ImageRepresentation(),
+			Resource = new AdvertisementDetailsDto()
+		};
+
+	private void SubmitValidForm()
+	{
+		Console.WriteLine("TEST");
+	}
 }

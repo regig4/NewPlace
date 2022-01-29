@@ -1,4 +1,6 @@
-﻿namespace PaymentService.ApplicationCore.Domain.ValueObjects
+﻿using Common.ApplicationCore.Domain.ValueObjects;
+
+namespace PaymentService.ApplicationCore.Domain.ValueObjects
 {
     public record PointsValue(decimal Amount) : ValueObject 
     {

@@ -1,4 +1,5 @@
-﻿using PaymentService.ApplicationCore.Domain.Entities;
+﻿using Common.ApplicationCore.Domain.Events;
+using PaymentService.ApplicationCore.Domain.Entities;
 using PaymentService.ApplicationCore.Domain.ValueObjects;
 using System;
 

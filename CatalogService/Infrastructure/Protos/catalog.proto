@@ -1,14 +1,46 @@
 syntax = "proto3";
 
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
 option csharp_namespace = "CatalogService";
 
 package catalog;
 
 service Catalog {
-  rpc TopDonations (TopDonationsQuery) returns (TopDonationResult);
+  rpc AdvertisementDetails (AdvertisementDetailsRequest) returns (AdvertisementDetailsResult);
+  rpc TopDonations (TopDonationsRequest) returns (TopDonationResult);
 }
 
-message TopDonationsQuery {
+message AdvertisementDetailsRequest {
+	uint32 id = 1;
+}
+
+message AdvertisementDetailsResult {
+	google.protobuf.UInt32Value id = 1;
+    string title = 2;
+    string description = 3;
+    string apartmentType = 4;
+    string pricingType = 5;
+    google.protobuf.Timestamp createDate = 6;
+    google.protobuf.Timestamp validTo = 7;
+    string userName = 8;
+    double estateArea = 9;
+    string estateAddress = 10;
+    string estateCity = 11;
+    repeated Utility utilities = 12;
+    double price = 13;
+    google.protobuf.DoubleValue provision = 14;
+    string totalCost = 15;
+}
+
+message Utility {
+    string name = 1;
+    google.protobuf.DoubleValue cost = 2;
+    string additionaly = 3;
+}
+
+message TopDonationsRequest {
   uint32 count = 1;
 }
 

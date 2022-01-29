@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ApplicationCore.Models;
 using ApplicationCore.DTOs;
 using System.Threading.Tasks;
+using Common.Dto;
 
 namespace ApplicationCore.Services
 {
     public interface IAuthService
     {
-        Task<User> AuthorizeAsync(User user, string password);
+        Task<UserDto> AuthorizeAsync(UserDto user, string password);
     }
 }

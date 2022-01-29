@@ -5,16 +5,17 @@ using UnitTests.Mocks;
 using Xbehave;
 using FluentAssertions;
 using ApplicationCore.DTOs;
+using AdvertisementService.ApplicationCore.Application.Services;
 
 namespace Tests.UnitTests
 {
     public class AdvertisementServiceFeature
     {
         [Scenario]
-        public void GetByIdTest(IAdvertisementService service, AdvertisementDetailsDto dto)
+        public void GetByIdTest(AdvertisementService.ApplicationCore.Application.Services.IAdvertisementApplicationService service, AdvertisementDetailsDto dto)
         {
             "Given AdvertisementService".x(() => 
-                service = new AdvertisementService(new AdvertisementRepositoryStub(), new ImageService()));
+                service = new AdvertisementApplicationService(new AdvertisementRepositoryStub(), new ImageService()));
             
             "When getting advertisement by id".x(() => dto = service.GetById(-1)); 
 

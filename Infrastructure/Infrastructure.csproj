@@ -3,6 +3,9 @@
 	<LangVersion>10.0</LangVersion>
   <Nullable>enable</Nullable>
 </PropertyGroup>
+<ItemGroup>
+  <None Remove="Protos\catalog.proto" />
+</ItemGroup>
   <ItemGroup>
     <Protobuf Include="Protos\catalog.proto" GrpcServices="Client" />
     <Protobuf Include="Protos\pay.proto" GrpcServices="Client" />

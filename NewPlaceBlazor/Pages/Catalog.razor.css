@@ -1,17 +1,35 @@
-﻿#searchArea {
-    background-color: beige;
+﻿.searchArea {
+    /*background-image: linear-gradient(180deg, deepskyblue 0%, white 70%);*/
+    border: 2px solid #d6d5d5;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
     padding: 2.5em;
-    margin: 2em;
+    margin: 3em;
 }
 
 #searchResults {
     margin: 10px;
 }
 
-.advertisementListItem:hover {
-    background-color: burlywood;
+.searchResult {
+    padding: 2em;
 }
 
+
 .searchResult:hover {
-    background-color: #ae8238;
+    background-image: linear-gradient(90deg, lightgrey 0%, white 90%);
+    color: black;
+}   
+
+a:link {
+    color: darkgreen;
+}
+
+a:hover {
+    color: darkgreen
+}
+
+a:visited {
+    color: darkgray
 }

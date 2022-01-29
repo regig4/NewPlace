@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ApplicationCore.Models;
 using ApplicationCore.DTOs;
 using System.Threading.Tasks;
+using Common.Dto;
 
 namespace ApplicationCore.Services
 {

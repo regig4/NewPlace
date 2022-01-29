@@ -1,5 +1,5 @@
-﻿using PaymentService.ApplicationCore.Domain.Entities;
-using PaymentService.Domain.Events;
+﻿using Common.ApplicationCore.Domain.Entities;
+using Common.ApplicationCore.Domain.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

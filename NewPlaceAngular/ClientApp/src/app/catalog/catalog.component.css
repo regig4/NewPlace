@@ -1,3 +1,11 @@
 .searchResult:hover {
-  background-color: #ae8238;
+  background-color: #dfc593;
+}
+
+.searchResult {
+    padding: 2em;
+}
+
+li::after {
+    content: " | "
 }

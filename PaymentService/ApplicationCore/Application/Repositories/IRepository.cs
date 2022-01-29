@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using PaymentService.ApplicationCore.Domain.Entities;
+using Common.ApplicationCore.Domain.Entities;
 
 namespace PaymentService.ApplicationCore.Application.Repositories
 {

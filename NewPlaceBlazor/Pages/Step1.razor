@@ -1,64 +1,86 @@
-﻿<h3>Step1</h3>
+﻿@using System.IO
+<h3>Basic information</h3>
 
 @if (advertisement != null)
 {
+	<div class="container">
 
+		<div class="row">
+			<div class="col">
+				<p>
+					<label>Title: </label>
+					<InputText class="form-control" @bind-Value="@advertisement.Resource.Title" />
+				</p>
+			</div>
+		</div>
 
-    <EditForm Model="@advertisement" OnValidSubmit="@SubmitValidForm">
-        <FluentValidationValidator />
-        <div class="alert-danger">
-            <ValidationSummary />
-        </div>
+		<div class="row">
+			<div class="col">
+				<p>
+					<label>Category: </label>
+					<InputSelect class="form-control" @bind-Value="@advertisement.Resource.ApartmentType">
+						<option>room</option>
+						<option>flat</option>
+						<option>house</option>
+					</InputSelect>
+				</p>
+			</div>
+			<div class="col">
+				<p>
+					<label>Type of payment: </label>
+					<InputSelect class="form-control" @bind-Value="@advertisement.Resource.PricingType">
+						<option>for sale</option>
+						<option>rent</option>
+						<option>for exchange</option>
+					</InputSelect>
+				</p>
+			</div>
+		</div>
 
-        <p>
-            <label>Title: </label>
-            <InputText class="form-control" @bind-Value="@advertisement.Resource.Title" />
-        </p>
+		<div class="row">
+			<div class="col">
 
-        <p>
-            <label>Category: </label>
-            <InputSelect class="form-control" @bind-Value="@advertisement.Resource.ApartmentType">
-                <option>room</option>
-                <option>flat</option>
-                <option>house</option>
-            </InputSelect>
-        </p>
+				<p>
+					<label>Thumbnail photo: </label>
+					@if (ImgBase64 != null)
+					{
+						<img src="data:image/jpeg;base64,@ImgBase64" class="float-right" />
+					}
+					<div class="mb-3">
+						<InputFile id="fileInput" OnChange="UploadFiles" hidden multiple />
+						<MudButton HtmlTag="label"
+							   Variant="Variant.Filled"
+							   Color="Color.Info"
+							   StartIcon="@Icons.Filled.Image"
+							   for="fileInput">
+							Upload photo
+						</MudButton>
+					</div>
+				</p>
+			</div>
+		</div>
+	</div>
 
-        <p>
-            <label>Type of payment: </label>
-            <InputSelect class="form-control" @bind-Value="@advertisement.Resource.PricingType">
-                <option>for sale</option>
-                <option>rent</option>
-                <option>for exchange</option>
-            </InputSelect>
-        </p>
-
-        <p>
-            <label>Thumbnail photo: </label>
-            @if (ImgBase64 != null)
-            {
-                <img src="@ImgBase64" />
-            }
-            <input type="file" class="form-control" @bind="@advertisement.Thumbnail.Resource" />
-        </p>
-
-        <button class="btn btn-info" type="submit">Save</button>
-
-    </EditForm>
 
 }
 
 @code {
-    [Parameter]
-    public AdvertisementDetailsRepresentation advertisement { get; set; } = new AdvertisementDetailsRepresentation
-    {
-        Resource = new AdvertisementDetailsDto() { }
-    };
+	[Parameter]
+	public AdvertisementDetailsRepresentation advertisement { get; set; } = new AdvertisementDetailsRepresentation
+		{
+			Resource = new AdvertisementDetailsDto() { }
+		};
 
-    public string ImgBase64 { get; set; }
+	public string ImgBase64 { get; set; }
 
-    void SubmitValidForm()
-    {
-        Console.WriteLine("Form Submitted Successfully!");
-    }
+	public async void UploadFiles(InputFileChangeEventArgs e)
+	{
+		var thumbnail = await e.File.RequestImageFileAsync("jpeg", 300, 300);
+		var stream = thumbnail.OpenReadStream();
+		var memoryStream = new MemoryStream();
+		await stream.CopyToAsync(memoryStream);
+		var byteArray = memoryStream.ToArray();
+		ImgBase64 = Convert.ToBase64String(byteArray);
+		StateHasChanged();
+	}
 }

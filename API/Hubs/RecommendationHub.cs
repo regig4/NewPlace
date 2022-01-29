@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using ApplicationCore.DTOs;
-using ApplicationCore.Models;
 using ApplicationCore.Services;
-using Infrastructure.Converters;
+using Common.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using NewPlace.ResourceRepresentations;
@@ -32,15 +31,15 @@ class RecommendationHub : Hub
     {
         var semaphore = new SemaphoreSlim(1);
         var recommendationsStream = await service.RecommendByGeolocation(userId, new Location(longitude, latitude));
-        recommendationsStream.Subscribe(
-            async (recommendation) => 
-                await Clients.Caller.SendAsync("ReceiveRecommendation", 
-                                                recommendation.ToRepresentation(recommendation.Id.ToString(), advertisementService)),
-            () => 
-            { 
-                semaphore.Release(); 
-            }
-        );
+        //recommendationsStream.Subscribe(
+        //    async (recommendation) => 
+        //        await Clients.Caller.SendAsync("ReceiveRecommendation", 
+        //                                        recommendation.ToRepresentation(recommendation.Id.ToString(), advertisementService)),
+        //    () => 
+        //    { 
+        //        semaphore.Release(); 
+        //    }
+        //);
         await semaphore.WaitAsync();
     }
 }

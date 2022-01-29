@@ -1,9 +1,9 @@
-﻿using MongoDB.Bson;
+﻿using Common.ApplicationCore.Domain.Events;
+using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using PaymentService.ApplicationCore.Application.Services;
-using PaymentService.Domain.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

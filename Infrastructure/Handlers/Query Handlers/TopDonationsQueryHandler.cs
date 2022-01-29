@@ -39,7 +39,7 @@ namespace Infrastructure.Models.Commands
                 var channel = GrpcChannel.ForAddress(Configuration.GetServiceUri("catalogservice") ?? new Uri("https://localhost:5001"),
                     new GrpcChannelOptions { HttpClient = new HttpClient(httpHandler) });
                 var client = new CatalogService.Catalog.CatalogClient(channel);
-                var result = await client.TopDonationsAsync(new CatalogService.TopDonationsQuery { Count = request.Count });
+                var result = await client.TopDonationsAsync(new CatalogService.TopDonationsRequest { Count = request.Count });
                 channel.Dispose();
                 return result.Payments.Select(p => new PaymentDto
                 (

@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
+using NewPlaceBlazor.Utils;
+using Blazored.LocalStorage;
 
 namespace NewPlaceBlazor
 {
@@ -17,13 +19,17 @@ namespace NewPlaceBlazor
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
+
+            builder.Services.AddBlazoredLocalStorage();
             
             builder.Services.AddTransient(sp =>
             {
                 var configuration = sp.GetRequiredService<IConfiguration>();
+                string baseUri = configuration.GetServiceUri("api", "https")?.ToString() ?? "https://localhost:44347/";
 
-                return new ApiClient(configuration.GetServiceUri("api", "https")?.ToString() ?? "https://localhost:44347/", 
-                    new HttpClient());
+                var httpClient = new HttpClient(/*new JwtHttpClientHandler(baseUri, sp.GetRequiredService<ILocalStorageService>())*/);
+
+                return new ApiClient(baseUri, httpClient);
             });
 
             builder.Services.AddMudServices();

@@ -1,11 +1,13 @@
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using ApplicationCore.Application.Behaviors;
 using ApplicationCore.Application.Commands;
+using ApplicationCore.Application.Services;
 using ApplicationCore.Services;
 using Infrastructure;
-using Infrastructure.Data;
 using Infrastructure.Factories;
+using Infrastructure.Handlers.Query_Handlers;
 using Infrastructure.Models.Commands;
 using Infrastructure.Services;
 using MediatR;
@@ -48,6 +50,8 @@ namespace API
                 Assembly.GetAssembly(typeof(DonateCommandHandler))
             );
 
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+
             services.AddCors(options =>
             {
                 options.AddPolicy("MyAllowSpecificOrigins",
@@ -73,10 +77,6 @@ namespace API
 
             services.AddReverseProxy().LoadFromConfig(Configuration.GetSection("ReverseProxy"));
 
-            services.AddDbContext<NewPlaceDb>(options =>
-                options.UseSqlServer(
-                    Infrastructure.Configuration.Configuration.DefaultConnectionString));
-
             services.AddAuthentication()
                     .AddIdentityServerJwt();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -100,10 +100,17 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
 
-            services.AddTransient(provider => AdvertisementServiceFactory.Instance.CreateAdvertisementService());
-            services.AddTransient(provider => AdvertisementServiceFactory.Instance.CreateAuthService());
+            services.AddHttpClient<IUserService, UserServiceProxy>(client =>
+            {
+                client.BaseAddress = Configuration.GetServiceUri("userservice");
+            });
+
+            services.AddHttpClient<SearchAdvertisementsQueryHandler>(client => client.BaseAddress = Configuration.GetServiceUri("advertisementservice"));
+
             services.AddTransient(provider => GrpcChannelFactory.Instance.Create());
-            services.AddTransient(provider => RecommendationServiceFactory.Instance.Create());
+            services.AddTransient(provider => RecommendationServiceFactory.Instance.Create(
+                 provider.GetService<IAdvertisementService>(),
+                 provider.GetService<IUserService>()));
             services.AddTransient<IMessageQueue>(provider => new MessageQueue());
 
             services.AddSignalR();
@@ -132,13 +139,6 @@ namespace API
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<NewPlaceDb>();
-                NewPlaceDbInitializer.Initialize(context);
-            }
-
 
             app.UseSwagger();
 

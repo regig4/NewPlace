@@ -1,6 +1,6 @@
-﻿using PaymentService.ApplicationCore.Application.Services;
-using PaymentService.ApplicationCore.Domain.Entities;
-using PaymentService.Domain.Events;
+﻿using Common.ApplicationCore.Domain.Entities;
+using Common.ApplicationCore.Domain.Events;
+using PaymentService.ApplicationCore.Application.Services;
 using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;

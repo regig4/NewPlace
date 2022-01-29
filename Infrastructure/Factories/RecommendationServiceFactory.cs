@@ -1,5 +1,5 @@
-﻿using ApplicationCore.Services;
-using Infrastructure.Repositories;
+﻿using ApplicationCore.Application.Services;
+using ApplicationCore.Services;
 using Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -13,9 +13,12 @@ namespace Infrastructure.Factories
 
         public static RecommendationServiceFactory Instance { get; } = new RecommendationServiceFactory();
 
-        public IRecommendationService Create()
+        public IRecommendationService Create(IAdvertisementService advertisementService, IUserService userService)
         {
-            return new RecommendationService(null, new AdvertisementService(new AdvertisementRepository(), new ImageService()));
+            return new RecommendationService(
+                null, 
+                advertisementService, 
+                userService);
         }
     }
 }

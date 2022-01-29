@@ -1,7 +1,7 @@
-﻿using PaymentService.ApplicationCore.Domain.Entities;
+﻿using Common.ApplicationCore.Domain.Events;
+using PaymentService.ApplicationCore.Domain.Entities;
 using PaymentService.ApplicationCore.Domain.ValueObjects;
 using PaymentService.Domain.Enums;
-using PaymentService.Domain.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
