@@ -105,7 +105,10 @@ namespace API
                 client.BaseAddress = Configuration.GetServiceUri("userservice");
             });
 
-            services.AddHttpClient<SearchAdvertisementsQueryHandler>(client => client.BaseAddress = Configuration.GetServiceUri("advertisementservice"));
+            services.AddHttpClient<SearchAdvertisementsQueryHandler>(client =>
+            {
+                client.BaseAddress = Configuration.GetServiceUri("advertisementservice") ?? new System.Uri("https://localhost:5555");
+            });
 
             services.AddTransient(provider => GrpcChannelFactory.Instance.Create());
             services.AddTransient(provider => RecommendationServiceFactory.Instance.Create(

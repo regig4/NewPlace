@@ -27,8 +27,8 @@ namespace Infrastructure.Data
                         {
                 new Advertisement(
                     id: null,
-                    title: "House for sale - only 20000000$",
-                    description: "coool",
+                    title: "House for sale",
+                    description: "Very luxurious house.",
                     createDate: DateTime.Now,
                     validTo: DateTime.Now + TimeSpan.FromDays(10),
                     estate: new Estate(
@@ -37,7 +37,7 @@ namespace Infrastructure.Data
                         utilities: new List<Utility>() { new Utility(id: null, name: "Electricity", cost: 300) },
                         location: new Location(
                             id: null,
-                            address: "Wesoła bardzo 24",
+                            address: "Mickiewicza",
                             city: "Warszawa",
                             postalCode: "34-345",
                             latitude: 12,
@@ -54,7 +54,7 @@ namespace Infrastructure.Data
                         login: "AgencyNewPlace",
                         email: "aaa@b4b.com",
                         passwordHash: "!@#4d3g3",
-                        agency: new Agency(id: null, name: "NewPlaceAgency", address: "notnull", information: "New Place Agency" )
+                        agency: new Agency(id: null, name: "NewPlaceAgency", address: "Adress", information: "New Place Agency" )
                     ),
                     category: new Category(id: null, apartmentType: EstateType.House, pricingType: PricingType.Sale)
                 ),
@@ -62,7 +62,7 @@ namespace Infrastructure.Data
                 new Advertisement(
                     id: null,
                     title: "Cheap room for rent",
-                    description: "kinda cool",
+                    description: "Cheap and comfortable room",
                     createDate: DateTime.Now,
                     validTo: DateTime.Now + TimeSpan.FromDays(14),
                     category: new Category(id: null, apartmentType: EstateType.Flat, pricingType: PricingType.Exchange),
@@ -94,8 +94,8 @@ namespace Infrastructure.Data
 
                 new Advertisement(
                     id: null,
-                    title: "Flat for exchange - urgent!",
-                    description: "it's ok",
+                    title: "Flat for exchange!",
+                    description: "Flat for exchange",
                     createDate: DateTime.Now,
                     validTo: DateTime.Now + TimeSpan.FromHours(10),
                     estate: new Estate(
@@ -104,7 +104,7 @@ namespace Infrastructure.Data
                         utilities: new List<Utility>() { new Utility(id: null, name : "Water", cost: 203) },
                         location: new Location(
                             id: null,
-                            address: "Amelininymowa 13",
+                            address: "Kamienna 13",
                             city: "Kraków",
                             postalCode: "4335",
                             longitude: 12,

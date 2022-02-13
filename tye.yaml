@@ -34,6 +34,8 @@ services:
   project: UserService/UserService.csproj
 - name: advertisementservice
   project: AdvertisementService/AdvertisementService.csproj
+- name: recommendationservice
+  project: RecommendationService/RecommendationService.csproj
 - name: rabbit
   image: rabbitmq:3-management
   bindings:
