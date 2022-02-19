@@ -12,7 +12,7 @@ namespace AdvertisementService.ApplicationCore.Application.Services
         AdvertisementDetailsDto GetById(int id);
         IAsyncEnumerable<AdvertisementDto> GetAllAsync();
         Task<IEnumerable<AdvertisementDto>> GetAllPagedAsync(int page);
-        Task<IEnumerable<AdvertisementDto>> GetByCityAndEstateTypeAsync(string city, string estateType);
+        Task<IEnumerable<AdvertisementDto>> GetByCityAndEstateTypeAsync(string? city, string? estateType);
         Task<string> GetThumbnailBase64(int id);
         Task<int> Add(Advertisement advertisement, string thumbnailBase64);
     }

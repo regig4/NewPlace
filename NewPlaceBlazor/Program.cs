@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
 using NewPlaceBlazor.Utils;
 using Blazored.LocalStorage;
+using FisSst.BlazorMaps.DependencyInjection;
 
 namespace NewPlaceBlazor
 {
@@ -33,6 +34,7 @@ namespace NewPlaceBlazor
             });
 
             builder.Services.AddMudServices();
+            builder.Services.AddBlazorLeafletMaps();
 
             await builder.Build().RunAsync();
         }

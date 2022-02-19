@@ -16,16 +16,20 @@ namespace Infrastructure.Handlers.Query_Handlers
     {
         private readonly HttpClient _client;
 
-        public SearchAdvertisementsQueryHandler(HttpClient client)
+        public SearchAdvertisementsQueryHandler(IHttpClientFactory clientFactory)
         {
-            _client = client;
+            _client = clientFactory.CreateClient(nameof(SearchAdvertisementsQueryHandler));
         }
 
         public async Task<IReadOnlyList<AdvertisementRepresentation>> Handle(SearchAdvertisementsQuery request, CancellationToken cancellationToken)
         {
-            var result = await _client.GetStringAsync($"search?estateType={request.EstateType}&city={request.City}&radius={request.Radius}");
+            var result = await _client.GetAsync($"Advertisement/search?estateType={request.EstateType}&city={request.City}&radius={request.Radius}");
 
-            var ads = JsonSerializer.Deserialize<IReadOnlyList<AdvertisementRepresentation>>(result);
+            if (result.StatusCode != System.Net.HttpStatusCode.OK)
+                throw new Exception("Status code from advertisement service was " + result.StatusCode);
+
+            var stringContent = await result.Content.ReadAsStringAsync();
+            var ads = JsonSerializer.Deserialize<IReadOnlyList<AdvertisementRepresentation>>(stringContent);
 
             return ads;
         }

@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.DTOs;
+using ApplicationCore.Helpers;
 using ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,20 @@ namespace Infrastructure.Converters
 
         public static AdvertisementDto ToDto(this Advertisement domain)
         {
-            // todo
-            return new AdvertisementDto();
+            return new AdvertisementDto
+            {
+                EstateAddress = domain.Estate?.Location?.Address,
+                EstateCity = domain.Estate?.Location?.City,
+                Id = domain.Id,
+                EstateArea = domain.Estate.Area,
+                PricingType = domain.Category.PricingType.ToFriendlyString(),
+                EstateType = domain.Category.ApartmentType.ToFriendlyString(),
+                Price = domain.Price,
+                Provision = domain.Provision,
+                Title = domain.Title,
+                UserName = domain.User.Login, 
+                Utilities = domain.Estate.Utilities.Select(u => u.Name).ToList()
+            };
         }
 
         public static AdvertisementDetailsDto ToDetailsDto(this Advertisement domain)

@@ -15,7 +15,7 @@ export class SearchComponent {
 
     estateTypeSelected: string = "";
     city: string = "";
-    msg:string = "";
+    msg: string = "";
 
     constructor(private service: AdvertisementsService) { }
 

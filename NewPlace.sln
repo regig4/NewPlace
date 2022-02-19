@@ -32,7 +32,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecommendationService", "Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService", "UserService\UserService.csproj", "{1CCB4BC5-4E57-4CE0-83C0-5C50A23E3F99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvertisementService", "AdvertisementService\AdvertisementService.csproj", "{4BAECE68-7220-46B4-BDA6-136088021488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvertisementService", "AdvertisementService\AdvertisementService.csproj", "{4BAECE68-7220-46B4-BDA6-136088021488}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

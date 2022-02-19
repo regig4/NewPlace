@@ -9,7 +9,7 @@ namespace Infrastructure.Services
 {
     public class ImageService : IImageService
     {
-        public const string DefaultFilePath = @"..\Infrastructure\Content\Images\default.jpg";
+        public const string DefaultFilePath = @"..\AdvertisementService\Infrastructure\Content\Images\default.jpg";
 
         public async Task<string> GetBase64OfFileAsync(string filePath)
         {
@@ -24,7 +24,7 @@ namespace Infrastructure.Services
         {
             try
             {
-                await File.WriteAllBytesAsync(@"..\Infrastructure\Content\Images\" + filename, Convert.FromBase64String(base64.Substring(23)));
+                await File.WriteAllBytesAsync(@"..\AdvertisementService\Infrastructure\Content\Images\" + filename, Convert.FromBase64String(base64.Substring(23)));
             }
             catch(Exception e)
             {

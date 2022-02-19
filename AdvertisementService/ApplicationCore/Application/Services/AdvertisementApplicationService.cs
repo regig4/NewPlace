@@ -44,7 +44,7 @@ namespace Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<AdvertisementDto>> GetByCityAndEstateTypeAsync(string city, string estateType)
+        public async Task<IEnumerable<AdvertisementDto>> GetByCityAndEstateTypeAsync(string? city, string? estateType)
         {
             var advertisements = new List<AdvertisementDto>();
             Expression<Func<Advertisement, bool>> condition;
@@ -63,7 +63,7 @@ namespace Infrastructure.Services
 
         public async Task<string> GetThumbnailBase64(int id)
         {
-            return await _imageService.GetBase64OfFileAsync(Path.Combine("..", "Infrastructure", "Content", "Images", id.ToString() + ".jpg"));
+            return await _imageService.GetBase64OfFileAsync(Path.Combine("..", "AdvertisementService", "Infrastructure", "Content", "Images", id.ToString() + ".jpg"));
         }
 
         public async Task<int> Add(Advertisement advertisement, string thumbnailBase64)

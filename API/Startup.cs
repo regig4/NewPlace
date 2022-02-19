@@ -105,9 +105,9 @@ namespace API
                 client.BaseAddress = Configuration.GetServiceUri("userservice");
             });
 
-            services.AddHttpClient<SearchAdvertisementsQueryHandler>(client =>
+            services.AddHttpClient(nameof(SearchAdvertisementsQueryHandler), client =>
             {
-                client.BaseAddress = Configuration.GetServiceUri("advertisementservice") ?? new System.Uri("https://localhost:5555");
+                client.BaseAddress = Configuration.GetServiceUri("advertisementservice") ?? new System.Uri("https://localhost:7185");
             });
 
             services.AddTransient(provider => GrpcChannelFactory.Instance.Create());
@@ -118,6 +118,7 @@ namespace API
 
             services.AddSignalR();
             services.AddControllers();
+                //.AddJsonOptions(opts => opts.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

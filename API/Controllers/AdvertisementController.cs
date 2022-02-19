@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ApplicationCore.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -21,10 +23,10 @@ namespace API.Controllers
         }
 
         [HttpGet("search")]
-        public ActionResult<List<AdvertisementRepresentation>> Search(string estateType, string city, double radius)
+        public async Task<List<AdvertisementRepresentation>> Search(string estateType, string city, double radius)
         {
-            var result =  _mediator.Send(new SearchAdvertisementsQuery(estateType, city, radius));
-            return Ok(result);
+            var result = await _mediator.Send(new SearchAdvertisementsQuery(estateType, city, radius));
+            return result.ToList();
         }
 
         [Authorize]

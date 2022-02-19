@@ -85,7 +85,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        advertisements = (List<AdvertisementRepresentation>) await Api.SearchAsync(null, null, null);
+        advertisements = (List<AdvertisementRepresentation>) await Api.SearchAsync(null, null, 0);
     }
 
     private async void Search()

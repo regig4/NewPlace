@@ -17,7 +17,7 @@ using AdvertisementService.ApplicationCore.Application.Services;
 namespace NewPlace.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AdvertisementController : ControllerBase
     {
         private readonly IAdvertisementApplicationService _service;
@@ -42,13 +42,11 @@ namespace NewPlace.Controllers
 
 
         [HttpGet("search")]
-        public async Task<IEnumerable<AdvertisementRepresentation>> Search(string estateType, string city, double radius)
+        public async Task<List<AdvertisementRepresentation>> Search(string? estateType, string? city, double radius)
         {
-            var advertisements = new List<AdvertisementDto>();
-            foreach (var a in await _service.GetByCityAndEstateTypeAsync(city, estateType))
-                advertisements.Add(a);
+            var advertisements = await _service.GetByCityAndEstateTypeAsync(city, estateType);
             return advertisements.Select(async advertisement => await advertisement.ToRepresentation(HttpContext.Request.Path, _service))
-                .Select(task => task.Result);
+                .Select(task => task.Result).ToList();
         }
 
         [HttpGet("{id}")]

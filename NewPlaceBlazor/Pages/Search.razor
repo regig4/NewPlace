@@ -1,0 +1,54 @@
+﻿@inject ApiClient Api
+
+<div class="searchArea">
+	<fieldset>
+		<legend>
+			Search
+			<small class="text-muted float-right">Find your perfect place</small>
+		</legend>
+		<div class="container">
+			<div class='row'>
+				<div class="col-sm">
+					Locality: <input @bind="City" class="form-control" name="city" type="text" required minlength="3" placeholder="e.g. city name, country..." />
+				</div>
+				<div class="col-sm">
+					Type of estate:
+					<select @bind="Type" class="form-control" name="estateType" required>
+						@foreach (var estateType in EstateTypes)
+						{
+							<option value="@estateType">@estateType</option>
+						}
+					</select>
+				</div>
+
+				<div class="col-sm">
+					Type of payment:
+					<select class="form-control" name="paymentType">
+						<option value="rent">Rent</option>
+						<option value="forSale">For Sale</option>
+						<option value="exchange">Exchange</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		<button class="btn btn-primary float-right" @onclick="SearchAdvertisements">Search</button>
+	</fieldset>
+</div>
+
+
+@code {
+	[Parameter]
+	public List<AdvertisementRepresentation> Advertisements { get; set; }
+	[Parameter]
+	public List<string> EstateTypes { get; set; } = new List<string> { "room", "flat", "house" };
+	[Parameter]
+	public string Type { get; set; } = "room";
+	[Parameter]
+    public string City { get; set; } = "";
+
+	private async void SearchAdvertisements()
+    {
+        Advertisements = (List<AdvertisementRepresentation>) await Api.SearchAsync(City, Type, 0);
+    }
+}

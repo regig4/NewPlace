@@ -1,58 +1,54 @@
 ﻿@page "/recommended"
 @using Microsoft.AspNetCore.SignalR.Client
+@using System.Drawing
 @inject IJSRuntime JSRuntime
+@inject IMarkerFactory MarkerFactory
 
 <h3>Recommended</h3>
+<Map @ref="_map" MapOptions="@mapOptions"></Map>
+
+<style>
+	#mapId {
+		height: 400px;
+	}
+</style>
+
+<button @onclick="ClickHandler">Click</button>
+
+Your location:
+<br />
+Longitude: <strong>@_location?.Longitude</strong>
+<br />
+Latitude: <strong>@_location?.Latitude</strong>
+<br />
 
 @if (_recommendations is not null)
-    @foreach (var r in _recommendations)
-    {
-        <div class="card" style="width: 18rem;">
-            <img src="data:@r.Thumbnail.MediaType;base64,@r.Thumbnail.Resource" class="card-img-top" alt="thumbnail">
-            <div class="card-body">
-                <h5 class="card-title">@r.Resource.Title</h5>
-                <p class="card-text">
-                    <ul class="list-inline">
-                            <li class="list-inline-item">Valid to: @DateTime.Now.AddDays(2)</li>
-                            <li class="list-inline-item">User: @r.Resource.UserName</li>
-                            <li class="list-inline-item">Address: @r.Resource.EstateAddress</li>
-                            <li class="list-inline-item">Price: <img src="/assets/img/icons/dollar.svg" style="height: 15px;" /> @r.Resource.Price</li>
-                            <li class="list-inline-item">Provision: @r.Resource.Provision</li>
-                            <li class="list-inline-item">Area: @r.Resource.EstateArea</li>
-                        </ul>
+	@foreach (var r in _recommendations)
+	{
+		<div class="card" style="width: 18rem;">
+			<img src="data:@r.Thumbnail.MediaType;base64,@r.Thumbnail.Resource" class="card-img-top" alt="thumbnail">
+			<div class="card-body">
+				<h5 class="card-title">@r.Resource.Title</h5>
+				<p class="card-text">
+					<ul class="list-inline">
+						<li class="list-inline-item">Valid to: @DateTime.Now.AddDays(2)</li>
+						<li class="list-inline-item">User: @r.Resource.UserName</li>
+						<li class="list-inline-item">Address: @r.Resource.EstateAddress</li>
+						<li class="list-inline-item">Price: <img src="/assets/img/icons/dollar.svg" style="height: 15px;" /> @r.Resource.Price</li>
+						<li class="list-inline-item">Provision: @r.Resource.Provision</li>
+						<li class="list-inline-item">Area: @r.Resource.EstateArea</li>
+					</ul>
 
-                </p>
-                <a href="Details/@r.Resource.Id" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    }
-else
+				</p>
+				<a href="Details/@r.Resource.Id" class="btn btn-primary">Go somewhere</a>
+			</div>
+		</div>
+	}
+@if (Loading)
 {
-    <p>Loading</p>
-}
-
-@code {
-    HubConnection _hubConnection;
-    List<AdvertisementRepresentation> _recommendations;
-    object lockObj = new object();
-
-    private void RecommendationReceivedHandler(AdvertisementRepresentation recommendation)
-    {
-        lock (lockObj)
-        {
-            if (_recommendations is null)
-                _recommendations = new List<AdvertisementRepresentation>();
-            _recommendations.Add(recommendation);
-            StateHasChanged();
-        }
-    }
-
-    protected async override Task OnAfterRenderAsync(bool firstRender)
-    {
-        _hubConnection = new HubConnectionBuilder().WithUrl("https://localhost:44347/recommendationHub").Build();
-        _hubConnection.On<AdvertisementRepresentation>("ReceiveRecommendation", RecommendationReceivedHandler);
-        await _hubConnection.StartAsync();
-        await _hubConnection.SendAsync("RecommendBasedOnCurrentLocation", Guid.Empty, 0, 0);
-    }
-
+	<div class="d-flex justify-content-center">
+		<div class="spinner-border" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
 }

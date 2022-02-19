@@ -16,7 +16,7 @@ public class PredictPrice : BaseAsyncEndpoint
     {
         var mlContext = new MLContext();
 
-        //using var db = new NewPlaceDb();
+        using var db = new NewPlaceDb();
 
         //var data = await db.Advertisements
         //                .Include(a => a.Estate)
