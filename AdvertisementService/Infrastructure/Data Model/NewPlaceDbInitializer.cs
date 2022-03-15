@@ -37,11 +37,11 @@ namespace Infrastructure.Data
                         utilities: new List<Utility>() { new Utility(id: null, name: "Electricity", cost: 300) },
                         location: new Location(
                             id: null,
-                            address: "Mickiewicza",
-                            city: "Warszawa",
-                            postalCode: "34-345",
-                            latitude: 12,
-                            longitude: 12,
+                            address: "Józefa Szujskiego 5",
+                            city: "Kraków",
+                            postalCode: "31-123",
+                            latitude: 50.06409489164344,
+                            longitude:  19.928898998922403,
                             radius: 12,
                             country: new Country(1, "Poland")
                         )
@@ -72,11 +72,11 @@ namespace Infrastructure.Data
                         utilities: new List<Utility>() { new Utility(id: null, name: "Internet", cost: 100) },
                         location: new Location(
                             id: null,
-                            address: "Amelininymowa 12",
+                            address: "Karmelicka 50",
                             city: "Kraków",
-                            postalCode: "4335",
-                            latitude: 23,
-                            longitude: 32,
+                            postalCode: "30-128",
+                            latitude: 50.06717726700878,
+                            longitude: 19.928392916221384,
                             radius: 132,
                             country: new Country(1, "Poland")
                         )
@@ -104,11 +104,11 @@ namespace Infrastructure.Data
                         utilities: new List<Utility>() { new Utility(id: null, name : "Water", cost: 203) },
                         location: new Location(
                             id: null,
-                            address: "Kamienna 13",
+                            address: "Karmelicka 39",
                             city: "Kraków",
-                            postalCode: "4335",
-                            longitude: 12,
-                            latitude:12,
+                            postalCode: "31-128",
+                            longitude: 19.92885962055822,
+                            latitude: 50.06721170060544,
                             radius: 12,
                             country: new Country(1, "Poland")
                         )

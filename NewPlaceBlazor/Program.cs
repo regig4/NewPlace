@@ -20,18 +20,18 @@ namespace NewPlaceBlazor
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
-
+            
             builder.Services.AddBlazoredLocalStorage();
             
-            builder.Services.AddTransient(sp =>
+            builder.Services.AddTransient((Func<IServiceProvider, ApiClient>)(sp =>
             {
                 var configuration = sp.GetRequiredService<IConfiguration>();
                 string baseUri = configuration.GetServiceUri("api", "https")?.ToString() ?? "https://localhost:44347/";
 
                 var httpClient = new HttpClient(/*new JwtHttpClientHandler(baseUri, sp.GetRequiredService<ILocalStorageService>())*/);
 
-                return new ApiClient(baseUri, httpClient);
-            });
+                return new ApiClient((string)baseUri, (HttpClient)httpClient);
+            }));
 
             builder.Services.AddMudServices();
             builder.Services.AddBlazorLeafletMaps();

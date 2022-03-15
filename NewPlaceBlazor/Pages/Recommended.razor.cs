@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FisSst.BlazorMaps;
 using Microsoft.AspNetCore.Components;
@@ -10,17 +11,17 @@ namespace NewPlaceBlazor.Pages
     public partial class Recommended
     {
         [Inject]
-        public ApiClient Api { get; }
+        public ApiClient Api { get; set; }
 
         HubConnection _hubConnection;
-        List<AdvertisementRepresentation> _recommendations;
+        List<AdvertisementDetailsRepresentation> _recommendations;
         object lockObj = new object();
 
         private Map _map;
         private MapOptions mapOptions = new MapOptions()
         {
             DivId = "mapId",
-            Center = new LatLng(50.279133, 18.685578),
+            Center = new LatLng(50.06409489164344, 19.928898998922403),
             Zoom = 13,
             UrlTileLayer = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             SubOptions = new MapSubOptions()
@@ -34,16 +35,18 @@ namespace NewPlaceBlazor.Pages
 
         public Marker Marker { get; set; }
 
+        private List<Marker> _recommendationsMarkers = new List<Marker>();
+
         readonly Location _location = new();
 
         public bool Loading { get; set; }
 
-        private void RecommendationReceivedHandler(AdvertisementRepresentation recommendation)
+        private void RecommendationReceivedHandler(AdvertisementDetailsRepresentation recommendation)
         {
             lock (lockObj)
             {
                 if (_recommendations is null)
-                    _recommendations = new List<AdvertisementRepresentation>();
+                    _recommendations = new List<AdvertisementDetailsRepresentation>();
                 _recommendations.Add(recommendation);
                 StateHasChanged();
             }
@@ -57,13 +60,22 @@ namespace NewPlaceBlazor.Pages
                 _location.Latitude = mouseEvent.LatLng.Lat;
                 Marker?.Remove();
                 Marker = await MarkerFactory.CreateAndAddToMap(new LatLng(_location.Latitude, _location.Longitude), _map);
-                
+
+                foreach (var r in _recommendationsMarkers)
+                    r.Remove();
+
+                _recommendationsMarkers.Clear();
+
                 Loading = true;
 
-                Api.
+                _recommendations = new List<AdvertisementDetailsRepresentation>(await Api.LocationAsync(_location.Latitude, _location.Longitude));
+
+                foreach(var recommendation in _recommendations)
+                    _recommendationsMarkers.Add(await MarkerFactory.CreateAndAddToMap(
+                        new LatLng(recommendation.Resource.Latitude, recommendation.Resource.Longitude), _map));
 
                 Loading = false;
-                
+
                 StateHasChanged();
             });
         }

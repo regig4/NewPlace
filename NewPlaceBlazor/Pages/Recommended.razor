@@ -26,7 +26,6 @@ Latitude: <strong>@_location?.Latitude</strong>
 	@foreach (var r in _recommendations)
 	{
 		<div class="card" style="width: 18rem;">
-			<img src="data:@r.Thumbnail.MediaType;base64,@r.Thumbnail.Resource" class="card-img-top" alt="thumbnail">
 			<div class="card-body">
 				<h5 class="card-title">@r.Resource.Title</h5>
 				<p class="card-text">

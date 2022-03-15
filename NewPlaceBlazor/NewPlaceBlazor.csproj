@@ -3,10 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <OpenApiReference Include="OpenApi\Api.json" CodeGenerator="NSwagCSharp" Namespace="NewPlaceBlazor" Link="OpenApi\swagger.json" />
+    <Content Remove="OpenApi\Api.json" />
   </ItemGroup>
+
+  <ItemGroup>
+    <OpenApiReference Include="OpenApi\Api.json" ClassName="ApiClient" CodeGenerator="NSwagCSharp" Namespace="NewPlaceBlazor" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Blazored.FluentValidation" Version="2.0.3" />

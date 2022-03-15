@@ -110,6 +110,11 @@ namespace API
                 client.BaseAddress = Configuration.GetServiceUri("advertisementservice") ?? new System.Uri("https://localhost:7185");
             });
 
+            services.AddHttpClient(nameof(RecommendationsBasedOnLocationQueryHandler), client =>
+            {
+                client.BaseAddress = Configuration.GetServiceUri("recommendationservice") ?? new System.Uri("https://localhost:7204");
+            });
+
             services.AddTransient(provider => GrpcChannelFactory.Instance.Create());
             services.AddTransient(provider => RecommendationServiceFactory.Instance.Create(
                  provider.GetService<IAdvertisementService>(),

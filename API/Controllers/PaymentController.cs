@@ -32,6 +32,7 @@ namespace NewPlace.Controllers
         }
 
         [HttpGet("top-donations")]
+
         [ProducesResponseType(typeof(List<PaymentDto>), (int) HttpStatusCode.OK)]
         public async Task<IActionResult> TopDonations(uint count = 10)
         {

@@ -1,7 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Mvc;
-using Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 
@@ -16,7 +14,7 @@ public class PredictPrice : BaseAsyncEndpoint
     {
         var mlContext = new MLContext();
 
-        using var db = new NewPlaceDb();
+        //using var db = new NewPlaceDb();
 
         //var data = await db.Advertisements
         //                .Include(a => a.Estate)

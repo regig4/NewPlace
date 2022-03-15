@@ -29,7 +29,7 @@ namespace Infrastructure.Handlers.Query_Handlers
                 throw new Exception("Status code from advertisement service was " + result.StatusCode);
 
             var stringContent = await result.Content.ReadAsStringAsync();
-            var ads = JsonSerializer.Deserialize<IReadOnlyList<AdvertisementRepresentation>>(stringContent);
+            var ads = JsonSerializer.Deserialize<List<AdvertisementRepresentation>>(stringContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true, ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve });
 
             return ads;
         }
