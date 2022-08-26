@@ -84,10 +84,10 @@ namespace API
                     {
                         options.TokenValidationParameters = new TokenValidationParameters()
                         {
-                            ValidateIssuer = true,
-                            ValidateAudience = true,
-                            ValidateLifetime = true,
-                            ValidateIssuerSigningKey = true,
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateLifetime = false,
+                            ValidateIssuerSigningKey = false,
                             ValidIssuer = "http://localhost:44347/",//Configuration["Jwt:Issuer"], todo!
                             ValidAudience = "http://localhost:44381/",//Configuration["Jwt:Issuer"],
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
@@ -95,6 +95,7 @@ namespace API
                     });
             services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
                     .AddCertificate();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });

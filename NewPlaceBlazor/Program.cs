@@ -23,15 +23,15 @@ namespace NewPlaceBlazor
             
             builder.Services.AddBlazoredLocalStorage();
             
-            builder.Services.AddTransient((Func<IServiceProvider, ApiClient>)(sp =>
+            builder.Services.AddTransient(sp =>
             {
                 var configuration = sp.GetRequiredService<IConfiguration>();
                 string baseUri = configuration.GetServiceUri("api", "https")?.ToString() ?? "https://localhost:44347/";
 
-                var httpClient = new HttpClient(/*new JwtHttpClientHandler(baseUri, sp.GetRequiredService<ILocalStorageService>())*/);
+                var httpClient = new HttpClient(new JwtHttpClientHandler(baseUri, sp.GetRequiredService<ILocalStorageService>()));
 
-                return new ApiClient((string)baseUri, (HttpClient)httpClient);
-            }));
+                return new ApiClient(baseUri, httpClient);
+            });
 
             builder.Services.AddMudServices();
             builder.Services.AddBlazorLeafletMaps();

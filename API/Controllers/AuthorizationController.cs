@@ -10,28 +10,32 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using NewPlace.ResourceRepresentations;
 
+[ApiController]
+[Route("api/[controller]")]
 [AllowAnonymous]
 public class AuthorizationController : Controller
 {
     private readonly IAuthService _service;
     private readonly IConfiguration _configuration;
 
-    public AuthorizationController(IAuthService service, IConfiguration configuration)
+    public AuthorizationController(/*IAuthService service, */IConfiguration configuration)
     {
-        _service = service;
+        //_service = service;
         _configuration = configuration;
     }
 
+    [HttpPost("login")]
+    [ProducesResponseType(200)]
     public async Task<ActionResult<UserRepresentation>> Login([FromBody] UserRepresentation user)
     {
-        var userResult = await _service.AuthorizeAsync(user.Resource, user.Password);
-        if (userResult.PasswordHash != null)
-        {
+        //var userResult = await _service.AuthorizeAsync(user.Resource, user.Password);
+        //if (userResult.PasswordHash != null)
+        //{
             user.Token = BuildToken(user.Resource);
-            return user;
-        }
-        return Unauthorized();
-    }
+		    return user;
+		//}
+		//return Unauthorized();
+	}
 
     private string BuildToken(UserDto user)
     {

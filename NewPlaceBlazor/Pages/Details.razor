@@ -50,6 +50,6 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        //advertisement = await Api.AdvertisementGETAsync(int.Parse(Id));
+        advertisement = await Api.DetailsAsync(int.Parse(Id));
     }
 }

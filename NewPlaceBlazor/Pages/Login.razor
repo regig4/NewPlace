@@ -1,0 +1,22 @@
+﻿@page "/login"
+@inject ApiClient Api
+
+<h3>Login</h3>
+
+<input @bind="UserName" type="text" placeholder="User name" style="form-control" />
+<input @bind="Password" type="password" placeholder="Password" style="form-control" />
+<button @onclick="Authenticate">Login</button>
+
+@code {
+	public string UserName { get; set; }
+	public string Password { get; set; }
+
+	private async Task Authenticate() 
+	{
+		var user = new UserRepresentation {
+			Resource = new UserDto { Login = UserName }, 
+			Password = Password
+		};
+		await Api.LoginAsync(user);
+	}
+}

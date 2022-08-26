@@ -1,5 +1,5 @@
 ﻿@page "/create"
-
+@inject ApiClient Api
 
 <div style="margin:auto;text-align:center">
 	<h6>Create new advertisement (step @_selected)  </h6>
@@ -20,11 +20,13 @@
 	<div hidden="@(_selected != 2)"><Step2 advertisement="@advertisement" /></div>
 	<div hidden="@(_selected != 3)"><Step3 advertisement="@advertisement" /></div>
 
+	<br />
+	<button hidden="@(_selected == 3)" class="btn btn-primary float-right" type="button" @onclick="GoToNextStep">Next step</button>
+	<button hidden="@(_selected != 3)" class="btn btn-info float-right" type="submit">Create advertisement</button>
+
 </EditForm>
 
-<br />
-<button hidden="@(_selected == 3)" class="btn btn-primary float-right" @onclick="GoToNextStep">Next step</button>
-<button hidden="@(_selected != 3)" class="btn btn-info float-right" type="submit">Create advertisement</button>
+
 
 
 @code {
@@ -38,13 +40,13 @@
 	}
 
 	private AdvertisementDetailsRepresentation advertisement = new AdvertisementDetailsRepresentation
-		{
-			Thumbnail = new ImageRepresentation(),
-			Resource = new AdvertisementDetailsDto()
-		};
-
-	private void SubmitValidForm()
 	{
-		Console.WriteLine("TEST");
+		Thumbnail = new ImageRepresentation(),
+		Resource = new AdvertisementDetailsDto()
+	};
+
+	private async void SubmitValidForm()
+	{
+		await Api.CreateAsync(advertisement);
 	}
 }

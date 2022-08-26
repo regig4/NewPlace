@@ -9,6 +9,7 @@ namespace Infrastructure.Services
         public async Task<UserDto> AuthorizeAsync(UserDto user, string password)
         {
             string token = null;
+
             if(true) // todo
             {
                 user.PasswordHash = "aa";    //BuildHash(password)

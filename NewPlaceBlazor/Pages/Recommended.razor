@@ -5,6 +5,12 @@
 @inject IMarkerFactory MarkerFactory
 
 <h3>Recommended</h3>
+
+<h2>Recommendations based on preferred location</h2>
+
+<p>
+	Click on map to see apartments and houses in neighbourhood.
+</p>
 <Map @ref="_map" MapOptions="@mapOptions"></Map>
 
 <style>
@@ -13,36 +19,41 @@
 	}
 </style>
 
-<button @onclick="ClickHandler">Click</button>
-
-Your location:
-<br />
-Longitude: <strong>@_location?.Longitude</strong>
-<br />
-Latitude: <strong>@_location?.Latitude</strong>
-<br />
+<p>
+Your location:<br />
+Longitude: <strong>@_location?.Longitude</strong><br />
+Latitude: <strong>@_location?.Latitude</strong><br />
+</p>
 
 @if (_recommendations is not null)
-	@foreach (var r in _recommendations)
-	{
-		<div class="card" style="width: 18rem;">
-			<div class="card-body">
-				<h5 class="card-title">@r.Resource.Title</h5>
-				<p class="card-text">
-					<ul class="list-inline">
-						<li class="list-inline-item">Valid to: @DateTime.Now.AddDays(2)</li>
-						<li class="list-inline-item">User: @r.Resource.UserName</li>
-						<li class="list-inline-item">Address: @r.Resource.EstateAddress</li>
-						<li class="list-inline-item">Price: <img src="/assets/img/icons/dollar.svg" style="height: 15px;" /> @r.Resource.Price</li>
-						<li class="list-inline-item">Provision: @r.Resource.Provision</li>
-						<li class="list-inline-item">Area: @r.Resource.EstateArea</li>
-					</ul>
+{
+	<div class="container">
+		<div class="row">
+		@foreach (var r in _recommendations)
+		{
+			<div class="row">
+			<div class="card" @onmouseover="m => OpenPopup(r.Resource.Id.Value)" @onmouseout="m => ClosePopup(r.Resource.Id.Value)" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">@r.Resource.Title</h5>
+					<p class="card-text">
+						<ul class="list-inline">
+							<li class="list-inline-item">Valid to: @DateTime.Now.AddDays(2)</li>
+							<li class="list-inline-item">User: @r.Resource.UserName</li>
+							<li class="list-inline-item">Address: @r.Resource.EstateAddress</li>
+							<li class="list-inline-item">Price: @r.Resource.Price</li>
+							<li class="list-inline-item">Provision: @r.Resource.Provision</li>
+							<li class="list-inline-item">Area: @r.Resource.EstateArea</li>
+						</ul>
 
-				</p>
-				<a href="Details/@r.Resource.Id" class="btn btn-primary">Go somewhere</a>
+					</p>
+					<a href="Details/@r.Resource.Id" class="btn btn-primary">Details</a>
+				</div>
 			</div>
+			</div>
+		}
 		</div>
-	}
+	</div>
+}
 @if (Loading)
 {
 	<div class="d-flex justify-content-center">

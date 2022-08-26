@@ -23,14 +23,29 @@ namespace API.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<List<AdvertisementRepresentation>> Search(string estateType, string city, double radius)
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<List<AdvertisementRepresentation>>> Search(string estateType, string city, double radius)
         {
             var result = await _mediator.Send(new SearchAdvertisementsQuery(estateType, city, radius));
-            return result.ToList();
+            return Ok(result.ToList());
+        }
+
+        [HttpGet("details")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<ActionResult<AdvertisementDetailsRepresentation>> Details(int id)
+        {
+            var result = await _mediator.Send(new GetAdvertisementDetailsQuery(id));
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
         }
 
         [Authorize]
         [HttpPost("create")]
+        [ProducesResponseType(200)]
         public ActionResult<int> Create(AdvertisementDetailsRepresentation dto)
         {
             throw new NotImplementedException();
