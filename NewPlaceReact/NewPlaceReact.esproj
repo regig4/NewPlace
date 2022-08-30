@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.4.0-alpha">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>ad189f25-e624-40a7-85f3-f9de1ee809ac</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <StartupCommand>set BROWSER=none&amp;&amp;npm start</StartupCommand>
+    <JavaScriptTestRoot>src\</JavaScriptTestRoot>
+    <JavaScriptTestFramework>Jest</JavaScriptTestFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Script Include="**" Exclude="*.esproj;**\node_modules\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Script Remove="src\components\Catalog.js" />
+    <Script Remove="src\components\Counter.js" />
+    <Script Remove="src\components\Details.js" />
+    <Script Remove="src\components\FetchData.js" />
+    <Script Remove="src\components\Home.js" />
+    <Script Remove="src\components\Layout.js" />
+    <Script Remove="src\components\NavMenu.css" />
+    <Script Remove="src\components\NavMenu.js" />
+    <Script Remove="src\components\Search.js" />
+    <Script Remove="src\custom.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\components\Catalog.js" />
+    <None Include="src\components\Counter.js" />
+    <None Include="src\components\Details.js" />
+    <None Include="src\components\FetchData.js" />
+    <None Include="src\components\Home.js" />
+    <None Include="src\components\Layout.js" />
+    <None Include="src\components\NavMenu.css" />
+    <None Include="src\components\NavMenu.js" />
+    <None Include="src\components\Search.js" />
+    <None Include="src\custom.css" />
+  </ItemGroup>
+  <!-- This target is copied from the ASP.NET SPA template in order to ensure node_modules are in place. -->
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+</Project>
