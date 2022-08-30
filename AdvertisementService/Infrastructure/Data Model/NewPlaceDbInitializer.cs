@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Models;
+using Bogus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Infrastructure.Data
         {
             context.Database.EnsureCreated();
 
-            if (context.Advertisements.Any())
+            if (context.Advertisements.Count() > 10)
                 return;
 
             Advertisement[] testData = GetTestData(); 
@@ -23,7 +24,46 @@ namespace Infrastructure.Data
 
         private static Advertisement[] GetTestData()
         {
-            return new Advertisement[]
+            var fakeForCategory = new Faker<Category>()
+                .RuleFor(a => a.ApartmentType, (f, x) => f.Random.Enum<EstateType>())
+                .RuleFor(a => a.PricingType, (f, x) => f.Random.Enum<PricingType>());
+
+            var fakeForUser = new Faker<User>()
+                .RuleFor(a => a.Login, (f, x) => f.Person.FirstName)
+                .RuleFor(a => a.Email, (f, x) => f.Person.Email)
+                .RuleFor(a => a.PasswordHash, (f, x) => f.Random.String());
+
+            var fakeForCountry = new Faker <Country>()
+                .RuleFor(a => a.Name, (f, x) => f.Address.Country());
+
+            var fakeForLocation = new Faker<Location>()
+                .RuleFor(a => a.Address, (f, x) => f.Address.FullAddress())
+                .RuleFor(a => a.City, (f, x) => f.Address.City())
+                .RuleFor(a => a.PostalCode, (f, x) => f.Address.SecondaryAddress())
+                .RuleFor(a => a.Longitude, (f, x) => f.Address.Longitude())
+                .RuleFor(a => a.Latitude, (f, x) => f.Address.Latitude())
+                .RuleFor(a => a.Radius, (f, x) => f.Random.Double(min: 1, max: 50))
+                .RuleFor(a => a.Country, (f, x) => fakeForCountry);
+
+            var fakeForEstate = new Faker<Estate>()
+                .RuleFor(a => a.Area, (f, x) => f.Random.Double(min: 20, max: 4000))
+                .RuleFor(a => a.Utilities, (f, x) => new List<Utility> { new Utility(null, f.Commerce.ProductName(), f.Random.Decimal()) })
+                .RuleFor(a => a.Location, (f, x) => fakeForLocation);
+
+            var generatedData = new Faker<Advertisement>()
+                //.StrictMode(true)
+                .RuleFor(a => a.Title, (f, x) => f.Commerce.ProductName())
+                .RuleFor(a => a.Description, (f, x) => f.Rant.Review())
+                .RuleFor(a => a.CreateDate, (f, x) => f.Date.Between(DateTime.Now.AddDays(-100), DateTime.Now))
+                .RuleFor(a => a.ValidTo, (f, x) => f.Date.Between(DateTime.Now, DateTime.Now.AddDays(10)))
+                .RuleFor(a => a.Price, (f, x) => decimal.Parse(f.Commerce.Price()))
+                .RuleFor(a => a.Provision, (f, x) => decimal.Parse(f.Commerce.Price()))
+                .RuleFor(a => a.Category, () => fakeForCategory)
+                .RuleFor(a => a.User, () => fakeForUser)
+                .RuleFor(a => a.Estate, () => fakeForEstate)
+                .Generate(1000);
+
+            var data = new Advertisement[]
                         {
                 new Advertisement(
                     id: null,
@@ -123,8 +163,11 @@ namespace Infrastructure.Data
                         email: "aaa@bbb.com"
                     ),
                     category: new Category(id: null, apartmentType: EstateType.Flat, pricingType: PricingType.Exchange)
+
                 )
                         };
+
+            return data.Concat(generatedData).ToArray();
         }
     }
 }

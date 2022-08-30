@@ -49,7 +49,7 @@
 
             
             <div v-if="searchResults" id="searchResults">
-                <div id="result" v-for="result in searchResults">
+                <div id="result" v-for="result in searchResults" :key="result.id">
                     <div>
                         <img className="img-thumbnail" :src="'data:' + result.thumbnail.mediaType + ';base64,' + result.thumbnail.resource" />
                     </div>

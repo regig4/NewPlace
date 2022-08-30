@@ -5,7 +5,7 @@ namespace ApplicationCore.Models
 {
     public class Estate
     {
-        private Estate()
+        public Estate()
         {
             // for Automapper
         }

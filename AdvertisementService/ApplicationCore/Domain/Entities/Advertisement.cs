@@ -6,6 +6,11 @@ namespace ApplicationCore.Models
 {
     public class Advertisement
     {
+        public Advertisement()
+        {
+            // For generating test data via Bogus
+        }
+
         public Advertisement(int? id, string title, string? description, Category category, DateTime createDate, 
             DateTime validTo, User user, Estate estate, decimal price, decimal? provision)
         {

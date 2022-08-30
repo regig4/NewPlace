@@ -7,6 +7,11 @@ namespace ApplicationCore.Models
 {
     public class User
     {
+        public User()
+        {
+
+        }
+
         public User(int? id, string login, string passwordHash, string email, Agency? agency)
             : this(id, login, passwordHash, email)
         {

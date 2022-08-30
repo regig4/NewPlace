@@ -6,6 +6,10 @@ namespace ApplicationCore.Models
 {
     public class Country
     {
+        public Country()
+        {
+
+        }
         public Country(int id, string name)
         {
             Id = id;

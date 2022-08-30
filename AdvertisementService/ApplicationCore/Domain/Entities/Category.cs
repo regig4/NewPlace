@@ -7,7 +7,7 @@ namespace ApplicationCore.Models
 {
     public class Category : IEquatable<Category>
     {
-        private Category()
+        public Category()
         { 
         }
 
