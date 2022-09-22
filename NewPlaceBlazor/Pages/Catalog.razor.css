@@ -33,3 +33,14 @@ a:hover {
 a:visited {
     color: darkgray
 }
+
+.pagination-specific {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    height: 80%;
+    width: 60%;
+}

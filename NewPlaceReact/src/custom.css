@@ -1,14 +1,70 @@
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+:root {
+    --color-primary: #2d2d2d;
+    --color-secondary: #ffd800;
+}
+
+body {
+    background: radial-gradient(#fffbf0, #fffbf0);
 }
 
 code {
-  color: #E01A76;
+    color: #E01A76;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #000;
+    font-size: large;
+    background-color: var(--color-secondary);
+    border-color: orange;
+    display: flex;
+    margin-left: auto;
+}
+
+#searchArea {
+    margin: 2em;
+    /*background: radial-gradient(#fffbf0, #1b6ec2);*/
+    background-color: var(--color-primary);
+    color: white;
+}
+
+fieldset {
+    border-radius: 20%;
+    padding: 2em;
+    border: none;
+}
+
+.col-sm {
+    display: flex;
+    flex: 0 1 auto;
+}
+
+.form-control {
+    margin-left: auto;
+    margin-bottom: 1.1em;
+    width: 50%;
+    border: none;
+}
+
+hr {
+    border-color: var(--color-secondary);
+    margin-bottom: 1.3em;
+}
+
+#searchResults {
+    margin: 3em;
+}
+
+.searchResult {
+    background-color: var(--color-primary);
+    padding: 1.1em;
+    margin: 0.8em;
+}
+
+ul {
+    list-style-type: square;
+}
+
+.searchResult > a {
+    color: var(--color-secondary);
+    text-decoration: none;
 }

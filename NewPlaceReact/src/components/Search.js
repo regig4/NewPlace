@@ -12,13 +12,12 @@ export default class Search extends Component {
         return (
             <div>
                 <div id="searchArea">
-                    <h1>{this.msg}</h1>
                     <form>
                         <fieldset>
                             <legend>
-                                Search
-                                <small className="text-muted float-right">Find your perfect place</small>
+                                Find your perfect place
                             </legend>
+                            <hr />
                             <div className="container">
                                 <div className='row'>
                                     <div className="col-sm">

@@ -49,7 +49,7 @@ namespace Infrastructure.Services
             var advertisements = new List<AdvertisementDto>();
             Expression<Func<Advertisement, bool>> condition;
 
-            if (city == null || estateType == null)
+            if (city is null || estateType is null)
                 condition = a => true;
             else
                 condition = a => a.Estate.Location.City.ToLower() == city.ToLower()

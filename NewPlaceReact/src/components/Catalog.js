@@ -32,9 +32,9 @@ export class Catalog extends Component {
                 {
                     !(this.state.advertisements) ? <p>Loading</p> : 
                     <div id="searchResults">
-                        {this.state.advertisements.map((result) => 
-                            <div>
-                                <Link to={"/details/" + result.resource.id} className="jumbotron row searchResult"> 
+                            {this.state.advertisements.map((result) =>
+                                <div className="searchResult">
+                                <Link to={"/details/" + result.resource.id}> 
                                 <div className="col-3">
                                     <img className="img-thumbnail" src={"data:" + result.thumbnail.mediaType + ";base64," + result.thumbnail.resource} />
                                 </div>

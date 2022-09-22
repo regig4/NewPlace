@@ -39,10 +39,14 @@
         </fieldset>
     </div>
 
-    @if (advertisements != null)
+    @if (_advertisements != null)
     {
+        <div class="pagination-specific">
+            <MudPagination Class="pagination" Color="Color.Primary" Count="@((_advertisements.Count + _pageSize - 1) / _pageSize)" SelectedChanged="OnPaginationPageChanged" />
+        </div>
+
         <div id="searchResults">
-            @foreach (var result in advertisements)
+            @foreach (var result in _paginatedResults)
             {
                 <div class="jumbotron row searchResult" @onclick="() => SeeDetails(result.Resource.Id.Value)">
                     <div class="col-3">
@@ -66,6 +70,10 @@
                 </div>
             }
         </div>
+
+        <div class="pagination-specific">
+            <MudPagination Class="pagination" Color="Color.Primary" Count="@((_advertisements.Count + _pageSize - 1) / _pageSize)" SelectedChanged="OnPaginationPageChanged" />
+        </div>
     }
     else
     {
@@ -78,23 +86,34 @@
 
 
 @code {
-    private List<AdvertisementRepresentation> advertisements;
+    private List<AdvertisementRepresentation> _advertisements;
     private List<string> estateTypes = new List<string> { "room", "flat", "house" };
     private string type = "room";
     private string city = "";
 
+    // pagination:
+    private int _pageSize = 10;
+    private List<AdvertisementRepresentation> _paginatedResults;
+
     protected override async Task OnInitializedAsync()
     {
-        advertisements = (List<AdvertisementRepresentation>) await Api.SearchAsync(null, null, 0);
+        _advertisements = (List<AdvertisementRepresentation>) await Api.SearchAsync(null, null, 0);
+        OnPaginationPageChanged(1);
     }
 
     private async void Search()
     {
-        advertisements = (List<AdvertisementRepresentation>) await Api.SearchAsync(city, type, 0);
+        _advertisements = (List<AdvertisementRepresentation>) await Api.SearchAsync(city, type, 0);
+        OnPaginationPageChanged(1);
     }
 
     private void SeeDetails(int id)
     {
         NavigationManager.NavigateTo("/Details/" + id);   
+    }
+
+    private void OnPaginationPageChanged(int pageIndex)
+    {
+        _paginatedResults = _advertisements.Chunk(_pageSize).Take(pageIndex).Last().ToList();
     }
 }

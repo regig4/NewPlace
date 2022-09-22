@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
@@ -84,13 +85,15 @@ namespace API
                     {
                         options.TokenValidationParameters = new TokenValidationParameters()
                         {
+                            SaveSigninToken = true,
                             ValidateIssuer = false,
                             ValidateAudience = false,
-                            ValidateLifetime = false,
-                            ValidateIssuerSigningKey = false,
+                            ValidateLifetime = true,
+                            RequireExpirationTime = false,
+                            ValidateIssuerSigningKey = true,
                             ValidIssuer = "http://localhost:44347/",//Configuration["Jwt:Issuer"], todo!
                             ValidAudience = "http://localhost:44381/",//Configuration["Jwt:Issuer"],
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Jwt:Key"])),
                         };
                     });
             services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
@@ -99,6 +102,33 @@ namespace API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
+                });
             });
 
             services.AddHttpClient<IUserService, UserServiceProxy>(client =>
@@ -124,7 +154,7 @@ namespace API
 
             services.AddSignalR();
             services.AddControllers();
-                //.AddJsonOptions(opts => opts.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve); 
+            //.AddJsonOptions(opts => opts.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
