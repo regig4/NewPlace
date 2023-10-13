@@ -1,9 +1,6 @@
 ﻿using ApplicationCore.Application.Services;
 using ApplicationCore.Services;
 using Infrastructure.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Infrastructure.Factories
 {
@@ -16,8 +13,8 @@ namespace Infrastructure.Factories
         public IRecommendationService Create(IAdvertisementService advertisementService, IUserService userService)
         {
             return new RecommendationService(
-                null, 
-                advertisementService, 
+                null,
+                advertisementService,
                 userService);
         }
     }

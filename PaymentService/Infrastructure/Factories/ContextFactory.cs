@@ -12,11 +12,17 @@ namespace PaymentService.Infrastructure.Factories
             get
             {
                 if (_instance != null)
+                {
                     return _instance;
+                }
 
                 lock (_syncLock)
+                {
                     if (_instance == null)
+                    {
                         _instance = new ContextFactory();
+                    }
+                }
 
                 return _instance;
             }
@@ -24,7 +30,7 @@ namespace PaymentService.Infrastructure.Factories
 
         public PaymentDb Create()
         {
-            var options = new DbContextOptionsBuilder<PaymentDb>();
+            DbContextOptionsBuilder<PaymentDb> options = new DbContextOptionsBuilder<PaymentDb>();
             return new PaymentDb(options.Options);
         }
     }

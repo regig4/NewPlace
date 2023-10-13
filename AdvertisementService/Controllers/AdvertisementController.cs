@@ -1,16 +1,10 @@
-﻿using ApplicationCore.DTOs;
+﻿using System.Net.Mime;
+using AdvertisementService.ApplicationCore.Application.Services;
+using ApplicationCore.DTOs;
+using Infrastructure.Converters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NewPlace.ResourceRepresentations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Net.Http;
-using System.IO;
-using Infrastructure.Converters;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using AdvertisementService.ApplicationCore.Application.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,10 +25,13 @@ namespace NewPlace.Controllers
         [HttpGet]
         public async Task<IEnumerable<AdvertisementRepresentation>> Get()
         {
-            var ads = _service.GetAllAsync();
+            IAsyncEnumerable<AdvertisementDto>? ads = _service.GetAllAsync();
             List<AdvertisementDto> advertisements = new();
-            await foreach (var a in ads)
+            await foreach (AdvertisementDto? a in ads)
+            {
                 advertisements.Add(a);
+            }
+
             return advertisements.AsParallel().AsOrdered()
                 .Select(async advertisement => await advertisement.ToRepresentation(HttpContext.Request.Path, _service))
                 .AsEnumerable().Select(task => task.Result).ToList();
@@ -44,7 +41,7 @@ namespace NewPlace.Controllers
         [HttpGet("search")]
         public async Task<List<AdvertisementRepresentation>> Search(string? estateType, string? city, double radius)
         {
-            var advertisements = await _service.GetByCityAndEstateTypeAsync(city, estateType);
+            IEnumerable<AdvertisementDto>? advertisements = await _service.GetByCityAndEstateTypeAsync(city, estateType);
             return advertisements.Select(async advertisement => await advertisement.ToRepresentation(HttpContext.Request.Path, _service))
                 .Select(task => task.Result).ToList();
         }
@@ -59,7 +56,7 @@ namespace NewPlace.Controllers
                 {
                     Resource = await _service.GetThumbnailBase64(id),
                     MediaType = MediaTypeNames.Image.Jpeg
-                }, 
+                },
                 Links = new List<Link>
                 {
                     new Link()
@@ -82,7 +79,7 @@ namespace NewPlace.Controllers
 
         // PUT api/Advertisement/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] AdvertisementRepresentation advertisement)
         {
         }
 
@@ -90,6 +87,13 @@ namespace NewPlace.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
+        }
+
+        [HttpPatch("{id}")]
+        public void Patch(int id, [FromBody] string title) 
+        {
+            
         }
     }
 }

@@ -1,13 +1,10 @@
-﻿using Common.ApplicationCore.Domain.Entities;
+﻿using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
+using Common.ApplicationCore.Domain.Entities;
 using Common.ApplicationCore.Domain.Events;
 using PaymentService.ApplicationCore.Application.Services;
 using RabbitMQ.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace PaymentService.Infrastructure.EventStream
 {
@@ -15,9 +12,9 @@ namespace PaymentService.Infrastructure.EventStream
     {
         public void Publish(Entity entity, List<IDomainEvent> uncommitedEvents)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
+            ConnectionFactory factory = new ConnectionFactory() { HostName = "localhost" };
+            using IConnection connection = factory.CreateConnection();
+            using IModel channel = connection.CreateModel();
             channel.QueueDeclare(queue: "eventqueue",
                                  durable: false,
                                  exclusive: false,
@@ -26,9 +23,9 @@ namespace PaymentService.Infrastructure.EventStream
 
 
 
-            foreach (var e in uncommitedEvents)
+            foreach (IDomainEvent e in uncommitedEvents)
             {
-                var json = JsonSerializer.Serialize(
+                string json = JsonSerializer.Serialize(
                 new EventMessage
                 {
                     EntityId = entity.Id,
@@ -39,7 +36,7 @@ namespace PaymentService.Infrastructure.EventStream
                     Event = e
                 });
 
-                var body = Encoding.UTF8.GetBytes(json);
+                byte[] body = Encoding.UTF8.GetBytes(json);
 
                 channel.BasicPublish(exchange: "",
                                  routingKey: "eventqueue",

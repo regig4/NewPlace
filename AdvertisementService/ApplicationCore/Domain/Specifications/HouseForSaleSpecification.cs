@@ -1,8 +1,5 @@
-﻿using ApplicationCore.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using ApplicationCore.Models;
 
 namespace ApplicationCore.Specifications
 {

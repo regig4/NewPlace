@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Infrastructure.Logging
+﻿namespace Infrastructure.Logging
 {
-    class FileLogger
+    internal class FileLogger
     {
     }
 }

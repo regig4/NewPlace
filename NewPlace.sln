@@ -36,6 +36,8 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "NewPlaceReact", "NewPlaceRe
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "NewPlaceVue", "NewPlaceVue\NewPlaceVue.esproj", "{46C2C41C-A7EE-41D3-9870-057A2ED8DA38}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RecommendationServicePython", "RecommendationServicePython\RecommendationServicePython.pyproj", "{E0054490-8931-4AAB-8503-D61673B2310C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +108,8 @@ Global
 		{46C2C41C-A7EE-41D3-9870-057A2ED8DA38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46C2C41C-A7EE-41D3-9870-057A2ED8DA38}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46C2C41C-A7EE-41D3-9870-057A2ED8DA38}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E0054490-8931-4AAB-8503-D61673B2310C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0054490-8931-4AAB-8503-D61673B2310C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +125,7 @@ Global
 		{4BAECE68-7220-46B4-BDA6-136088021488} = {C7EDA8BD-34BD-491D-B186-66EA76E8A12B}
 		{AD189F25-E624-40A7-85F3-F9DE1EE809AC} = {1A3B7AA3-008F-4FA0-9786-010A2CC4174A}
 		{46C2C41C-A7EE-41D3-9870-057A2ED8DA38} = {1A3B7AA3-008F-4FA0-9786-010A2CC4174A}
+		{E0054490-8931-4AAB-8503-D61673B2310C} = {C7EDA8BD-34BD-491D-B186-66EA76E8A12B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {56EF6C30-0ACE-4358-AD9C-DCCD63F123B9}

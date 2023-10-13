@@ -1,8 +1,5 @@
 ﻿using FluentValidation;
 using NewPlace.ResourceRepresentations;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ApplicationCore.Validators
 {

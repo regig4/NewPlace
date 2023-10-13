@@ -23,7 +23,7 @@ namespace Infrastructure.Handlers.Query_Handlers
 
         public async Task<List<AdvertisementDetailsRepresentation>> Handle(RecommendationsBasedOnLocationQuery request, CancellationToken cancellationToken)
         {
-            var result = await _client.PostAsync($"location", new StringContent(JsonSerializer.Serialize(new
+            HttpResponseMessage? result = await _client.PostAsync($"location", new StringContent(JsonSerializer.Serialize(new
             {
                 latitude = request.Latitude,
                 longitude = request.Longitude,
@@ -31,14 +31,16 @@ namespace Infrastructure.Handlers.Query_Handlers
             }), Encoding.UTF8, "application/json"));
 
             if (result.StatusCode != System.Net.HttpStatusCode.OK)
+            {
                 throw new Exception("Status code from advertisement service was " + result.StatusCode);
+            }
 
-            var stringContent = await result.Content.ReadAsStringAsync();
-            var content = JsonSerializer.Deserialize<Response>(stringContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true, ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve });
+            string? stringContent = await result.Content.ReadAsStringAsync();
+            Response? content = JsonSerializer.Deserialize<Response>(stringContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true, ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve });
 
             return content.Recommendations.Select(r => new AdvertisementDetailsRepresentation { Resource = r, Links = new List<Link>(), Thumbnail = new ImageRepresentation() }).ToList();
         }
 
-        record Response(List<AdvertisementDetailsDto> Recommendations);
+        private record Response(List<AdvertisementDetailsDto> Recommendations);
     }
 }

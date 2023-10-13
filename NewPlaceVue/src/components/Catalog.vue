@@ -199,4 +199,8 @@
         margin-left: 33%;
         margin-right: 33%;
     }
+
+    img-thumbnail {
+        width: auto;
+    }
 </style>

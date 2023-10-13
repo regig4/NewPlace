@@ -1,8 +1,5 @@
-﻿using ApplicationCore.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using ApplicationCore.DTOs;
 
 namespace NewPlace.ResourceRepresentations
 {
@@ -10,6 +7,6 @@ namespace NewPlace.ResourceRepresentations
     {
         public AdvertisementDetailsRepresentation() { }
         public ImageRepresentation Thumbnail { get; set; }
-        ICollection<ImageRepresentation> Images { get; set; }
+        private ICollection<ImageRepresentation> Images { get; set; }
     }
 }

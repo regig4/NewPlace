@@ -1,11 +1,19 @@
 :root {
     --color-primary: #2d2d2d;
     --color-secondary: #ffd800;
+    --color-background: #fffbf0;
 }
 
 body {
-    background: radial-gradient(#fffbf0, #fffbf0);
+    background: linear-gradient(var(--color-background), var(--color-background));
+    background-attachment: fixed;
 }
+
+@media only screen and (min-width : 1224px) {
+    body {
+        font-size: larger;
+    }
+} 
 
 code {
     color: #E01A76;
@@ -28,7 +36,6 @@ code {
 }
 
 fieldset {
-    border-radius: 20%;
     padding: 2em;
     border: none;
 }
@@ -52,12 +59,17 @@ hr {
 
 #searchResults {
     margin: 3em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .searchResult {
     background-color: var(--color-primary);
     padding: 1.1em;
     margin: 0.8em;
+    display: flex;
+    justify-content: center;
 }
 
 ul {
@@ -67,4 +79,15 @@ ul {
 .searchResult > a {
     color: var(--color-secondary);
     text-decoration: none;
+}
+
+option {
+    border-radius: 0%;
+    background-color: var(--color-secondary);
+}
+
+img {
+    width: 100%;
+    min-width: 250px;
+    max-width: 300px;
 }

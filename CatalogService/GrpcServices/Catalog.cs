@@ -1,12 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using CatalogService.Application.Queries;
 using Grpc.Core;
 using MediatR;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CatalogService
 {
@@ -23,30 +21,33 @@ namespace CatalogService
 
         public override async Task<AdvertisementDetailsResult> AdvertisementDetails(AdvertisementDetailsRequest request, ServerCallContext context)
         {
-            var advertisement = await _mediator.Send(new AdvertisementDetailsQuery(request.Id));
+            Common.DTOs.Advertisement.AdvertisementDetailsDto advertisement = await _mediator.Send(new AdvertisementDetailsQuery(request.Id));
             return _mapper.Map<AdvertisementDetailsResult>(advertisement);
         }
 
-        public async override Task<TopDonationResult> TopDonations(TopDonationsRequest request, ServerCallContext context)
+        public override async Task<TopDonationResult> TopDonations(TopDonationsRequest request, ServerCallContext context)
         {
             try
             {
-                var donations = (IReadOnlyCollection<Common.Dto.PaymentDto>)await _mediator.Send(new TopDonationsQuery((int)request.Count));
-                var result = new TopDonationResult();
-                foreach(var d in donations)
-                    result.Payments.Add(new PaymentDto 
+                IReadOnlyCollection<Common.Dto.PaymentDto> donations = await _mediator.Send(new TopDonationsQuery((int)request.Count));
+                TopDonationResult result = new TopDonationResult();
+                foreach (Common.Dto.PaymentDto d in donations)
+                {
+                    result.Payments.Add(new PaymentDto
                     {
                         Amount = d.Amount.ToString(),
                         Currency = d.Currency,
                         UserId = d.UserId.ToString()
                     });
+                }
+
                 return result;
             }
             catch (Exception)
             {
 
                 throw;
-            }        
+            }
         }
     }
 }

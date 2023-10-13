@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -22,7 +18,7 @@ namespace ApplicationCore.Application.Behaviors
         {
             _logger.LogInformation($"Handling {typeof(TRequest).Name}");
 
-            var response = await next();
+            TResponse? response = await next();
 
             _logger.LogInformation($"Handled {typeof(TResponse).Name}");
 

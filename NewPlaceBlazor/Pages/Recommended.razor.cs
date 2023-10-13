@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using FisSst.BlazorMaps;
 using Microsoft.AspNetCore.Components;
@@ -16,15 +13,15 @@ namespace NewPlaceBlazor.Pages
         public ApiClient Api { get; set; }
 
         [Inject]
-        NavigationManager NavigationManager { get; set; }
+        private NavigationManager NavigationManager { get; set; }
 
-        HubConnection _hubConnection;
-        List<AdvertisementDetailsRepresentation> _recommendations;
-        object lockObj = new object();
+        private readonly HubConnection _hubConnection;
+        private List<AdvertisementDetailsRepresentation> _recommendations;
+        private readonly object lockObj = new object();
 
         private Map _map;
         private static readonly LatLng _center = new LatLng(50.06409489164344, 19.928898998922403);
-        private MapOptions mapOptions = new MapOptions()
+        private readonly MapOptions mapOptions = new MapOptions()
         {
             DivId = "mapId",
             Center = _center,
@@ -41,9 +38,8 @@ namespace NewPlaceBlazor.Pages
 
         public Marker UserMarker { get; set; }
 
-        private List<(AdvertisementDetailsRepresentation recommendation, Marker marker)> _recommendationsMarkers = new();
-
-        readonly Location _location = new();
+        private readonly List<(AdvertisementDetailsRepresentation recommendation, Marker marker)> _recommendationsMarkers = new();
+        private readonly Location _location = new();
 
         public bool Loading { get; set; }
 
@@ -52,13 +48,16 @@ namespace NewPlaceBlazor.Pages
             lock (lockObj)
             {
                 if (_recommendations is null)
+                {
                     _recommendations = new List<AdvertisementDetailsRepresentation>();
+                }
+
                 _recommendations.Add(recommendation);
                 StateHasChanged();
             }
         }
 
-        protected async override Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
 
             //_hubConnection = new HubConnectionBuilder().WithUrl("https://localhost:44347/recommendationHub").Build();
@@ -75,8 +74,10 @@ namespace NewPlaceBlazor.Pages
                     UserMarker = await MarkerFactory.CreateAndAddToMap(
                                 new LatLng(_location.Latitude, _location.Longitude), _map);
 
-                    foreach (var (recommendation, marker) in _recommendationsMarkers)
+                    foreach ((AdvertisementDetailsRepresentation recommendation, Marker marker) in _recommendationsMarkers)
+                    {
                         await marker.Remove();
+                    }
 
                     _recommendationsMarkers.Clear();
 
@@ -85,11 +86,11 @@ namespace NewPlaceBlazor.Pages
                     _recommendations = new List<AdvertisementDetailsRepresentation>(
                         await Api.LocationAsync(_location.Latitude, _location.Longitude));
 
-                    foreach (var recommendation in _recommendations)
+                    foreach (AdvertisementDetailsRepresentation recommendation in _recommendations)
                     {
-                        var marker = await MarkerFactory.CreateAndAddToMap(
+                        Marker marker = await MarkerFactory.CreateAndAddToMap(
                             new LatLng(recommendation.Resource.Latitude, recommendation.Resource.Longitude), _map);
-                        var popup = await marker.BindPopup(recommendation.Resource.Title);
+                        Layer popup = await marker.BindPopup(recommendation.Resource.Title);
                         await marker.OnDblClick(args => NavigateToAdvertisement(recommendation.Resource.Id));
                         _recommendationsMarkers.Add((recommendation, marker));
                     }
@@ -109,16 +110,24 @@ namespace NewPlaceBlazor.Pages
 
         private async Task OpenPopup(int id)
         {
-            foreach (var (recommendation, marker) in _recommendationsMarkers)
+            foreach ((AdvertisementDetailsRepresentation recommendation, Marker marker) in _recommendationsMarkers)
+            {
                 if (recommendation.Resource.Id == id)
+                {
                     await marker.OpenPopup(new LatLng(recommendation.Resource.Latitude, recommendation.Resource.Longitude));
+                }
+            }
         }
 
         private async Task ClosePopup(int id)
         {
-            foreach (var (recommendation, marker) in _recommendationsMarkers)
+            foreach ((AdvertisementDetailsRepresentation recommendation, Marker marker) in _recommendationsMarkers)
+            {
                 if (recommendation.Resource.Id == id)
+                {
                     await marker.ClosePopup();
+                }
+            }
         }
     }
 }

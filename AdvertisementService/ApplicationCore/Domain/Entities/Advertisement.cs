@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ApplicationCore.Models
+﻿namespace ApplicationCore.Models
 {
     public class Advertisement
     {
@@ -11,7 +7,7 @@ namespace ApplicationCore.Models
             // For generating test data via Bogus
         }
 
-        public Advertisement(int? id, string title, string? description, Category category, DateTime createDate, 
+        public Advertisement(int? id, string title, string? description, Category category, DateTime createDate,
             DateTime validTo, User user, Estate estate, decimal price, decimal? provision)
         {
             Id = id;
@@ -53,7 +49,7 @@ namespace ApplicationCore.Models
         {
             get
             {
-                var total = Price + Provision ?? 0;
+                decimal total = Price + Provision ?? 0;
                 return total + UtilitesCost.Cost + UtilitesCost.Additionaly;
             }
         }
@@ -63,14 +59,24 @@ namespace ApplicationCore.Models
             get
             {
                 decimal utilitiesCost = 0;
-                string additionaly = String.Empty;
+                string additionaly = string.Empty;
                 if (Estate?.Utilities == null)
+                {
                     return (utilitiesCost, additionaly);
-                foreach (var utility in Estate.Utilities)
+                }
+
+                foreach (Utility? utility in Estate.Utilities)
+                {
                     if (utility.Cost == null)
+                    {
                         additionaly += " + " + utility.Name;
+                    }
                     else
+                    {
                         utilitiesCost += utility.Cost.Value;
+                    }
+                }
+
                 return (utilitiesCost, additionaly);
             }
         }

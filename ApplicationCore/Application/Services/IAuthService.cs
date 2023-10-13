@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using ApplicationCore.DTOs;
 using System.Threading.Tasks;
 using Common.Dto;
 

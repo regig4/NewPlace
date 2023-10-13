@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
-using PaymentService.ApplicationCore.Domain.Entities;
+﻿using PaymentService.ApplicationCore.Domain.Entities;
 using PaymentService.Domain.Exceptions;
+using Xunit;
 
 namespace Tests.UnitTests
 {
@@ -12,7 +9,7 @@ namespace Tests.UnitTests
         [Fact]
         public void PaymentNotStartedTest()
         {
-            var payment = Payment.CreateBonusForCreatingAccount(new User());
+            Payment payment = Payment.CreateBonusForCreatingAccount(new User());
             payment.CompleteBonusForCreatingAccount();
             Assert.Throws<PaymentNotStartedException>(() => payment.CompleteBonusForCreatingAccount());
         }
@@ -20,7 +17,7 @@ namespace Tests.UnitTests
         [Fact]
         public void NotSettingPayeeWhenFinalizingPaymentTest()
         {
-            var payment = Payment.CreateBonusForCreatingAccount(null);
+            Payment payment = Payment.CreateBonusForCreatingAccount(null);
             Assert.Throws<PayeeNotSetException>(() => payment.CompleteBonusForCreatingAccount());
         }
     }

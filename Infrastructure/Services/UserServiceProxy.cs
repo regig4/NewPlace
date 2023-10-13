@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using ApplicationCore.Application.Services;
@@ -21,7 +19,7 @@ namespace Infrastructure.Services
 
         public async Task<List<AdvertisementDto>> GetObservedAdvertisements(Guid userId)
         {
-            var response = await _httpClient.GetStringAsync("observed/" + userId.ToString());
+            string? response = await _httpClient.GetStringAsync("observed/" + userId.ToString());
             return JsonSerializer.Deserialize<List<AdvertisementDto>>(response);
         }
     }

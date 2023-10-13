@@ -1,9 +1,8 @@
-﻿using Common.ApplicationCore.Domain.Entities;
-using Common.ApplicationCore.Domain.Events;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Common.ApplicationCore.Domain.Entities;
+using Common.ApplicationCore.Domain.Events;
 
 namespace PaymentService.ApplicationCore.Application.Repositories
 {

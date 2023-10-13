@@ -1,15 +1,12 @@
-﻿using ApplicationCore.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using ApplicationCore.Models;
 
 namespace ApplicationCore.Specifications
 {
     public class LocationInRangeSpecification : Specification<Estate>
     {
-        private Location _location;
-        private double _range;
+        private readonly Location _location;
+        private readonly double _range;
 
         public LocationInRangeSpecification(Location location, double range)
         {

@@ -1,8 +1,8 @@
-﻿using Common.Dto;
+﻿using System;
+using System.Net;
+using Common.Dto;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Net;
 
 namespace API.Controllers
 {
@@ -12,19 +12,21 @@ namespace API.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         public ErrorResponse Error()
         {
-            var context = HttpContext.Features.Get<IExceptionHandlerFeature>();
-            var exception = context.Error;
-            var code = GetStatusCode(exception);
+            IExceptionHandlerFeature context = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            Exception exception = context.Error;
+            HttpStatusCode code = GetStatusCode(exception);
 
-            Response.StatusCode = (int) code;
+            Response.StatusCode = (int)code;
 
             return new ErrorResponse(exception);
         }
 
-        public HttpStatusCode GetStatusCode(Exception e) =>
-            e switch
+        public HttpStatusCode GetStatusCode(Exception e)
+        {
+            return e switch
             {
                 _ => HttpStatusCode.InternalServerError
             };
+        }
     }
 }

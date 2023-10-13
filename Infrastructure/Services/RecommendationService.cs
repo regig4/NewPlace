@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
-using System.Text;
 using System.Threading.Tasks;
 using ApplicationCore.Application.Services;
 using ApplicationCore.DTOs;
 using ApplicationCore.Services;
 using Common.Dto;
-using NewPlace.ResourceRepresentations;
 
 namespace Infrastructure.Services
 {
@@ -29,9 +25,9 @@ namespace Infrastructure.Services
 
         public IEnumerable<AdvertisementDto> RecommendByGeolocation(int userId, Location location)
         {
-            
-            var all = _advertisementService.GetAllAsync();
-            var timer = Observable.Interval(TimeSpan.FromSeconds(1));
+
+            IAsyncEnumerable<AdvertisementDto>? all = _advertisementService.GetAllAsync();
+            IObservable<long>? timer = Observable.Interval(TimeSpan.FromSeconds(1));
             //var tmp = all.ToObservable();            // TODO: change to pagination
             //var tmp2 = tmp.Zip(timer, (a, t) => a);
             return null;
@@ -42,34 +38,46 @@ namespace Infrastructure.Services
 
         public async Task<IObservable<AdvertisementDto>> RecommendByGeolocation(Guid userId, Location location)
         {
-            var observedAdvertisements = await _userService.GetObservedAdvertisements(userId);
+            List<AdvertisementDto>? observedAdvertisements = await _userService.GetObservedAdvertisements(userId);
 
-            var timer = Observable.Interval(TimeSpan.FromSeconds(3));
-            var observable = Observable.Create<AdvertisementDto>(async (observer, cancelationToken) =>
+            IObservable<long>? timer = Observable.Interval(TimeSpan.FromSeconds(3));
+            IObservable<AdvertisementDto>? observable = Observable.Create<AdvertisementDto>(async (observer, cancelationToken) =>
                 {
-                    var getMostViewedByLocationTask = Task.Run(async () =>
+                    Task? getMostViewedByLocationTask = Task.Run(async () =>
                     {
-                        await foreach (var r in _advertisementService.GetAllAsync())
+                        await foreach (AdvertisementDto? r in _advertisementService.GetAllAsync())
+                        {
                             if (!observedAdvertisements.Any(o => o.Id == r.Id))
+                            {
                                 observer.OnNext(r);
+                            }
+                        }
                     }, cancelationToken);
 
-                    var getMostSimiliarToObservedByLocationTask = Task.Run(async () =>
+                    Task? getMostSimiliarToObservedByLocationTask = Task.Run(async () =>
                     {
-                        await foreach (var r in _advertisementService.GetAllAsync())
+                        await foreach (AdvertisementDto? r in _advertisementService.GetAllAsync())
+                        {
                             if (!observedAdvertisements.Any(o => o.Id == r.Id))
+                            {
                                 observer.OnNext(r);
+                            }
+                        }
                     }, cancelationToken);
 
-                    var getPromotedByLocationTask = Task.Run(async () =>
+                    Task? getPromotedByLocationTask = Task.Run(async () =>
                     {
-                        await foreach (var r in _advertisementService.GetAllAsync())
+                        await foreach (AdvertisementDto? r in _advertisementService.GetAllAsync())
+                        {
                             if (!observedAdvertisements.Any(o => o.Id == r.Id))
+                            {
                                 observer.OnNext(r);
+                            }
+                        }
                     }, cancelationToken);
 
-                    await Task.WhenAll(getMostViewedByLocationTask, 
-                                       getMostSimiliarToObservedByLocationTask, 
+                    await Task.WhenAll(getMostViewedByLocationTask,
+                                       getMostSimiliarToObservedByLocationTask,
                                        getPromotedByLocationTask)
                                 .ContinueWith(t => observer.OnCompleted());
                 }

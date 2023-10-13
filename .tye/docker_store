@@ -1,0 +1,10 @@
+{"container":"rabbit_f838ecb8-9"}
+{"container":"api-proxy_f92ff909-8"}
+{"container":"newplaceangular-proxy_8f4eb22c-4"}
+{"container":"paymentservice-proxy_cf84b007-9"}
+{"container":"newplaceblazor-proxy_a13c4609-1"}
+{"container":"eventconsumerservice-proxy_25ca5a8d-e"}
+{"container":"catalogservice-proxy_d11ed859-2"}
+{"container":"userservice-proxy_82cf1db4-6"}
+{"container":"advertisementservice-proxy_b77a0f3e-d"}
+{"container":"recommendationservice-proxy_fca663f4-9"}

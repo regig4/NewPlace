@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq.Expressions;
 using ApplicationCore.Models;
-using Infrastructure.Factories;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using ApplicationCore.Specifications;
-using System.Threading.Tasks;
-using System.Linq.Expressions;
+using Infrastructure.Factories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
@@ -15,7 +10,7 @@ namespace Infrastructure.Repositories
     {
         public Advertisement? GetById(int id)
         {
-            using var context = ContextFactory.Instance.Create();
+            using NewPlaceDb? context = ContextFactory.Instance.Create();
             return context.Advertisements.Where(a => a.Id!.Value == id)
                 .Include(a => a.Category)
                 .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
@@ -27,14 +22,14 @@ namespace Infrastructure.Repositories
 
         public Advertisement? FindFirstOrDefault(Func<Advertisement, bool> condition)
         {
-            using var context = ContextFactory.Instance.Create();
+            using NewPlaceDb? context = ContextFactory.Instance.Create();
             return context.Advertisements.Where(condition).FirstOrDefault();
         }
 
         public async IAsyncEnumerable<Advertisement> FindAsync(Expression<Func<Advertisement, bool>> condition, int quantity = int.MaxValue)
         {
-            using var context = ContextFactory.Instance.Create();
-            var query = context.Advertisements
+            using NewPlaceDb? context = ContextFactory.Instance.Create();
+            IEnumerable<Advertisement>? query = context.Advertisements
                 .Include(a => a.Category)
                 .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
                 .Include(a => a.Estate).ThenInclude(apartment => apartment.Location)
@@ -42,8 +37,10 @@ namespace Infrastructure.Repositories
                 .Where(condition.Compile())
                 .Take(quantity);
 
-            foreach (var item in query)
+            foreach (Advertisement? item in query)
+            {
                 yield return item;
+            }
             //.Select(new Advertisement()
             //{
             //      TODO: get only these columns from db which are important to us
@@ -55,13 +52,13 @@ namespace Infrastructure.Repositories
 
         public Advertisement Find(Specification<Estate> specification)
         {
-            using var context = ContextFactory.Instance.Create();
+            using NewPlaceDb? context = ContextFactory.Instance.Create();
             return context.Advertisements.Where(a => specification.IsSatisfiedBy(a.Estate)).FirstOrDefault();
         }
 
         public IEnumerable<Advertisement> FindAll(Specification<Estate> specification, int quantity = int.MaxValue)
         {
-            using var context = ContextFactory.Instance.Create();
+            using NewPlaceDb? context = ContextFactory.Instance.Create();
             return context.Advertisements
                 .Include(a => a.Category)
                 .Include(a => a.Estate).ThenInclude(apartment => apartment.Utilities)
@@ -74,12 +71,12 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                using var context = ContextFactory.Instance.Create();
+                using NewPlaceDb? context = ContextFactory.Instance.Create();
                 context.Advertisements.Add(advertisement);
                 int id = await context.SaveChangesAsync();
                 return id;
             }
-            catch(Exception e)
+            catch (Exception)
             {
                 throw;
             }

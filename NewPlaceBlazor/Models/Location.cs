@@ -1,6 +1,6 @@
 ﻿namespace NewPlaceBlazor.Models
 {
-    class Location
+    internal class Location
     {
         public double Longitude { get; set; }
         public double Latitude { get; set; }

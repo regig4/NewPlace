@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Infrastructure.Utilities
 {
-    static class Utils
+    internal static class Utils
     {
         public static string CreateColumnName(string name)
         {
             return string.Join("_", name.SplittedByCamelCase()).ToLower();
         }
 
-        static string[] SplittedByCamelCase(this string source)
+        private static string[] SplittedByCamelCase(this string source)
         {
             return Regex.Split(source, @"(?<!^)(?=[A-Z])");
         }

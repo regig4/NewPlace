@@ -1,8 +1,3 @@
-using ApplicationCore.DTOs;
-using ApplicationCore.Models;
-using AutoMapper;
-using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Tests.UnitTests

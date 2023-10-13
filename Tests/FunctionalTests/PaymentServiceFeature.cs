@@ -1,19 +1,19 @@
-﻿using PaymentService.Infrastructure.MessageQueue;
+﻿using System;
+using Common.IntegrationEvents.Payment;
 using FluentAssertions;
 using Moq;
-using System;
-using Xbehave;
+using PaymentService.ApplicationCore.Application.Repositories;
 using PaymentService.ApplicationCore.Application.Services;
 using PaymentService.ApplicationCore.Domain.Entities;
-using Common.IntegrationEvents.Payment;
-using PaymentService.ApplicationCore.Application.Repositories;
+using PaymentService.Infrastructure.MessageQueue;
+using Xbehave;
 
 namespace Tests.FunctionalTests
 {
     public class PaymentServiceFeature
     {
         [Scenario]
-        public void DonateTest(Mock<IMessageQueue> msgQueueMock, Mock<IEventRepository> eventRepositoryMock,PaymentApplicationService service, Guid id, DonationResult result)
+        public void DonateTest(Mock<IMessageQueue> msgQueueMock, Mock<IEventRepository> eventRepositoryMock, PaymentApplicationService service, Guid id, DonationResult result)
         {
             "Given mocked message queue".x(() => msgQueueMock = new Mock<IMessageQueue>());
             "And mocked event queue".x(() => eventRepositoryMock = new Mock<IEventRepository>());

@@ -20,7 +20,7 @@ namespace Common.Dto
         public decimal Amount { get; init; }
         public string Currency { get; init; }
 
-        public enum DonationStatus { Success, InsufficientFunds, AccountNotFound, Failed}
+        public enum DonationStatus { Success, InsufficientFunds, AccountNotFound, Failed }
 
         public DonationStatus Status { get; init; }
     }

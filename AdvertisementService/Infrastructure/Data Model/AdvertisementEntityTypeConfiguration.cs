@@ -1,11 +1,10 @@
 ﻿using ApplicationCore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.DataModel
 {
-    class AdvertisementEntityTypeConfiguration : BaseEntityTypeConfiguration, IEntityTypeConfiguration<Advertisement>
+    internal class AdvertisementEntityTypeConfiguration : BaseEntityTypeConfiguration, IEntityTypeConfiguration<Advertisement>
     {
         public void Configure(EntityTypeBuilder<Advertisement> builder)
         {

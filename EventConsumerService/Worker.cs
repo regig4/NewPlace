@@ -1,3 +1,8 @@
+using System;
+using System.Text;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 using Common.ApplicationCore.Domain.Events;
 using EventConsumerService.Utils;
 using Microsoft.Extensions.Configuration;
@@ -6,11 +11,6 @@ using Microsoft.Extensions.Logging;
 using PaymentService.Infrastructure.EventStream;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System;
-using System.Text;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace EventConsumerService
 {
@@ -29,17 +29,17 @@ namespace EventConsumerService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var uri = Configuration.GetServiceUri(name: "rabbit", binding: "default") ?? new Uri("amqp://localhost:5672");
+            Uri uri = Configuration.GetServiceUri(name: "rabbit", binding: "default") ?? new Uri("amqp://localhost:5672");
 
-            var factory = new ConnectionFactory()
+            ConnectionFactory factory = new ConnectionFactory()
             {
                 Endpoint = new AmqpTcpEndpoint(uri),
                 UserName = "abc",
                 Password = "123"
             };
 
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
+            using IConnection connection = factory.CreateConnection();
+            using IModel channel = connection.CreateModel();
 
             channel.QueueDeclare(queue: "eventqueue",
                                  durable: false,
@@ -47,7 +47,7 @@ namespace EventConsumerService
                                  autoDelete: false,
                                  arguments: null);
 
-            var consumer = new EventingBasicConsumer(channel);
+            EventingBasicConsumer consumer = new EventingBasicConsumer(channel);
             consumer.Received += HandleEvent;
 
             channel.BasicConsume(queue: "eventqueue",
@@ -64,16 +64,16 @@ namespace EventConsumerService
             try
             {
                 await _semaphoreSlim.WaitAsync();
-                var body = ea.Body.ToArray();
-                var json = Encoding.UTF8.GetString(body);
+                byte[] body = ea.Body.ToArray();
+                string json = Encoding.UTF8.GetString(body);
                 _logger.LogInformation(json);
-                var msg = JsonSerializer.Deserialize<EventMessage>(json);
+                EventMessage msg = JsonSerializer.Deserialize<EventMessage>(json);
 
-                var eventJson = ((JsonElement)msg.Event).GetRawText();
-                var eventToApply = (DomainEventBase)JsonSerializer.Deserialize(eventJson, Type.GetType(msg.EventType));
+                string eventJson = ((JsonElement)msg.Event).GetRawText();
+                DomainEventBase eventToApply = (DomainEventBase)JsonSerializer.Deserialize(eventJson, Type.GetType(msg.EventType));
 
                 dynamic repository = RepositoryByType.Instance[Type.GetType(msg.EntityFullType)];
-                var entity = await repository.Get(msg.EntityId);
+                dynamic entity = await repository.Get(msg.EntityId);
 
                 bool isInsert = false;
 
@@ -86,9 +86,13 @@ namespace EventConsumerService
                 entity.Apply(eventToApply);
 
                 if (isInsert)
+                {
                     await repository.Add(entity);
+                }
                 else
+                {
                     await repository.Update(entity);
+                }
             }
             catch (Exception)
             {

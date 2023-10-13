@@ -1,12 +1,12 @@
+using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using API.ApplicationServices;
 using ApplicationCore.Application.Behaviors;
 using ApplicationCore.Application.Commands;
 using ApplicationCore.Application.Services;
 using ApplicationCore.Services;
-using Infrastructure;
 using Infrastructure.Factories;
 using Infrastructure.Handlers.Query_Handlers;
 using Infrastructure.Models.Commands;
@@ -18,13 +18,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
+using UserService.Dao;
+using UserService.Identity;
 
 namespace API
 {
@@ -66,6 +68,16 @@ namespace API
                 });
             });
 
+
+            services
+                .AddIdentity<ApplicationUser, ApplicationRole>()
+                .AddUserStore<ApplicationUserStore>()
+                .AddRoleStore<ApplicationRoleStore>();
+
+            services.AddScoped<IdentityApplicationService>();
+
+            services.AddHttpClient<ApplicationUserStore>(
+                client => client.BaseAddress = new Uri("https://localhost:7074/api/User/"));
 
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlServer(
@@ -180,7 +192,11 @@ namespace API
 
             app.UseAuthorization();
 
-            app.UseSwagger();
+            SwaggerOptions swaggerOptions = new SwaggerOptions();
+
+            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
+
+            app.UseSwagger(opt => opt.RouteTemplate = swaggerOptions.RouteTemplate);
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.

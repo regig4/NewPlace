@@ -24,8 +24,8 @@ services:
   bindings:
     - port: 5001
       protocol: http
-- name: newplacereact
-  project: NewPlaceReact/NewPlaceReact.csproj
+# - name: newplacereact
+#   project: NewPlaceReact/NewPlaceReact.esproj
 - name: eventconsumerservice
   project: EventConsumerService/EventConsumerService.csproj
 - name: catalogservice
@@ -46,3 +46,7 @@ services:
       protocol: http
       port: 15672
       containerPort: 15672
+- name: review
+  dockerFile: review_service/Dockerfile
+  bindings:
+  - port: 8000

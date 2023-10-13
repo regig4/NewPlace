@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ApplicationCore.DTOs
 {
@@ -14,7 +12,7 @@ namespace ApplicationCore.DTOs
         public string ApartmentType { get; set; }
         public string PricingType { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
-        public DateTime ValidTo { get; set; } = DateTime.Now;  
+        public DateTime ValidTo { get; set; } = DateTime.Now;
         public string UserName { get; set; }
         public double EstateArea { get; set; }
         public string EstateAddress { get; set; }

@@ -17,7 +17,7 @@ public class ServiceInitializer : IServiceInitializer
         NewPlaceDbInitializer.Initialize(_dbContext);
 
         // Automapper initialization (TODO: inject)
-        var config = new MapperConfiguration(cfg =>
+        MapperConfiguration? config = new MapperConfiguration(cfg =>
         {
             cfg.CreateMap<ApplicationCore.Models.Advertisement, ApplicationCore.DTOs.AdvertisementDetailsDto>();
             cfg.CreateMap<ApplicationCore.DTOs.AdvertisementDetailsDto, ApplicationCore.Models.Advertisement>();

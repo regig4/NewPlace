@@ -1,13 +1,8 @@
-﻿using Common.IntegrationEvents.Payment;
+﻿using System;
+using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
-using PaymentService;
 using PaymentService.ApplicationCore.Application.Services;
-using PaymentService.Infrastructure.MessageQueue;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PaymentService.Services
 {
@@ -15,7 +10,7 @@ namespace PaymentService.Services
     {
         private readonly IPaymentApplicationService _applicationService;
         private readonly ILogger<PaymentService> _logger;
-        
+
         public PaymentService(IPaymentApplicationService applicationService, ILogger<PaymentService> logger)
         {
             _applicationService = applicationService;
@@ -27,12 +22,14 @@ namespace PaymentService.Services
             throw new NotImplementedException();
         }
 
-        public async override Task<PaymentReply> Donate(PaymentRequest request, ServerCallContext context)
+        public override async Task<PaymentReply> Donate(PaymentRequest request, ServerCallContext context)
         {
             if (!Guid.TryParse(request.UserId, out Guid parsedUserId))
+            {
                 throw new ArgumentException("Invalid user id", nameof(request.UserId));
+            }
 
-            var result = await _applicationService.Donate(parsedUserId, request.Value, request.Currency);
+            ApplicationCore.Domain.Entities.DonationResult result = await _applicationService.Donate(parsedUserId, request.Value, request.Currency);
 
             return new PaymentReply
             {

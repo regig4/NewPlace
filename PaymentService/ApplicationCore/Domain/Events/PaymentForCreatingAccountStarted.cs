@@ -1,7 +1,7 @@
-﻿using Common.ApplicationCore.Domain.Events;
+﻿using System;
+using Common.ApplicationCore.Domain.Events;
 using PaymentService.ApplicationCore.Domain.Entities;
 using PaymentService.ApplicationCore.Domain.ValueObjects;
-using System;
 
 namespace PaymentService.Domain.Events
 {

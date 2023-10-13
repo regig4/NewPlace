@@ -1,12 +1,11 @@
-﻿using ApplicationCore.Services;
-using Common.IntegrationEvents;
-using Common.IntegrationEvents.Payment;  
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using ApplicationCore.Services;
+using Common.IntegrationEvents;
+using Common.IntegrationEvents.Payment;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 namespace Infrastructure.Services
 {
@@ -15,11 +14,13 @@ namespace Infrastructure.Services
         public async Task<IntegrationEvent> WaitForEvent(IntegrationEvent @event, TimeSpan? timeSpan = null)
         {
             if (timeSpan == null)
+            {
                 timeSpan = TimeSpan.FromSeconds(5);
+            }
 
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
+            ConnectionFactory? factory = new ConnectionFactory() { HostName = "localhost" };
+            using IConnection? connection = factory.CreateConnection();
+            using IModel? channel = connection.CreateModel();
 
             channel.QueueDeclare(queue: "queue",
                                  durable: false,
@@ -27,11 +28,11 @@ namespace Infrastructure.Services
                                  autoDelete: false,
                                  arguments: null);
 
-            var consumer = new EventingBasicConsumer(channel);
+            EventingBasicConsumer? consumer = new EventingBasicConsumer(channel);
             consumer.Received += (model, ea) =>
             {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
+                byte[]? body = ea.Body.ToArray();
+                string? message = Encoding.UTF8.GetString(body);
                 @event = CreateReply(@event, message);
             };
             channel.BasicConsume(queue: "queue",
@@ -43,13 +44,13 @@ namespace Infrastructure.Services
             return @event;
         }
 
-        private IntegrationEvent CreateReply(IntegrationEvent @event, string message) =>
-            @event switch
+        private IntegrationEvent CreateReply(IntegrationEvent @event, string message)
+        {
+            return @event switch
             {
                 DonationSuccessfulEvent => new DonationSuccessfulEvent(Guid.Parse(message)),
                 _ => throw new ArgumentException(message: "invalid integration event", paramName: nameof(@event))
             };
-
-        
+        }
     }
 }

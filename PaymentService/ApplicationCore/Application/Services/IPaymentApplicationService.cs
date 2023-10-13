@@ -1,6 +1,6 @@
-﻿using PaymentService.ApplicationCore.Domain.Entities;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using PaymentService.ApplicationCore.Domain.Entities;
 
 namespace PaymentService.ApplicationCore.Application.Services
 {

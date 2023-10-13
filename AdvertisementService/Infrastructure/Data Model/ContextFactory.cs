@@ -11,11 +11,17 @@ namespace Infrastructure.Factories
             get
             {
                 if (_instance != null)
+                {
                     return _instance;
+                }
 
-                lock(_syncLock)
+                lock (_syncLock)
+                {
                     if (_instance == null)
+                    {
                         _instance = new ContextFactory();
+                    }
+                }
 
                 return _instance;
             }
@@ -23,7 +29,7 @@ namespace Infrastructure.Factories
 
         public NewPlaceDb Create()
         {
-            var options = new DbContextOptionsBuilder<NewPlaceDb>();
+            DbContextOptionsBuilder<NewPlaceDb>? options = new DbContextOptionsBuilder<NewPlaceDb>();
             return new NewPlaceDb(options.Options);
         }
     }

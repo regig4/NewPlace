@@ -20,13 +20,13 @@ namespace Infrastructure
         {
             optionsBuilder
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-            #if DEBUG
+#if DEBUG
                 .EnableSensitiveDataLogging()
                 //.UseInMemoryDatabase("NewPlaceDbTest");
                 .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
-            #else
+#else
                 .UseSqlServer(Infrastructure.Configuration.Configuration.DefaultConnectionString);
-            #endif
+#endif
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

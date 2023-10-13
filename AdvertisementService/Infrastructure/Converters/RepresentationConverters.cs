@@ -1,25 +1,21 @@
-﻿using AdvertisementService.ApplicationCore.Application.Services;
+﻿using System.Net.Mime;
+using AdvertisementService.ApplicationCore.Application.Services;
 using ApplicationCore.DTOs;
 using Common.Dto.ResourceRepresentations;
 using NewPlace.ResourceRepresentations;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Converters
 {
     public static class RepresentationConverters
     {
-        public async static Task<AdvertisementRepresentation> ToRepresentation(this AdvertisementDto dto, string requestPath, IAdvertisementApplicationService service)
+        public static async Task<AdvertisementRepresentation> ToRepresentation(this AdvertisementDto dto, string requestPath, IAdvertisementApplicationService service)
         {
             if (dto?.Id == null)
+            {
                 throw new ArgumentNullException(nameof(dto));
+            }
 
-            var thumbnailImage = await service.GetThumbnailBase64(dto.Id.Value);
+            string? thumbnailImage = await service.GetThumbnailBase64(dto.Id.Value);
 
             return new AdvertisementRepresentation()
             {

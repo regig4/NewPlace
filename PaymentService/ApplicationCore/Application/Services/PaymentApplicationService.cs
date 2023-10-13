@@ -1,11 +1,9 @@
-﻿using Common.IntegrationEvents.Payment;
+﻿using System;
+using System.Threading.Tasks;
+using Common.IntegrationEvents.Payment;
 using PaymentService.ApplicationCore.Application.Repositories;
 using PaymentService.ApplicationCore.Domain.Entities;
 using PaymentService.Infrastructure.MessageQueue;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PaymentService.ApplicationCore.Application.Services
 {
@@ -22,7 +20,7 @@ namespace PaymentService.ApplicationCore.Application.Services
 
         public async Task<DonationResult> Donate(Guid userId, ulong amount, string currency)
         {
-            var payment = Domain.Entities.Payment.CreateDonation(userId, amount, currency);
+            Domain.Entities.Payment payment = Domain.Entities.Payment.CreateDonation(userId, amount, currency);
             // todo: await _thirdPartyService.MakePayment() get id, for now id of donatationcreated is id of entity
             //payment.Id = Guid.NewGuid();
             payment.CompleteDonation(payment.Id);

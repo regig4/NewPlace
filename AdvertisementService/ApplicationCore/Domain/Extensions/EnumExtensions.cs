@@ -1,7 +1,4 @@
 ﻿using ApplicationCore.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ApplicationCore.Helpers
 {
@@ -9,7 +6,7 @@ namespace ApplicationCore.Helpers
     {
         public static string ToFriendlyString(this EstateType apartmentType)
         {
-            switch(apartmentType)
+            switch (apartmentType)
             {
                 case EstateType.Flat:
                     return "Flat";

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.Json;
-using System.Threading.Tasks;
 using NewPlace.ResourceRepresentations;
 using Xunit;
 
@@ -19,7 +15,7 @@ namespace Tests.UnitTests
               ""$values"": []
             }";
 
-            var result = JsonSerializer.Deserialize<List<AdvertisementRepresentation>>(json, new JsonSerializerOptions { ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve });
+            List<AdvertisementRepresentation> result = JsonSerializer.Deserialize<List<AdvertisementRepresentation>>(json, new JsonSerializerOptions { ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve });
         }
     }
 }

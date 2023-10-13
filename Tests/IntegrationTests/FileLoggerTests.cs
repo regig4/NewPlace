@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tests.IntegrationTests
+﻿namespace Tests.IntegrationTests
 {
-    class FileLoggerTests
+    internal class FileLoggerTests
     {
     }
 }

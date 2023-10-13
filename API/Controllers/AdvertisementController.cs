@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using ApplicationCore.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NewPlace.ResourceRepresentations;
 
@@ -26,7 +25,7 @@ namespace API.Controllers
         [ProducesResponseType(200)]
         public async Task<ActionResult<List<AdvertisementRepresentation>>> Search(string estateType, string city, double radius)
         {
-            var result = await _mediator.Send(new SearchAdvertisementsQuery(estateType, city, radius));
+            IReadOnlyList<AdvertisementRepresentation> result = await _mediator.Send(new SearchAdvertisementsQuery(estateType, city, radius));
             return Ok(result.ToList());
         }
 
@@ -35,10 +34,12 @@ namespace API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<AdvertisementDetailsRepresentation>> Details(int id)
         {
-            var result = await _mediator.Send(new GetAdvertisementDetailsQuery(id));
+            AdvertisementDetailsRepresentation result = await _mediator.Send(new GetAdvertisementDetailsQuery(id));
 
             if (result == null)
+            {
                 return NotFound();
+            }
 
             return Ok(result);
         }

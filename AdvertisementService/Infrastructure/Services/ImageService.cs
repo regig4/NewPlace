@@ -1,9 +1,4 @@
 ﻿using ApplicationCore.Services;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
@@ -14,7 +9,9 @@ namespace Infrastructure.Services
         public async Task<string> GetBase64OfFileAsync(string filePath)
         {
             if (!File.Exists(filePath))
+            {
                 filePath = DefaultFilePath;
+            }
 
             byte[] bytes = await File.ReadAllBytesAsync(filePath);
             return Convert.ToBase64String(bytes);
@@ -26,7 +23,7 @@ namespace Infrastructure.Services
             {
                 await File.WriteAllBytesAsync(@"..\AdvertisementService\Infrastructure\Content\Images\" + filename, Convert.FromBase64String(base64.Substring(23)));
             }
-            catch(Exception e)
+            catch (Exception)
             {
                 throw;
             }

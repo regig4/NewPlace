@@ -1,0 +1,13 @@
+POST http://127.0.0.1:8000 HTTP/1.1
+Content-Type: application/json
+
+{
+    "advertisement":{"id":1},
+    "content":"Test content",
+    "helpful_review_votes":0,
+    "id":2,
+    "is_deleted":false,
+    "stars":4,
+    "title":"Test review"
+    ,"user":{"id":1,"total_helpful_review_votes":42,"username":"Test user"}
+}

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ApplicationCore.Models
+﻿namespace ApplicationCore.Models
 {
     public enum PricingType
     {
         Sale,
-        Rent, 
-        Exchange, 
+        Rent,
+        Exchange,
         Unknown
     }
 }

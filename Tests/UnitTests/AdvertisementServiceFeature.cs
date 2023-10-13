@@ -1,11 +1,9 @@
-using ApplicationCore.Services;
-using Infrastructure.Services;
 using System.Linq;
+using ApplicationCore.DTOs;
+using FluentAssertions;
+using Infrastructure.Services;
 using UnitTests.Mocks;
 using Xbehave;
-using FluentAssertions;
-using ApplicationCore.DTOs;
-using AdvertisementService.ApplicationCore.Application.Services;
 
 namespace Tests.UnitTests
 {
@@ -14,10 +12,10 @@ namespace Tests.UnitTests
         [Scenario]
         public void GetByIdTest(AdvertisementService.ApplicationCore.Application.Services.IAdvertisementApplicationService service, AdvertisementDetailsDto dto)
         {
-            "Given AdvertisementService".x(() => 
+            "Given AdvertisementService".x(() =>
                 service = new AdvertisementApplicationService(new AdvertisementRepositoryStub(), new ImageService()));
-            
-            "When getting advertisement by id".x(() => dto = service.GetById(-1)); 
+
+            "When getting advertisement by id".x(() => dto = service.GetById(-1));
 
             "Then we get the id of advertisement"
                 .x(() => dto.Id.Should().Be(-1));

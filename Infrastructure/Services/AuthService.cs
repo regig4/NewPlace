@@ -1,5 +1,5 @@
-using ApplicationCore.Services;
 using System.Threading.Tasks;
+using ApplicationCore.Services;
 using Common.Dto;
 
 namespace Infrastructure.Services
@@ -8,9 +8,7 @@ namespace Infrastructure.Services
     {
         public async Task<UserDto> AuthorizeAsync(UserDto user, string password)
         {
-            string token = null;
-
-            if(true) // todo
+            if (true) // todo
             {
                 user.PasswordHash = "aa";    //BuildHash(password)
             }

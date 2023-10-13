@@ -1,5 +1,5 @@
-﻿using Grpc.Net.Client;
-using System.Net.Http;
+﻿using System.Net.Http;
+using Grpc.Net.Client;
 
 namespace Infrastructure.Factories
 {
@@ -11,11 +11,13 @@ namespace Infrastructure.Factories
 
         public GrpcChannel Create()
         {
-            var httpHandler = new HttpClientHandler();
-            // Return `true` to allow certificates that are untrusted/invalid
-            httpHandler.ServerCertificateCustomValidationCallback =
-                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-            var channel = GrpcChannel.ForAddress("https://localhost:5003", 
+            HttpClientHandler? httpHandler = new HttpClientHandler
+            {
+                // Return `true` to allow certificates that are untrusted/invalid
+                ServerCertificateCustomValidationCallback =
+                HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
+            GrpcChannel? channel = GrpcChannel.ForAddress("https://localhost:5003",
                 new GrpcChannelOptions { HttpClient = new HttpClient(httpHandler) });
             return channel;
         }

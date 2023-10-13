@@ -1,9 +1,5 @@
 ﻿using Common.ApplicationCore.Domain.Entities;
 using PaymentService.ApplicationCore.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PaymentService.ApplicationCore.Domain.Entities
 {

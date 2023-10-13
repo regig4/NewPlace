@@ -1,33 +1,37 @@
 ﻿using Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Infrastructure.DataModel
 {
-    class BaseEntityTypeConfiguration
+    internal class BaseEntityTypeConfiguration
     {
         public void ConfigureNamingConventions<T>(EntityTypeBuilder<T> builder) where T : class
         {
-            var properties = builder.Metadata.GetProperties();
+            IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IMutableProperty>? properties = builder.Metadata.GetProperties();
 
-            foreach (var prop in properties)
+            foreach (Microsoft.EntityFrameworkCore.Metadata.IMutableProperty? prop in properties)
+            {
                 builder.Property(prop.Name).HasColumnName(Utils.CreateColumnName(prop.Name));
+            }
 
-            var navs = builder.Metadata.GetNavigations();
+            IEnumerable<Microsoft.EntityFrameworkCore.Metadata.IMutableNavigation>? navs = builder.Metadata.GetNavigations();
 
-            foreach (var nav in navs)
-                if(builder.Metadata.FindProperty(nav.Name + "Id") != null)
+            foreach (Microsoft.EntityFrameworkCore.Metadata.IMutableNavigation? nav in navs)
+            {
+                if (builder.Metadata.FindProperty(nav.Name + "Id") != null)
+                {
                     builder.Property(nav.Name + "Id").HasColumnName(Utils.CreateColumnName(nav.Name + "Id"));
-            
+                }
+            }
         }
 
         public void Required<T>(EntityTypeBuilder<T> builder, params string[] propNames) where T : class
         {
-            foreach (var propName in propNames)
+            foreach (string? propName in propNames)
+            {
                 builder.Property(propName).IsRequired();
+            }
         }
     }
 }

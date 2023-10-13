@@ -1,11 +1,11 @@
-﻿using Common.ApplicationCore.Domain.Entities;
-using Common.ApplicationCore.Domain.Events;
-using PaymentService.ApplicationCore.Application.Repositories;
-using PaymentService.ApplicationCore.Application.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.ApplicationCore.Domain.Entities;
+using Common.ApplicationCore.Domain.Events;
+using PaymentService.ApplicationCore.Application.Repositories;
+using PaymentService.ApplicationCore.Application.Services;
 
 namespace PaymentService.Infrastructure.EventStream
 {
@@ -27,7 +27,7 @@ namespace PaymentService.Infrastructure.EventStream
 
         public async Task SaveEvents(Entity entity)
         {
-            var uncommitedEvents = entity.DomainEvents.Where(e => !e.Commited).ToList();
+            List<IDomainEvent> uncommitedEvents = entity.DomainEvents.Where(e => !e.Commited).ToList();
             await _store.SaveEvents(entity.Id, uncommitedEvents);
             _queue.Publish(entity, uncommitedEvents);
         }

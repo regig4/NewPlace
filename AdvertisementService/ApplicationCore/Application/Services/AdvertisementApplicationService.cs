@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ApplicationCore.Models;
-using ApplicationCore.Services;
-using Infrastructure.Repositories;
-using System.Linq;
+﻿using System.Linq.Expressions;
+using AdvertisementService.ApplicationCore.Application.Services;
 using ApplicationCore.DTOs;
 using ApplicationCore.Helpers;
-using System.IO;
-using System.Threading.Tasks;
-using System.Linq.Expressions;
-using AdvertisementService.ApplicationCore.Application.Services;
+using ApplicationCore.Models;
+using ApplicationCore.Services;
 using Infrastructure.Converters;
+using Infrastructure.Repositories;
 
 namespace Infrastructure.Services
 {
     public class AdvertisementApplicationService : IAdvertisementApplicationService
     {
-        private IAdvertisementRepository _repository;
-        private IImageService _imageService;
+        private readonly IAdvertisementRepository _repository;
+        private readonly IImageService _imageService;
 
         public AdvertisementApplicationService(IAdvertisementRepository repository, IImageService imageService)
         {
@@ -33,9 +27,11 @@ namespace Infrastructure.Services
 
         public async IAsyncEnumerable<AdvertisementDto> GetAllAsync()
         {
-            var allAdvertisements = _repository.FindAsync(advertisement => true);
-            await foreach (var advertisement in allAdvertisements)
+            IAsyncEnumerable<Advertisement>? allAdvertisements = _repository.FindAsync(advertisement => true);
+            await foreach (Advertisement? advertisement in allAdvertisements)
+            {
                 yield return advertisement.ToDto();
+            }
         }
 
         public async Task<IEnumerable<AdvertisementDto>> GetAllPagedAsync(int page)
@@ -46,20 +42,26 @@ namespace Infrastructure.Services
 
         public async Task<IEnumerable<AdvertisementDto>> GetByCityAndEstateTypeAsync(string? city, string? estateType)
         {
-            var advertisements = new List<AdvertisementDto>();
+            List<AdvertisementDto>? advertisements = new List<AdvertisementDto>();
             Expression<Func<Advertisement, bool>> condition;
 
             if (city is null || estateType is null)
+            {
                 condition = a => true;
+            }
             else
+            {
                 condition = a => a.Estate.Location.City.ToLower() == city.ToLower()
                                  && a.Category.ApartmentType.ToFriendlyString().ToLower() == estateType.ToLower();
-            
-            await foreach (var a in (_repository.FindAsync(condition)))
+            }
+
+            await foreach (Advertisement? a in (_repository.FindAsync(condition)))
+            {
                 advertisements.Add(a.ToDto());
+            }
 
             return advertisements;
-        }   
+        }
 
         public async Task<string> GetThumbnailBase64(int id)
         {

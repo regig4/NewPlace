@@ -31,18 +31,18 @@ public class AuthorizationController : Controller
         //var userResult = await _service.AuthorizeAsync(user.Resource, user.Password);
         //if (userResult.PasswordHash != null)
         //{
-            user.Token = BuildToken(user.Resource);
-		    return user;
-		//}
-		//return Unauthorized();
-	}
+        user.Token = BuildToken(user.Resource);
+        return user;
+        //}
+        //return Unauthorized();
+    }
 
     private string BuildToken(UserDto user)
     {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+        SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
-        var token = new JwtSecurityToken($"http://localhost:{HttpContext.Request.Host.Port}/",//_configuration["Jwt:Issuer"],
+        JwtSecurityToken token = new JwtSecurityToken($"http://localhost:{HttpContext.Request.Host.Port}/",//_configuration["Jwt:Issuer"],
           $"http://localhost:{HttpContext.Request.Host.Port}/",//_configuration["Jwt:Issuer"],
           expires: DateTime.Now.AddMinutes(30),
           signingCredentials: creds);

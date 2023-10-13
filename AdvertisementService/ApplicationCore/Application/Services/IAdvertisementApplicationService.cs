@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using ApplicationCore.DTOs;
 using ApplicationCore.Models;
-using ApplicationCore.DTOs;
-using System.Threading.Tasks;
 
 namespace AdvertisementService.ApplicationCore.Application.Services
 {

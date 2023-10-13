@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using ApplicationCore.Application.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NewPlace.ResourceRepresentations;
 
@@ -20,9 +19,9 @@ namespace API.Controllers
         }
 
         [HttpGet("location")]
-        public async Task<ActionResult<List<AdvertisementDetailsRepresentation>>> GetRecommendationsBasedOnLocation(double latitude, double longitude) 
+        public async Task<ActionResult<List<AdvertisementDetailsRepresentation>>> GetRecommendationsBasedOnLocation(double latitude, double longitude)
         {
-            var recommendations = await _mediator.Send(new RecommendationsBasedOnLocationQuery(latitude, longitude));
+            List<AdvertisementDetailsRepresentation> recommendations = await _mediator.Send(new RecommendationsBasedOnLocationQuery(latitude, longitude));
             return Ok(recommendations);
         }
     }

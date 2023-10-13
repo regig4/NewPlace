@@ -2,7 +2,6 @@
 using ApplicationCore.DTOs;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using System.Linq;
 
 namespace RecommendationService.Data
 {
@@ -10,13 +9,13 @@ namespace RecommendationService.Data
     {
         private RecommendationsBasedOnLocationDao() { }
 
-        public static RecommendationsBasedOnLocationDao Instance { get; } = new RecommendationsBasedOnLocationDao();        
+        public static RecommendationsBasedOnLocationDao Instance { get; } = new RecommendationsBasedOnLocationDao();
 
 
         public async Task<List<AdvertisementDetailsDto>> GetAdvertisementsInRadius(double latitude, double longitude, double radius)
         {
             using IDbConnection db = new SqlConnection(Configuration.DefaultConnectionString);
-            var results = await db.QueryAsync<AdvertisementDetailsDto>(
+            IEnumerable<AdvertisementDetailsDto>? results = await db.QueryAsync<AdvertisementDetailsDto>(
                 @"
                       select ad.id, title, description, apartment_type, pricing_type, create_date, valid_to, [login] user_name, apartment_type estate_type, 
                         area estate_area, city  estate_city, latitude, longitude, price, provision

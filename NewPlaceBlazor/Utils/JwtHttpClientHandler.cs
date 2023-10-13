@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
@@ -20,14 +19,14 @@ namespace NewPlaceBlazor.Utils
             _localStorage = localStorage;
         }
 
-        protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             string token = await _localStorage.GetItemAsStringAsync("token");
 
             if (token == null)
-			{
+            {
                 token = await AuthenticateAsync(cancellationToken);
-			}
+            }
 
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
 
@@ -36,16 +35,16 @@ namespace NewPlaceBlazor.Utils
 
         private async Task<string> AuthenticateAsync(CancellationToken cancellationToken)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, _baseUri + "api/authorization/login");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _baseUri + "api/authorization/login");
             UserRepresentation userRepresentation = new UserRepresentation
             {
                 Password = "AAA"
             };
             request.Content = new StringContent(JsonSerializer.Serialize(userRepresentation), Encoding.UTF8, MediaTypeNames.Application.Json);
-            var response = await base.SendAsync(request, cancellationToken);
-            var contentString = await response.Content.ReadAsStringAsync(cancellationToken);
-            var user = JsonSerializer.Deserialize<UserRepresentation>(contentString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            var token = user.Token; 
+            HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
+            string contentString = await response.Content.ReadAsStringAsync(cancellationToken);
+            UserRepresentation user = JsonSerializer.Deserialize<UserRepresentation>(contentString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            string token = user.Token;
             await _localStorage.SetItemAsStringAsync("token", token);
             return token;
         }

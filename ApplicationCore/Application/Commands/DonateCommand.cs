@@ -1,7 +1,5 @@
-﻿using Common.Dto;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using Common.Dto;
 
 namespace ApplicationCore.Application.Commands
 {

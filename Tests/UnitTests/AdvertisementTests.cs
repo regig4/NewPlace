@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AdvertisementService.ApplicationCore.Domain.Builders;
+﻿using AdvertisementService.ApplicationCore.Domain.Builders;
 using ApplicationCore.Models;
 using Xunit;
 
@@ -14,8 +9,8 @@ namespace Tests.UnitTests
         [Fact]
         public void AdvertisementBuilderTest()
         {
-            var advertisementBuilder = new AdvertisementBuilder();
-            var advertisement = advertisementBuilder
+            AdvertisementBuilder advertisementBuilder = new AdvertisementBuilder();
+            Advertisement advertisement = advertisementBuilder
                 .WithEstateType(EstateType.House)
                 .WithPaymentType(PricingType.Sale)
                 .Build();

@@ -10,7 +10,9 @@ import { Counter } from './components/Counter';
 import { Catalog } from './components/Catalog';
 import { default as Details } from './components/Details';
 
-import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Routes, Route, Outlet } from 'react-router-dom';
+
+import { Layout } from './components/Layout';
 
 
 const root = ReactDOM.createRoot(

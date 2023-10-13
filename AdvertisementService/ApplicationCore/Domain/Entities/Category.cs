@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
-
-namespace ApplicationCore.Models
+﻿namespace ApplicationCore.Models
 {
     public class Category : IEquatable<Category>
     {
         public Category()
-        { 
+        {
         }
 
         public Category(int? id, EstateType apartmentType, PricingType pricingType)
@@ -24,9 +19,12 @@ namespace ApplicationCore.Models
 
         public override bool Equals(object? obj)
         {
-            var other = obj as Category;
+            Category? other = obj as Category;
             if (other == null)
+            {
                 return false;
+            }
+
             return Equals(other);
         }
 

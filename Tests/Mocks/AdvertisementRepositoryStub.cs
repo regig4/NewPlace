@@ -1,15 +1,13 @@
-﻿using Infrastructure.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using ApplicationCore.Models;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
-using System.Linq;
+using System.Threading.Tasks;
+using ApplicationCore.Models;
+using Infrastructure.Repositories;
 
 namespace UnitTests.Mocks
 {
-    class AdvertisementRepositoryStub : IAdvertisementRepository
+    internal class AdvertisementRepositoryStub : IAdvertisementRepository
     {
         public Task<int> Add(Advertisement advertisement)
         {
@@ -38,7 +36,7 @@ namespace UnitTests.Mocks
                 estate: new Estate(
                     area: 56,
                     id: -1,
-                    utilities: new List<Utility>() { new Utility(id: null, name: "TestUtility", cost: 200)},
+                    utilities: new List<Utility>() { new Utility(id: null, name: "TestUtility", cost: 200) },
                     location: new Location(id: null, address: "stub", postalCode: "wow", city: "tmp", latitude: 12, longitude: 12, radius: 12, new Country(1, "Poland"))
                 ),
                 title: "test",
@@ -53,7 +51,7 @@ namespace UnitTests.Mocks
                     login: "tmplogin",
                     passwordHash: "null",
                     email: "email",
-                    agency: new Agency(id: -1, name: "TestAgency", address: "TestAddress", information : "TestInformation" )
+                    agency: new Agency(id: -1, name: "TestAgency", address: "TestAddress", information: "TestInformation")
                 ),
                 category: new Category(id: -1, apartmentType: EstateType.Flat, pricingType: PricingType.Rent)
             );

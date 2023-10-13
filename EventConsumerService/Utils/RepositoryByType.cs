@@ -1,27 +1,19 @@
-﻿using Common.Dto;
-using PaymentService.ApplicationCore.Application.Repositories;
+﻿using System;
 using PaymentService.ApplicationCore.Domain.Entities;
 using PaymentService.Infrastructure.Repositories;
-using System;
 
 namespace EventConsumerService.Utils
 {
-    class RepositoryByType
+    internal class RepositoryByType
     {
         private RepositoryByType() { }
 
         public static RepositoryByType Instance { get; } = new RepositoryByType();
 
-        public object this[Type type]
+        public object this[Type type] => type switch
         {
-            get
-            {
-                return type switch 
-                {
-                    { Name: nameof(Payment) } => new PaymentRepository(),
-                    _ => null
-                };
-            }
-        }
+            { Name: nameof(Payment) } => new PaymentRepository(),
+            _ => null
+        };
     }
 }

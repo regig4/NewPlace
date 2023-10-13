@@ -1,4 +1,4 @@
-﻿    using Ardalis.ApiEndpoints;
+﻿using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using RecommendationService.Data;
 
@@ -9,9 +9,9 @@ namespace RecommendationService.Endpoints
                                                 .WithResponse<RecommendBasedOnLocationResponse>
     {
         [HttpPost("location")]
-        public async override Task<ActionResult<RecommendBasedOnLocationResponse>> HandleAsync(RecommendBasedOnLocationRequest request, CancellationToken cancellationToken = default)
+        public override async Task<ActionResult<RecommendBasedOnLocationResponse>> HandleAsync(RecommendBasedOnLocationRequest request, CancellationToken cancellationToken = default)
         {
-            var ads = await RecommendationsBasedOnLocationDao.Instance.GetAdvertisementsInRadius(request.Latitude, request.Longitude, request.Radius);
+            List<ApplicationCore.DTOs.AdvertisementDetailsDto>? ads = await RecommendationsBasedOnLocationDao.Instance.GetAdvertisementsInRadius(request.Latitude, request.Longitude, request.Radius);
             return Ok(new RecommendBasedOnLocationResponse(ads));
         }
     }

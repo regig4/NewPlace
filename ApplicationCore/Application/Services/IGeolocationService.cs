@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Common.Dto;
+﻿using Common.Dto;
 
 namespace ApplicationCore.Services
 {

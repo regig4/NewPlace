@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using UserService.Dao;
 
 namespace UserService.Controllers

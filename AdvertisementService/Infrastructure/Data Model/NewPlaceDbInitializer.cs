@@ -1,9 +1,5 @@
 ﻿using ApplicationCore.Models;
 using Bogus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Infrastructure.Data
 {
@@ -14,9 +10,11 @@ namespace Infrastructure.Data
             context.Database.EnsureCreated();
 
             if (context.Advertisements.Count() > 10)
+            {
                 return;
+            }
 
-            Advertisement[] testData = GetTestData(); 
+            Advertisement[] testData = GetTestData();
             context.Advertisements.AddRange(testData);
 
             context.SaveChanges();
@@ -24,19 +22,19 @@ namespace Infrastructure.Data
 
         private static Advertisement[] GetTestData()
         {
-            var fakeForCategory = new Faker<Category>()
+            Faker<Category>? fakeForCategory = new Faker<Category>()
                 .RuleFor(a => a.ApartmentType, (f, x) => f.Random.Enum<EstateType>())
                 .RuleFor(a => a.PricingType, (f, x) => f.Random.Enum<PricingType>());
 
-            var fakeForUser = new Faker<User>()
+            Faker<User>? fakeForUser = new Faker<User>()
                 .RuleFor(a => a.Login, (f, x) => f.Person.FirstName)
                 .RuleFor(a => a.Email, (f, x) => f.Person.Email)
                 .RuleFor(a => a.PasswordHash, (f, x) => f.Random.String());
 
-            var fakeForCountry = new Faker <Country>()
+            Faker<Country>? fakeForCountry = new Faker<Country>()
                 .RuleFor(a => a.Name, (f, x) => f.Address.Country());
 
-            var fakeForLocation = new Faker<Location>()
+            Faker<Location>? fakeForLocation = new Faker<Location>()
                 .RuleFor(a => a.Address, (f, x) => f.Address.FullAddress())
                 .RuleFor(a => a.City, (f, x) => f.Address.City())
                 .RuleFor(a => a.PostalCode, (f, x) => f.Address.SecondaryAddress())
@@ -45,12 +43,12 @@ namespace Infrastructure.Data
                 .RuleFor(a => a.Radius, (f, x) => f.Random.Double(min: 1, max: 50))
                 .RuleFor(a => a.Country, (f, x) => fakeForCountry);
 
-            var fakeForEstate = new Faker<Estate>()
+            Faker<Estate>? fakeForEstate = new Faker<Estate>()
                 .RuleFor(a => a.Area, (f, x) => f.Random.Double(min: 20, max: 4000))
                 .RuleFor(a => a.Utilities, (f, x) => new List<Utility> { new Utility(null, f.Commerce.ProductName(), f.Random.Decimal()) })
                 .RuleFor(a => a.Location, (f, x) => fakeForLocation);
 
-            var generatedData = new Faker<Advertisement>()
+            List<Advertisement>? generatedData = new Faker<Advertisement>()
                 //.StrictMode(true)
                 .RuleFor(a => a.Title, (f, x) => f.Commerce.ProductName())
                 .RuleFor(a => a.Description, (f, x) => f.Rant.Review())
@@ -63,7 +61,7 @@ namespace Infrastructure.Data
                 .RuleFor(a => a.Estate, () => fakeForEstate)
                 .Generate(1000);
 
-            var data = new Advertisement[]
+            Advertisement[]? data = new Advertisement[]
                         {
                 new Advertisement(
                     id: null,

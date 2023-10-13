@@ -1,15 +1,12 @@
-﻿using Common.ApplicationCore.Domain.Events;
+﻿using System;
+using Common.ApplicationCore.Domain.Events;
 using PaymentService.ApplicationCore.Domain.Entities;
 using PaymentService.ApplicationCore.Domain.ValueObjects;
 using PaymentService.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PaymentService.ApplicationCore.Domain.Events
 {
-    public record DonationCreated : DomainEventBase 
+    public record DonationCreated : DomainEventBase
     {
         public DonationCreated(User payer, MoneyValue moneyValue)
         {

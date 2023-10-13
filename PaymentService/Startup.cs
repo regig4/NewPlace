@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +20,7 @@ namespace PaymentService
             services.AddTransient<IEventQueue>(provider => new EventQueue());
             services.AddTransient<IEventStore>(provider => new EventStore());
             services.AddTransient<IEventRepository>(provider => new EventRepository(new EventStore(), new EventQueue()));
-            services.AddTransient<IPaymentApplicationService>(provider => 
+            services.AddTransient<IPaymentApplicationService>(provider =>
                 new PaymentApplicationService(new MessageQueue(), new EventRepository(new EventStore(), new EventQueue())));
             services.AddGrpc();
         }

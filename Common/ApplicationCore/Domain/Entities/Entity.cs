@@ -1,8 +1,6 @@
-﻿using Common.ApplicationCore.Domain.Events;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Common.ApplicationCore.Domain.Events;
 
 namespace Common.ApplicationCore.Domain.Entities
 {
@@ -22,10 +20,14 @@ namespace Common.ApplicationCore.Domain.Entities
         public void CommitAllEvents()
         {
             if (_domainEvents == null)
+            {
                 return;
+            }
 
-            foreach (var e in _domainEvents)
+            foreach (IDomainEvent e in _domainEvents)
+            {
                 e.Commited = true;
+            }
         }
 
         protected void AddDomainEvent(IDomainEvent domainEvent)
@@ -39,15 +41,19 @@ namespace Common.ApplicationCore.Domain.Entities
             Type eventType = domainEvent.GetType();
             Type entityType = GetType();
 
-            foreach (var eventProperty in eventType.GetProperties())
+            foreach (System.Reflection.PropertyInfo eventProperty in eventType.GetProperties())
             {
                 if (eventProperty.Name == nameof(Id) && (Guid)entityType.GetProperty(eventProperty.Name).GetValue(this) != Guid.Empty)
+                {
                     continue;
+                }
 
-                var entityProperty = entityType.GetProperty(eventProperty.Name);
+                System.Reflection.PropertyInfo entityProperty = entityType.GetProperty(eventProperty.Name);
 
                 if (entityProperty != null)
+                {
                     entityProperty.SetValue(this, eventProperty.GetValue(domainEvent));
+                }
             }
         }
     }
